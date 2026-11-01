@@ -2,7 +2,7 @@
 import os, re
 
 HERE = os.path.dirname(__file__)
-DUR = 74.5
+DUR = 73.9
 
 # (start, end, text) — timed to the edited narration (assets/audio/narracion.wav)
 CAPS = [
@@ -26,16 +26,17 @@ CAPS = [
     (39.45, 42.15, "*compara la tasa* de conversión antes de confirmar."),
     (42.48, 44.6, "Además, la función podría no estar disponible"),
     (44.6, 46.8, "todavía en todas las cuentas."),
-    (47.47, 50.2, "Y si tienes un negocio, recuerda algo importante:"),
-    (50.56, 51.98, "no basta con recibir dinero,"),
-    (52.23, 55.98, "también necesitas tener tus operaciones"),
-    (56.07, 57.9, "organizadas y respaldadas."),
-    (58.0, 60.62, "Con *Novapsis 360* puedes gestionar tus ventas, cobros,"),
-    (60.62, 61.76, "facturas y comprobantes,"),
-    (61.8, 63.82, "utilizando inteligencia artificial"),
-    (63.85, 65.8, "para simplificar tu administración."),
-    (66.18, 67.76, "¿Quieres poner tu negocio al día"),
-    (67.8, 70.7, "y prepararte para las nuevas exigencias fiscales?"),
+    (47.47, 50.1, "Y si tienes un negocio, recuerda algo importante:"),
+    (50.56, 51.95, "no basta con recibir dinero,"),
+    (52.23, 54.4, "también necesitas tener tus operaciones"),
+    (54.45, 55.98, "organizadas y respaldadas."),
+    (56.07, 57.48, "Con *Novapsis 360*"),
+    (58.0, 59.94, "puedes gestionar tus ventas, cobros,"),
+    (60.08, 61.36, "facturas y comprobantes,"),
+    (61.43, 63.32, "utilizando inteligencia artificial"),
+    (63.37, 65.1, "para simplificar tu administración."),
+    (65.53, 67.1, "¿Quieres poner tu negocio al día"),
+    (67.18, 70.0, "y prepararte para las nuevas exigencias fiscales?"),
 ]
 
 caps_html = []
@@ -57,7 +58,7 @@ def ts(x):
     ms = int(round(x * 1000)); h, ms = divmod(ms, 3600000); m, ms = divmod(ms, 60000); s, ms = divmod(ms, 1000)
     return f"{h:02}:{m:02}:{s:02},{ms:03}"
 srt = []
-for i, (a, b, txt) in enumerate(CAPS + [(71.0, 72.0, "Comenta AGENDA"), (72.06, 73.3, "y evaluemos tu caso.")], 1):
+for i, (a, b, txt) in enumerate(CAPS + [(70.35, 71.32, "Comenta AGENDA"), (71.41, 72.55, "y evaluemos tu caso.")], 1):
     srt.append(f"{i}\n{ts(a)} --> {ts(b)}\n{txt.replace('*', '')}\n")
 open(os.path.join(HERE, "..", "subtitulos.srt"), "w", encoding="utf-8").write("\n".join(srt))
 print("index.html + subtitulos.srt written")

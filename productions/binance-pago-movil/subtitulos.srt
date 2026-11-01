@@ -79,49 +79,53 @@ Además, la función podría no estar disponible
 todavía en todas las cuentas.
 
 21
-00:00:47,470 --> 00:00:50,200
+00:00:47,470 --> 00:00:50,100
 Y si tienes un negocio, recuerda algo importante:
 
 22
-00:00:50,560 --> 00:00:51,980
+00:00:50,560 --> 00:00:51,950
 no basta con recibir dinero,
 
 23
-00:00:52,230 --> 00:00:55,980
+00:00:52,230 --> 00:00:54,400
 también necesitas tener tus operaciones
 
 24
-00:00:56,070 --> 00:00:57,900
+00:00:54,450 --> 00:00:55,980
 organizadas y respaldadas.
 
 25
-00:00:58,000 --> 00:01:00,620
-Con Novapsis 360 puedes gestionar tus ventas, cobros,
+00:00:56,070 --> 00:00:57,480
+Con Novapsis 360
 
 26
-00:01:00,620 --> 00:01:01,760
-facturas y comprobantes,
+00:00:58,000 --> 00:00:59,940
+puedes gestionar tus ventas, cobros,
 
 27
-00:01:01,800 --> 00:01:03,820
-utilizando inteligencia artificial
+00:01:00,080 --> 00:01:01,360
+facturas y comprobantes,
 
 28
-00:01:03,850 --> 00:01:05,800
-para simplificar tu administración.
+00:01:01,430 --> 00:01:03,320
+utilizando inteligencia artificial
 
 29
-00:01:06,180 --> 00:01:07,760
-¿Quieres poner tu negocio al día
+00:01:03,370 --> 00:01:05,100
+para simplificar tu administración.
 
 30
-00:01:07,800 --> 00:01:10,700
-y prepararte para las nuevas exigencias fiscales?
+00:01:05,530 --> 00:01:07,100
+¿Quieres poner tu negocio al día
 
 31
-00:01:11,000 --> 00:01:12,000
-Comenta AGENDA
+00:01:07,180 --> 00:01:10,000
+y prepararte para las nuevas exigencias fiscales?
 
 32
-00:01:12,060 --> 00:01:13,300
+00:01:10,350 --> 00:01:11,320
+Comenta AGENDA
+
+33
+00:01:11,410 --> 00:01:12,550
 y evaluemos tu caso.

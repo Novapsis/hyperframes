@@ -1236,7 +1236,7 @@
         id="s8"
         class="clip"
         data-start="47.2"
-        data-duration="11.0"
+        data-duration="9.0"
         data-track-index="1"
         style="position: absolute; inset: 0; z-index: 30"
       >
@@ -1291,15 +1291,15 @@
       <div
         id="s9"
         class="clip"
-        data-start="58.0"
-        data-duration="8.3"
+        data-start="56.0"
+        data-duration="9.5"
         data-track-index="1"
         style="position: absolute; inset: 0; z-index: 30"
       >
         <div id="n-brand" class="abs center-x h" style="top: 262px">
-          <!-- Placeholder: reemplazar por el SVG oficial en assets/brand/novapsis/ -->
-          <div style="font-weight: 900; font-size: 96px; letter-spacing: -0.02em; color: #102448">
-            NOVAPSIS <span style="color: #2563eb">360</span>
+          <div id="n-brand-in" style="display: inline-flex; align-items: center; gap: 30px">
+            <img id="n-logo" src="assets/brand/novapsis/novapsis-logo.png" alt="Novapsis" style="width: 150px; height: 150px" />
+            <div style="font-weight: 900; font-size: 92px; letter-spacing: -0.02em; color: #102448">NOVAPSIS <span style="color: #2563eb">360</span></div>
           </div>
         </div>
         <div
@@ -1507,7 +1507,7 @@
       <div
         id="s10"
         class="clip"
-        data-start="66.1"
+        data-start="65.3"
         data-duration="4.9"
         data-track-index="1"
         style="position: absolute; inset: 0; z-index: 30"
@@ -1583,8 +1583,8 @@
       <div
         id="s11"
         class="clip"
-        data-start="70.9"
-        data-duration="3.6"
+        data-start="70.1"
+        data-duration="3.8"
         data-track-index="1"
         style="position: absolute; inset: 0; z-index: 30"
       >
@@ -1630,9 +1630,9 @@
           "
         ></div>
         <div id="c-logo" class="abs center-x h" style="top: 1270px">
-          <!-- Placeholder: reemplazar por el logotipo oficial Novapsis 360 (SVG) -->
-          <div style="font-weight: 900; font-size: 52px; color: #102448; letter-spacing: -0.01em">
-            NOVAPSIS <span style="color: #2563eb">360</span>
+          <div style="display: inline-flex; align-items: center; gap: 20px">
+            <img id="c-logo-img" src="assets/brand/novapsis/novapsis-logo.png" alt="Novapsis" style="width: 96px; height: 96px" />
+            <div style="font-weight: 900; font-size: 52px; color: #102448; letter-spacing: -0.01em">NOVAPSIS <span style="color: #2563eb">360</span></div>
           </div>
         </div>
       </div>
@@ -1645,7 +1645,7 @@
         id="vo"
         src="assets/audio/narracion.wav"
         data-start="0"
-        data-duration="73.27"
+        data-duration="72.63"
         data-track-index="10"
         data-volume="1"
       ></audio>
@@ -1810,56 +1810,56 @@
       tl.to("#phone", { opacity: 1, y: 140, x: 0, scale: 0.8, duration: 0.8, ease: E }, 42.6);
       tl.fromTo("#w-av", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 42.9);
 
-      // ================= S8 BUSINESS (47.2 – 58.2) =================
+      // ================= S8 BUSINESS (47.2 – 56.0) =================
       hide("#w-av", 46.9, 0.3);
       tl.to("#phone", { scale: 0.45, opacity: 0, y: 160, duration: 0.5, ease: "power2.in" }, 46.9);
-      tl.fromTo("#mv", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: E, immediateRender: false }, 47.25);
+      tl.fromTo("#mv", { opacity: 0, scale: 0.6, rotationX: 50, transformPerspective: 1600 }, { opacity: 1, scale: 1, rotationX: 0, duration: 0.7, ease: E, immediateRender: false }, 47.25);
       tl.to("#bg-pearl", { opacity: 1, duration: 1.4, ease: "power1.inOut" }, 47.6);
       tl.to("#bg-floor", { opacity: 0.25, duration: 2.0 }, 47.6);
       tl.to("#mv", { backgroundColor: "#ffffff", color: "#102448", duration: 1.2, ease: "power1.inOut" }, 47.8);
       tl.fromTo("#b-t1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E, immediateRender: false }, 50.5);
-      tl.to("#mv", { scale: 0.5, opacity: 0, y: -20, duration: 0.5, ease: "power2.in" }, 52.0);
-      const docs = [["#d1", 52.25], ["#d2", 53.0], ["#d3", 53.75], ["#d4", 54.5]];
-      docs.forEach(([s, t]) => tl.to(s, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.4)" }, t));
-      hide("#b-t1", 55.75, 0.25);
-      tl.fromTo("#b-t2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E, immediateRender: false }, 56.05);
-      tl.to(["#d1", "#d2", "#d3", "#d4"], { y: -8, duration: 0.5, stagger: 0.08, ease: "sine.inOut" }, 56.2);
+      tl.to("#mv", { scale: 0.5, opacity: 0, y: -20, duration: 0.5, ease: "power2.in" }, 51.9);
+      const docs = [["#d1", 52.2], ["#d2", 52.75], ["#d3", 53.3], ["#d4", 53.85]];
+      docs.forEach(([s, t]) => tl.fromTo(s, { opacity: 0, y: 40, scale: 0.85, rotationX: -60, transformPerspective: 1400 }, { opacity: 1, y: 0, scale: 1, rotationX: 0, duration: 0.6, ease: "back.out(1.4)", immediateRender: false }, t));
+      hide("#b-t1", 54.25, 0.25);
+      tl.fromTo("#b-t2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E, immediateRender: false }, 54.5);
+      tl.to(["#d1", "#d2", "#d3", "#d4"], { y: -8, duration: 0.5, stagger: 0.08, ease: "sine.inOut" }, 54.7);
 
-      // ================= S9 NOVAPSIS 360 (58.0 – 66.3) =================
-      hide("#b-t2", 57.8, 0.25);
-      tl.to(["#d1", "#d2", "#d3", "#d4"], { scale: 0.4, opacity: 0, y: 120, duration: 0.5, stagger: 0.05, ease: "power2.in" }, 57.8);
-      tl.fromTo("#n-brand", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.6, ease: E, immediateRender: false }, 58.05);
-      tl.fromTo("#dash", { opacity: 0, y: 80, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: E, immediateRender: false }, 58.4);
-      [["#f1", 60.1], ["#f2", 60.33], ["#f3", 60.66], ["#f4", 61.1]].forEach(([s, t]) =>
+      // ================= S9 NOVAPSIS 360 (56.0 – 65.5) — "Con Novapsis tres sesenta" @ 56.07 =================
+      hide("#b-t2", 55.75, 0.25);
+      tl.to(["#d1", "#d2", "#d3", "#d4"], { scale: 0.4, opacity: 0, y: 120, duration: 0.45, stagger: 0.04, ease: "power2.in" }, 55.75);
+      tl.fromTo("#n-brand", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: E, immediateRender: false }, 56.05);
+      tl.fromTo("#n-logo", { rotationY: -180, transformPerspective: 900 }, { rotationY: 0, duration: 1.0, ease: "power3.out", immediateRender: false }, 56.05);
+      tl.fromTo("#dash", { opacity: 0, y: 80, scale: 0.94, rotationX: 28, transformPerspective: 2200 }, { opacity: 1, y: 0, scale: 1, rotationX: 0, duration: 0.9, ease: E, immediateRender: false }, 57.0);
+      [["#f1", 58.6], ["#f2", 59.2], ["#f3", 59.75], ["#f4", 60.3]].forEach(([s, t]) =>
         tl.fromTo(s, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.35, ease: E, immediateRender: false }, t));
-      tl.to(".ail", { strokeDashoffset: 0, duration: 0.8, stagger: 0.1, ease: "power2.inOut" }, 61.85);
-      tl.fromTo("#ai", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E, immediateRender: false }, 62.3);
-      tl.fromTo("#ai-orb", { scale: 0.85 }, { scale: 1.08, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 62.6);
-      tl.fromTo("#n-ai", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 63.85);
+      tl.to(".ail", { strokeDashoffset: 0, duration: 0.8, stagger: 0.1, ease: "power2.inOut" }, 61.45);
+      tl.fromTo("#ai", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E, immediateRender: false }, 61.9);
+      tl.fromTo("#ai-orb", { scale: 0.85 }, { scale: 1.08, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 62.2);
+      tl.fromTo("#n-ai", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 63.4);
 
-      // ================= S10 FISCAL (66.1 – 71.0) =================
-      tl.to(["#dash", "#n-ai"], { opacity: 0, y: -160, scale: 0.9, duration: 0.6, ease: "power2.in" }, 65.9);
-      hide("#n-brand", 65.9, 0.4);
-      tl.fromTo("#f-t1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E, immediateRender: false }, 66.25);
-      // scattered state
-      tl.fromTo("#o1", { opacity: 0, x: -220, y: -60, rotation: -14 }, { opacity: 1, x: -230, y: -40, rotation: -11, duration: 0.5, ease: E, immediateRender: false }, 66.35);
-      tl.fromTo("#o2", { opacity: 0, x: 230, y: -100, rotation: 12 }, { opacity: 1, x: 220, y: 30, rotation: 9, duration: 0.5, ease: E, immediateRender: false }, 66.5);
-      tl.fromTo("#o3", { opacity: 0, x: 0, y: 330, rotation: -6 }, { opacity: 1, x: 10, y: 300, rotation: -4, duration: 0.5, ease: E, immediateRender: false }, 66.65);
-      // organize (on "al día")
-      tl.to("#o1", { x: -250, y: 0, rotation: 0, scale: 0.62, duration: 0.8, ease: IO }, 67.7);
-      tl.to("#o2", { x: 0, y: 0, rotation: 0, scale: 0.62, duration: 0.8, ease: IO }, 67.78);
-      tl.to("#o3", { x: 250, y: 0, rotation: 0, scale: 0.62, duration: 0.8, ease: IO }, 67.86);
-      tl.fromTo("#f-t2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 68.3);
+      // ================= S10 FISCAL (65.3 – 70.2) =================
+      tl.to(["#dash", "#n-ai"], { opacity: 0, y: -160, scale: 0.9, duration: 0.6, ease: "power2.in" }, 65.1);
+      hide("#n-brand", 65.1, 0.4);
+      tl.fromTo("#f-t1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E, immediateRender: false }, 65.55);
+      tl.fromTo("#o1", { opacity: 0, x: -220, y: -60, rotation: -14 }, { opacity: 1, x: -230, y: -40, rotation: -11, duration: 0.5, ease: E, immediateRender: false }, 65.6);
+      tl.fromTo("#o2", { opacity: 0, x: 230, y: -100, rotation: 12 }, { opacity: 1, x: 220, y: 30, rotation: 9, duration: 0.5, ease: E, immediateRender: false }, 65.75);
+      tl.fromTo("#o3", { opacity: 0, x: 0, y: 330, rotation: -6 }, { opacity: 1, x: 10, y: 300, rotation: -4, duration: 0.5, ease: E, immediateRender: false }, 65.9);
+      tl.to("#o1", { x: -250, y: 0, rotation: 0, scale: 0.62, duration: 0.8, ease: IO }, 66.75);
+      tl.to("#o2", { x: 0, y: 0, rotation: 0, scale: 0.62, duration: 0.8, ease: IO }, 66.83);
+      tl.to("#o3", { x: 250, y: 0, rotation: 0, scale: 0.62, duration: 0.8, ease: IO }, 66.91);
+      tl.fromTo("#f-t2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 67.4);
 
-      // ================= S11 CTA (70.9 – 74.2) =================
-      hide(["#f-t1", "#f-t2"], 70.7, 0.3);
-      tl.to(["#o1", "#o2", "#o3"], { opacity: 0, scale: 0.4, y: 60, duration: 0.4, stagger: 0.05, ease: "power2.in" }, 70.65);
-      tl.fromTo("#c-q", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: E, immediateRender: false }, 70.95);
-      tl.fromTo("#c-com", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: E, immediateRender: false }, 71.05);
-      tl.fromTo("#c-ag", { opacity: 0, scale: 1.25, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out", immediateRender: false }, 71.4);
-      tl.fromTo("#c-pulse", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 1.12, duration: 0.9, ease: "power2.out", immediateRender: false }, 72.0);
-      tl.fromTo("#c-ev", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: E, immediateRender: false }, 72.06);
-      tl.fromTo("#c-logo", { opacity: 0 }, { opacity: 1, duration: 0.5, immediateRender: false }, 71.8);
+      // ================= S11 CTA (70.1 – 73.9) — "AGENDA" @ ~70.8 =================
+      hide(["#f-t1", "#f-t2"], 69.95, 0.3);
+      tl.to(["#o1", "#o2", "#o3"], { opacity: 0, scale: 0.4, y: 60, duration: 0.4, stagger: 0.05, ease: "power2.in" }, 69.9);
+      tl.fromTo("#c-q", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: E, immediateRender: false }, 70.15);
+      tl.fromTo("#c-com", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: E, immediateRender: false }, 70.35);
+      tl.fromTo("#c-ag", { opacity: 0, scale: 1.25, rotationX: -40, transformPerspective: 1600, filter: "blur(14px)" }, { opacity: 1, scale: 1, rotationX: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out", immediateRender: false }, 70.7);
+      tl.fromTo("#c-pulse", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 1.12, duration: 0.9, ease: "power2.out", immediateRender: false }, 71.3);
+      tl.fromTo("#c-ev", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: E, immediateRender: false }, 71.41);
+      tl.fromTo("#c-logo", { opacity: 0 }, { opacity: 1, duration: 0.5, immediateRender: false }, 71.0);
+      tl.fromTo("#c-logo-img", { rotationY: -180, transformPerspective: 900 }, { rotationY: 0, duration: 0.9, ease: "power3.out", immediateRender: false }, 71.0);
       tl.to("#s11", { opacity: 1, duration: 0.01 }, {{DUR}} - 0.05);
 
       window.__timelines["main"] = tl;

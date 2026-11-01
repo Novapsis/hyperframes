@@ -30,7 +30,7 @@
 
 ## Recursos faltantes (críticos)
 
-1. **Logotipo oficial de Novapsis 360 (SVG).** Ahora mismo hay un texto tipográfico "NOVAPSIS 360" en la escena 9 y en el CTA, ocupando ese espacio. Hay que reemplazarlo en `#n-brand` y `#c-logo`.
+1. \*\*Logotipo Novapsis: integrado (`assets/brand/novapsis/novapsis-logo.png`, extraído del SVG suministrado, que contiene un PNG embebido). Falta versión vectorial real.
 2. **Capturas reales de Novapsis 360** (ventas, cobros, facturas, comprobantes, copiloto IA).
 3. **Capturas reales** de la app de Binance con el flujo de depósito en VES.
 4. Música con licencia, si se prefiere a la pista sintetizada.

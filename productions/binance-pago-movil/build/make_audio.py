@@ -4,7 +4,7 @@ Deterministic: fixed seed. Output: assets/audio/music.wav, assets/sound-effects/
 import numpy as np, wave, json, os
 
 SR = 48000
-DUR = 74.5
+DUR = 73.9
 N = int(SR * DUR)
 t = np.arange(N) / SR
 rng = np.random.default_rng(7)
@@ -37,9 +37,9 @@ sections = [
     (0.0, 16.2, [57, 64, 67, 71, 74], 1.0),     # Am9 - hook / news
     (16.2, 36.0, [53, 60, 64, 67, 72], 0.8),    # Fmaj7 - tutorial
     (36.0, 47.2, [50, 57, 62, 65, 69], 0.45),   # Dm9 - warning (softer)
-    (47.2, 58.0, [53, 60, 64, 67, 72], 0.75),   # Fmaj7 - transition to business
-    (58.0, 66.2, [48, 55, 64, 67, 71], 0.9),    # Cmaj7 - Novapsis (resolution)
-    (66.2, 74.2, [55, 62, 66, 69, 74], 1.0),    # G(add) lift - CTA
+    (47.2, 56.0, [53, 60, 64, 67, 72], 0.75),   # Fmaj7 - transition to business
+    (56.0, 65.3, [48, 55, 64, 67, 71], 0.9),    # Cmaj7 - Novapsis (resolution)
+    (65.3, 73.9, [55, 62, 66, 69, 74], 1.0),    # G(add) lift - CTA
 ]
 for a, b, notes, amp in sections:
     e = env_seg(a - 0.6, b + 0.6, 1.2) * amp
@@ -72,7 +72,7 @@ def pluck(at, m, amp, pan=0.0):
     p = (np.sin(2 * np.pi * f * tt) + 0.4 * np.sin(2 * np.pi * 2 * f * tt)) * np.exp(-tt * 9) * amp
     L[i0:i0 + n] += p * (1 - pan); R[i0:i0 + n] += p * (1 + pan)
 
-drive = [(1.2, 16.0, 0.16), (17.4, 35.8, 0.08), (47.4, 57.8, 0.07), (58.0, 66.0, 0.12), (66.2, 73.0, 0.15)]
+drive = [(1.2, 16.0, 0.16), (17.4, 35.8, 0.08), (47.4, 55.8, 0.07), (56.0, 65.2, 0.12), (65.3, 72.6, 0.15)]
 for a, b, amp in drive:
     x = a
     while x < b:
@@ -81,8 +81,8 @@ for a, b, amp in drive:
 arps = [
     (1.2, 16.0, [69, 72, 76, 79], 0.035),
     (17.4, 35.8, [65, 69, 72, 76], 0.028),
-    (58.0, 66.0, [72, 76, 79, 83], 0.032),
-    (66.2, 73.0, [74, 78, 81, 86], 0.034),
+    (56.0, 65.2, [72, 76, 79, 83], 0.032),
+    (65.3, 72.6, [74, 78, 81, 86], 0.034),
 ]
 for a, b, notes, amp in arps:
     x = a; k = 0
@@ -142,5 +142,7 @@ add(TIMES["zero"] - 0.03, impact())
 for x in TIMES["chimes"]:
     add(x, chime(79, 0.12))
 add(TIMES["agenda"], chime(86, 0.2))
+add(TIMES["logo"], impact(0.35))
+add(TIMES["logo"], chime(84, 0.16))
 write(os.path.join(HERE, "..", "assets/sound-effects/sfx.wav"), np.stack([L, R]) * 0.9)
 print("ok")
