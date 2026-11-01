@@ -1,0 +1,1868 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Binance Pago Movil — Novapsis 360</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #121212;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        color: #fff;
+        -webkit-font-smoothing: antialiased;
+      }
+      .abs {
+        position: absolute;
+      }
+      .h {
+        opacity: 0;
+      }
+      .center-x {
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+
+      /* ---------- background layers ---------- */
+      #bg-dark {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(1200px 900px at 50% 38%, #252a34 0%, #121212 62%, #0b0b0c 100%);
+      }
+      #bg-glow {
+        position: absolute;
+        left: 140px;
+        top: 380px;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(240, 185, 11, 0.22) 0%, rgba(240, 185, 11, 0) 65%);
+      }
+      #bg-light {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          1300px 1000px at 50% 40%,
+          #ffffff 0%,
+          #f5f6f8 55%,
+          #e9ebef 100%
+        );
+        opacity: 0;
+      }
+      #bg-pearl {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          1300px 1100px at 50% 35%,
+          #ffffff 0%,
+          #f6f8fc 55%,
+          #e6ecf6 100%
+        );
+        opacity: 0;
+      }
+      #bg-floor {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1240px;
+        height: 420px;
+        background: radial-gradient(500px 90px at 50% 30%, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+      }
+
+      /* ---------- type ---------- */
+      .kicker {
+        font-weight: 700;
+        font-size: 34px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .title {
+        font-weight: 900;
+        font-size: 88px;
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+      }
+      .sub {
+        font-weight: 700;
+        font-size: 44px;
+        letter-spacing: 0.04em;
+      }
+      .y {
+        color: #f0b90b;
+      }
+      .navy {
+        color: #102448;
+      }
+      .tq {
+        color: #2dd4bf;
+      }
+      .note {
+        font-weight: 400;
+        font-size: 30px;
+      }
+
+      /* ---------- phone ---------- */
+      #phone {
+        position: absolute;
+        left: 290px;
+        top: 400px;
+        width: 500px;
+        height: 1036px;
+        perspective: 2200px;
+      }
+      #phone-body {
+        position: absolute;
+        inset: 0;
+        border-radius: 78px;
+        background: linear-gradient(
+          135deg,
+          #8b8f97 0%,
+          #3a3d43 18%,
+          #1c1d21 50%,
+          #4a4d54 82%,
+          #a3a7ae 100%
+        );
+        box-shadow:
+          0 60px 120px rgba(0, 0, 0, 0.55),
+          0 18px 40px rgba(0, 0, 0, 0.35),
+          inset 0 0 0 2px rgba(255, 255, 255, 0.18);
+      }
+      #phone-bezel {
+        position: absolute;
+        left: 9px;
+        top: 9px;
+        right: 9px;
+        bottom: 9px;
+        border-radius: 70px;
+        background: #050505;
+      }
+      #screen {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        width: 460px;
+        height: 996px;
+        border-radius: 58px;
+        overflow: hidden;
+        background: #0f1012;
+      }
+      #island {
+        position: absolute;
+        left: 182px;
+        top: 18px;
+        width: 96px;
+        height: 30px;
+        border-radius: 16px;
+        background: #000;
+        z-index: 20;
+      }
+      #glass {
+        position: absolute;
+        inset: 0;
+        border-radius: 58px;
+        z-index: 19;
+        pointer-events: none;
+        background: linear-gradient(
+          115deg,
+          rgba(255, 255, 255, 0.16) 0%,
+          rgba(255, 255, 255, 0.04) 28%,
+          rgba(255, 255, 255, 0) 45%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+      .btn-side {
+        position: absolute;
+        width: 6px;
+        border-radius: 3px;
+        background: linear-gradient(90deg, #6b6e75, #2b2d31);
+      }
+
+      .scr {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        padding: 78px 30px 30px;
+      }
+      .scr.dark {
+        background: #121212;
+        color: #fff;
+      }
+      .scr.light {
+        background: #ffffff;
+        color: #121212;
+      }
+      .bar {
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        font-weight: 700;
+        opacity: 0.7;
+        margin-bottom: 26px;
+      }
+      .s-h {
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        margin-bottom: 8px;
+      }
+      .s-p {
+        font-size: 22px;
+        font-weight: 400;
+        opacity: 0.6;
+        margin-bottom: 26px;
+      }
+      .tag-sim {
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        bottom: 26px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: #8a8f99;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 24px 22px;
+        border-radius: 22px;
+        margin-bottom: 16px;
+        background: #f5f6f8;
+        font-size: 28px;
+        font-weight: 700;
+        color: #121212;
+      }
+      .dark .row {
+        background: #1e2026;
+        color: #fff;
+      }
+      .row.sel {
+        background: #fff6d6;
+        box-shadow: inset 0 0 0 3px #f0b90b;
+      }
+      .ico {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        background: #f0b90b;
+        color: #121212;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 22px;
+        flex: none;
+      }
+      .ico.g {
+        background: #252a34;
+        color: #fff;
+      }
+      .row small {
+        display: block;
+        font-size: 20px;
+        font-weight: 400;
+        opacity: 0.6;
+        margin-top: 4px;
+      }
+      .cta {
+        margin-top: 18px;
+        height: 92px;
+        border-radius: 24px;
+        background: #f0b90b;
+        color: #121212;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 32px;
+        letter-spacing: 0.04em;
+      }
+      .ph {
+        height: 22px;
+        border-radius: 11px;
+        background: currentColor;
+        opacity: 0.12;
+      }
+      .ripple {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        margin: -60px 0 0 -60px;
+        border-radius: 50%;
+        border: 5px solid #f0b90b;
+        opacity: 0;
+        z-index: 15;
+      }
+      .dot {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        margin: -22px 0 0 -22px;
+        border-radius: 50%;
+        background: rgba(18, 18, 18, 0.35);
+        border: 3px solid rgba(255, 255, 255, 0.9);
+        opacity: 0;
+        z-index: 16;
+      }
+
+      /* ---------- generic cards ---------- */
+      .card {
+        position: absolute;
+        border-radius: 36px;
+        background: #fff;
+        color: #121212;
+        box-shadow:
+          0 40px 90px rgba(0, 0, 0, 0.35),
+          0 8px 24px rgba(0, 0, 0, 0.18);
+      }
+      .card.dk {
+        background: #1b1d22;
+        color: #fff;
+        box-shadow:
+          0 40px 90px rgba(0, 0, 0, 0.6),
+          inset 0 0 0 2px rgba(255, 255, 255, 0.06);
+      }
+      .lbl {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.6;
+      }
+      .doc {
+        position: absolute;
+        width: 400px;
+        height: 250px;
+        border-radius: 30px;
+        background: #fff;
+        color: #111827;
+        padding: 30px 34px;
+        box-shadow:
+          0 30px 70px rgba(16, 36, 72, 0.18),
+          0 6px 16px rgba(16, 36, 72, 0.08);
+      }
+      .doc .lbl {
+        color: #102448;
+        opacity: 0.9;
+        font-size: 24px;
+      }
+      .doc .badge {
+        display: inline-block;
+        margin-top: 16px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        font-size: 22px;
+        font-weight: 700;
+      }
+      .doc .ln {
+        height: 16px;
+        border-radius: 8px;
+        background: #102448;
+        opacity: 0.1;
+        margin-top: 14px;
+      }
+
+      /* ---------- captions ---------- */
+      .cap {
+        position: absolute;
+        left: 90px;
+        right: 90px;
+        top: 1450px;
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+      }
+      .cap-in {
+        display: inline-block;
+        max-width: 900px;
+        padding: 16px 30px;
+        border-radius: 22px;
+        background: rgba(12, 12, 14, 0.82);
+        color: #fff;
+        font-weight: 700;
+        font-size: 44px;
+        line-height: 1.22;
+        text-align: center;
+      }
+      .cap .hl {
+        color: #f0b90b;
+      }
+      .cap.nv .cap-in {
+        background: rgba(16, 36, 72, 0.9);
+      }
+      .cap.nv .hl {
+        color: #2dd4bf;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="{{DUR}}"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- ================= BACKGROUND ================= -->
+      <div
+        id="bg"
+        class="clip"
+        data-start="0"
+        data-duration="{{DUR}}"
+        data-track-index="0"
+        data-layout-ignore
+        style="position: absolute; inset: 0; z-index: 0"
+      >
+        <div id="bg-dark"></div>
+        <div id="bg-glow"></div>
+        <div id="bg-light"></div>
+        <div id="bg-pearl"></div>
+        <div id="bg-floor"></div>
+      </div>
+
+      <!-- ================= S1 HOOK TYPE ================= -->
+      <div
+        id="s1"
+        class="clip"
+        data-start="0"
+        data-duration="6.9"
+        data-track-index="1"
+        style="position: absolute; inset: 0; z-index: 30"
+      >
+        <div id="s1-kick" class="abs center-x kicker" style="top: 262px">
+          <span class="y">Binance</span> + Pago Móvil
+        </div>
+        <div id="s1-zero-wrap" class="abs center-x" style="top: 560px">
+          <div
+            id="s1-zero"
+            class="h"
+            style="
+              font-weight: 900;
+              font-size: 300px;
+              line-height: 1;
+              letter-spacing: -0.04em;
+              color: #fff;
+              text-shadow:
+                0 0 60px rgba(240, 185, 11, 0.55),
+                0 20px 60px rgba(0, 0, 0, 0.6);
+            "
+          >
+            0<span class="y"> %</span>
+          </div>
+          <div id="s1-zsub" class="h sub" style="margin-top: 20px">COMISIÓN DE DEPÓSITO</div>
+          <div
+            id="s1-zref"
+            class="h kicker"
+            style="margin-top: 30px; font-size: 30px; opacity: 0; color: #f0b90b"
+          >
+            Binance · Venezuela
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= S2 NEWS ================= -->
+      <div
+        id="s2"
+        class="clip"
+        data-start="6.9"
+        data-duration="9.1"
+        data-track-index="1"
+        style="position: absolute; inset: 0; z-index: 30"
+      >
+        <div id="s2-title" class="abs center-x title h" style="top: 270px; font-size: 82px">
+          DEPÓSITOS<br />DIRECTOS EN <span class="y">VES</span>
+        </div>
+        <div id="s2-sub" class="abs center-x sub h" style="top: 470px; color: #f0b90b">
+          PAGO MÓVIL · TRANSFERENCIA
+        </div>
+        <div
+          id="bank"
+          class="card dk h"
+          style="
+            left: 80px;
+            top: 860px;
+            width: 300px;
+            height: 340px;
+            padding: 40px 30px;
+            text-align: center;
+          "
+        >
+          <svg
+            width="130"
+            height="120"
+            viewBox="0 0 130 120"
+            fill="none"
+            stroke="#fff"
+            stroke-width="7"
+            stroke-linejoin="round"
+          >
+            <path d="M10 42 L65 10 L120 42 Z" />
+            <path d="M24 52 V92 M50 52 V92 M80 52 V92 M106 52 V92" />
+            <path d="M10 104 H120" />
+          </svg>
+          <div style="font-size: 34px; font-weight: 900; margin-top: 22px">Tu banco</div>
+          <div style="font-size: 24px; opacity: 0.6; margin-top: 6px">Cuenta en bolívares</div>
+        </div>
+        <svg
+          id="flow"
+          class="abs h"
+          style="left: 380px; top: 980px"
+          width="230"
+          height="100"
+          viewBox="0 0 230 100"
+          data-layout-ignore
+        >
+          <path
+            id="flow-line"
+            d="M0 50 C70 50 160 50 230 50"
+            stroke="#F0B90B"
+            stroke-width="4"
+            fill="none"
+            stroke-dasharray="230"
+            stroke-dashoffset="230"
+          />
+          <circle id="flow-dot" cx="0" cy="50" r="9" fill="#F0B90B" />
+        </svg>
+      </div>
+
+      <!-- ================= PHONE (persistent 0 → 47.2) ================= -->
+      <div
+        id="phone"
+        class="clip"
+        data-start="0"
+        data-duration="47.2"
+        data-track-index="2"
+        style="z-index: 20"
+        data-layout-allow-overflow
+      >
+        <div id="phone-body"></div>
+        <div class="btn-side" style="left: -4px; top: 230px; height: 70px"></div>
+        <div class="btn-side" style="left: -4px; top: 320px; height: 110px"></div>
+        <div class="btn-side" style="right: -4px; top: 280px; height: 150px"></div>
+        <div id="phone-bezel"></div>
+        <div id="screen">
+          <div id="island"></div>
+          <div id="glass"></div>
+
+          <!-- hook screen -->
+          <div id="scr-hook" class="scr dark" style="opacity: 1">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-h">Depositar</div>
+            <div class="s-p">Bolívares (VES)</div>
+            <div class="ph" style="width: 70%; margin-bottom: 18px"></div>
+            <div class="ph" style="width: 50%; margin-bottom: 60px"></div>
+            <div
+              id="hook-btn"
+              style="
+                height: 150px;
+                border-radius: 30px;
+                border: 3px solid #f0b90b;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 18px;
+                font-size: 40px;
+                font-weight: 900;
+                letter-spacing: 0.04em;
+              "
+            >
+              <span class="ico">PM</span>PAGO MÓVIL
+            </div>
+            <div class="row" style="margin-top: 24px">
+              <span class="ico g">TB</span>Transferencia
+            </div>
+            <div
+              id="hook-flash"
+              style="
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(
+                  circle at 50% 42%,
+                  rgba(240, 185, 11, 0.55),
+                  rgba(240, 185, 11, 0) 60%
+                );
+                opacity: 0;
+              "
+            ></div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <!-- news: direct deposit -->
+          <div id="scr-direct" class="scr dark">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-h">Depósito VES</div>
+            <div class="s-p">Directo desde tu banco</div>
+            <div class="row">
+              <span class="ico">PM</span>
+              <div>Pago Móvil<small>Comisión de depósito: 0 %</small></div>
+            </div>
+            <div class="row">
+              <span class="ico g">TB</span>
+              <div>Transferencia<small>Comisión de depósito: 0 %</small></div>
+            </div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <!-- news: p2p -->
+          <div id="scr-p2p" class="scr dark">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-h">Mercado P2P</div>
+            <div class="s-p">Anuncios de vendedores</div>
+            <div id="p2p-list">
+              <div class="row p2p-r">
+                <span class="ico g">A</span>
+                <div style="flex: 1">
+                  <div class="ph" style="width: 70%; opacity: 0.3"></div>
+                  <div class="ph" style="width: 40%; margin-top: 10px"></div>
+                </div>
+              </div>
+              <div class="row p2p-r">
+                <span class="ico g">B</span>
+                <div style="flex: 1">
+                  <div class="ph" style="width: 60%; opacity: 0.3"></div>
+                  <div class="ph" style="width: 45%; margin-top: 10px"></div>
+                </div>
+              </div>
+              <div class="row p2p-r">
+                <span class="ico g">C</span>
+                <div style="flex: 1">
+                  <div class="ph" style="width: 75%; opacity: 0.3"></div>
+                  <div class="ph" style="width: 35%; margin-top: 10px"></div>
+                </div>
+              </div>
+              <div class="row p2p-r">
+                <span class="ico g">D</span>
+                <div style="flex: 1">
+                  <div class="ph" style="width: 55%; opacity: 0.3"></div>
+                  <div class="ph" style="width: 50%; margin-top: 10px"></div>
+                </div>
+              </div>
+              <div class="row p2p-r">
+                <span class="ico g">E</span>
+                <div style="flex: 1">
+                  <div class="ph" style="width: 65%; opacity: 0.3"></div>
+                  <div class="ph" style="width: 30%; margin-top: 10px"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <!-- tutorial: home -->
+          <div id="scr-home" class="scr light">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-p" style="margin-bottom: 6px">Saldo estimado</div>
+            <div class="s-h" style="font-size: 48px; margin-bottom: 40px">•••••</div>
+            <div style="display: flex; gap: 16px">
+              <div
+                id="home-dep"
+                style="
+                  flex: 1;
+                  height: 170px;
+                  border-radius: 26px;
+                  background: #f0b90b;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 12px;
+                  font-size: 28px;
+                  font-weight: 900;
+                "
+              >
+                <span style="font-size: 46px; line-height: 1">↓</span>Depositar
+              </div>
+              <div
+                style="
+                  flex: 1;
+                  height: 170px;
+                  border-radius: 26px;
+                  background: #f5f6f8;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 12px;
+                  font-size: 28px;
+                  font-weight: 700;
+                  color: #5b616e;
+                "
+              >
+                <span style="font-size: 46px; line-height: 1">⇄</span>Convertir
+              </div>
+            </div>
+            <div
+              class="ph"
+              style="
+                width: 100%;
+                height: 120px;
+                border-radius: 24px;
+                margin-top: 30px;
+                opacity: 0.06;
+              "
+            ></div>
+            <div
+              class="ph"
+              style="
+                width: 100%;
+                height: 120px;
+                border-radius: 24px;
+                margin-top: 16px;
+                opacity: 0.06;
+              "
+            ></div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <!-- tutorial: currency -->
+          <div id="scr-cur" class="scr light">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-h">Depositar</div>
+            <div class="s-p">Selecciona la moneda</div>
+            <div id="cur-ves" class="row">
+              <span class="ico">Bs</span>
+              <div>VES<small>Bolívares</small></div>
+            </div>
+            <div class="row" style="opacity: 0.35">
+              <span class="ico g">•</span>
+              <div style="flex: 1"><div class="ph" style="width: 50%"></div></div>
+            </div>
+            <div class="row" style="opacity: 0.35">
+              <span class="ico g">•</span>
+              <div style="flex: 1"><div class="ph" style="width: 40%"></div></div>
+            </div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <!-- tutorial: method -->
+          <div id="scr-met" class="scr light">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-h">Depositar VES</div>
+            <div class="s-p">Método de depósito</div>
+            <div id="met-pm" class="row">
+              <span class="ico">PM</span>
+              <div>Pago Móvil</div>
+            </div>
+            <div id="met-tb" class="row">
+              <span class="ico g">TB</span>
+              <div>Transferencia bancaria</div>
+            </div>
+            <div class="s-p" style="margin-top: 20px">Comisión de depósito anunciada: 0 %</div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <!-- tutorial: amount -->
+          <div id="scr-amt" class="scr light">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-h">Pago Móvil</div>
+            <div class="s-p">Monto en VES</div>
+            <div
+              style="
+                height: 130px;
+                border-radius: 24px;
+                box-shadow: inset 0 0 0 3px #f0b90b;
+                display: flex;
+                align-items: center;
+                padding: 0 28px;
+                font-size: 56px;
+                font-weight: 900;
+              "
+            >
+              <span style="opacity: 0.45; margin-right: 14px">Bs.</span
+              ><span id="amt-txt"
+                ><span class="ch">1</span><span class="ch">.</span><span class="ch">0</span
+                ><span class="ch">0</span><span class="ch">0</span><span class="ch">,</span
+                ><span class="ch">0</span><span class="ch">0</span></span
+              >
+            </div>
+            <div style="font-size: 20px; color: #8a8f99; margin-top: 10px">Monto de ejemplo</div>
+            <div id="amt-sum" style="opacity: 0; margin-top: 28px">
+              <div class="row sel" id="amt-own">
+                <span class="ico">✓</span>
+                <div>Cuenta a tu nombre<small>El pago sale de tu propia cuenta</small></div>
+              </div>
+            </div>
+            <div class="cta" id="amt-cta">Continuar</div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <!-- tutorial: status -->
+          <div id="scr-st" class="scr light">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-h">Depósito</div>
+            <div class="s-p">Estado de la operación</div>
+            <div
+              style="display: flex; flex-direction: column; align-items: center; margin-top: 60px"
+            >
+              <div style="position: relative; width: 170px; height: 170px">
+                <svg
+                  width="170"
+                  height="170"
+                  viewBox="0 0 170 170"
+                  style="position: absolute; inset: 0"
+                >
+                  <circle cx="85" cy="85" r="72" stroke="#F5F6F8" stroke-width="12" fill="none" />
+                  <circle
+                    id="st-ring"
+                    cx="85"
+                    cy="85"
+                    r="72"
+                    stroke="#F0B90B"
+                    stroke-width="12"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-dasharray="453"
+                    stroke-dashoffset="453"
+                    transform="rotate(-90 85 85)"
+                  />
+                </svg>
+                <div
+                  id="st-ok"
+                  style="
+                    position: absolute;
+                    inset: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 80px;
+                    font-weight: 900;
+                    color: #f0b90b;
+                    opacity: 0;
+                  "
+                >
+                  ✓
+                </div>
+              </div>
+              <div id="st-a" style="font-size: 32px; font-weight: 900; margin-top: 30px">
+                Procesando…
+              </div>
+              <div
+                id="st-b"
+                style="font-size: 32px; font-weight: 900; margin-top: -40px; opacity: 0"
+              >
+                Fondos acreditados
+              </div>
+              <div style="font-size: 21px; color: #8a8f99; margin-top: 14px; text-align: center">
+                Los tiempos de acreditación pueden variar
+              </div>
+            </div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <!-- tutorial: balance -->
+          <div id="scr-bal" class="scr light">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-p" style="margin-bottom: 6px">Saldo VES</div>
+            <div class="s-h" style="font-size: 54px">Bs. 1.000,00</div>
+            <div style="font-size: 20px; color: #8a8f99; margin-bottom: 40px">Monto de ejemplo</div>
+            <div style="display: flex; gap: 16px">
+              <div
+                style="
+                  flex: 1;
+                  height: 170px;
+                  border-radius: 26px;
+                  background: #f5f6f8;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 12px;
+                  font-size: 28px;
+                  font-weight: 700;
+                  color: #5b616e;
+                "
+              >
+                <span style="font-size: 46px; line-height: 1">↓</span>Depositar
+              </div>
+              <div
+                id="bal-conv"
+                style="
+                  flex: 1;
+                  height: 170px;
+                  border-radius: 26px;
+                  background: #f0b90b;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 12px;
+                  font-size: 28px;
+                  font-weight: 900;
+                "
+              >
+                <span style="font-size: 46px; line-height: 1">⇄</span>Convertir
+              </div>
+            </div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <!-- tutorial: convert -->
+          <div id="scr-cv" class="scr light">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-h">Convertir</div>
+            <div class="s-p">Consulta la cotización antes de confirmar</div>
+            <div style="border-radius: 26px; background: #f5f6f8; padding: 24px 26px">
+              <div style="font-size: 20px; color: #8a8f99">De</div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-top: 6px;
+                "
+              >
+                <span style="font-size: 36px; font-weight: 900">VES</span
+                ><span style="font-size: 30px; font-weight: 700">1.000,00</span>
+              </div>
+            </div>
+            <div
+              style="
+                text-align: center;
+                font-size: 40px;
+                font-weight: 900;
+                color: #f0b90b;
+                margin: 8px 0;
+              "
+            >
+              ↓
+            </div>
+            <div id="cv-to" style="border-radius: 26px; background: #f5f6f8; padding: 24px 26px">
+              <div style="font-size: 20px; color: #8a8f99">A</div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-top: 6px;
+                "
+              >
+                <span style="position: relative; display: inline-block; width: 150px; height: 44px">
+                  <span
+                    id="cv-usdt"
+                    style="
+                      position: absolute;
+                      left: 0;
+                      top: 0;
+                      font-size: 36px;
+                      font-weight: 900;
+                      opacity: 0;
+                    "
+                    >USDT</span
+                  >
+                  <span
+                    id="cv-q"
+                    style="
+                      position: absolute;
+                      left: 0;
+                      top: 0;
+                      font-size: 36px;
+                      font-weight: 900;
+                      color: #8a8f99;
+                    "
+                    >—</span
+                  >
+                </span>
+                <span style="font-size: 24px; color: #8a8f99">según cotización</span>
+              </div>
+            </div>
+            <div id="cv-usdc" style="opacity: 0; margin-top: 16px; display: flex; gap: 12px">
+              <span
+                style="
+                  padding: 10px 20px;
+                  border-radius: 999px;
+                  background: #121212;
+                  color: #fff;
+                  font-size: 24px;
+                  font-weight: 700;
+                "
+                >USDT</span
+              >
+              <span
+                style="
+                  padding: 10px 20px;
+                  border-radius: 999px;
+                  background: #f5f6f8;
+                  font-size: 24px;
+                  font-weight: 700;
+                "
+                >USDC</span
+              >
+            </div>
+            <div class="tag-sim">SIMULACIÓN VISUAL</div>
+          </div>
+
+          <!-- availability -->
+          <div id="scr-av" class="scr dark">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="s-h">Depósito VES</div>
+            <div class="s-p">Pago Móvil · Transferencia</div>
+            <div
+              style="
+                margin-top: 40px;
+                padding: 30px;
+                border-radius: 26px;
+                background: #1e2026;
+                text-align: center;
+              "
+            >
+              <div
+                style="
+                  display: inline-block;
+                  padding: 12px 22px;
+                  border-radius: 999px;
+                  box-shadow: inset 0 0 0 2px #f0b90b;
+                  color: #f0b90b;
+                  font-size: 24px;
+                  font-weight: 900;
+                  letter-spacing: 0.08em;
+                "
+              >
+                DISPONIBILIDAD GRADUAL
+              </div>
+              <div style="font-size: 24px; opacity: 0.7; margin-top: 22px; line-height: 1.35">
+                Consulta condiciones y disponibilidad en tu cuenta.
+              </div>
+            </div>
+            <div class="tag-sim">RECREACIÓN ILUSTRATIVA</div>
+          </div>
+
+          <div id="rip" class="ripple"></div>
+          <div id="tdot" class="dot"></div>
+        </div>
+      </div>
+
+      <!-- ================= S3 HOW ================= -->
+      <div
+        id="s3"
+        class="clip"
+        data-start="16.0"
+        data-duration="1.6"
+        data-track-index="1"
+        style="position: absolute; inset: 0; z-index: 30"
+      >
+        <div id="s3-t" class="abs center-x title h" style="top: 270px; color: #121212">
+          TE LO <span style="color: #f0b90b">EXPLICO</span>
+        </div>
+      </div>
+
+      <!-- ================= TUTORIAL LABELS ================= -->
+      <div
+        id="steps"
+        class="clip"
+        data-start="17.5"
+        data-duration="18.4"
+        data-track-index="1"
+        style="position: absolute; inset: 0; z-index: 30"
+      >
+        <div class="abs center-x" style="top: 262px; height: 110px">
+          <div
+            id="st1"
+            class="abs center-x h title"
+            style="top: 0; font-size: 84px; color: #121212"
+          >
+            <span class="y">1.</span> DEPOSITAR
+          </div>
+          <div
+            id="st2"
+            class="abs center-x h title"
+            style="top: 0; font-size: 84px; color: #121212"
+          >
+            <span class="y">2.</span> REALIZA EL PAGO
+          </div>
+          <div
+            id="st3"
+            class="abs center-x h title"
+            style="top: 0; font-size: 84px; color: #121212"
+          >
+            <span class="y">3.</span> CONVIERTE
+          </div>
+        </div>
+        <div id="st3b" class="abs center-x h sub" style="top: 368px; color: #252a34">
+          VES → <span style="color: #c99500">USDT / USDC</span>
+        </div>
+        <div
+          id="bankapp"
+          class="card h"
+          style="left: 700px; top: 820px; width: 400px; height: 330px; padding: 34px"
+          data-layout-allow-overflow
+        >
+          <div class="lbl">Tu banca móvil</div>
+          <div style="font-size: 36px; font-weight: 900; margin-top: 14px">Pago Móvil</div>
+          <div class="ph" style="width: 80%; margin-top: 22px; color: #121212"></div>
+          <div class="ph" style="width: 55%; margin-top: 14px; color: #121212"></div>
+          <div
+            style="
+              margin-top: 28px;
+              display: inline-block;
+              padding: 10px 18px;
+              border-radius: 999px;
+              background: #fff6d6;
+              font-size: 24px;
+              font-weight: 700;
+            "
+          >
+            Titular: tú ✓
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= S7 WARNING ================= -->
+      <div
+        id="s7"
+        class="clip"
+        data-start="35.9"
+        data-duration="11.3"
+        data-track-index="1"
+        style="position: absolute; inset: 0; z-index: 30"
+      >
+        <div id="w-ojo" class="abs center-x h title" style="top: 262px; font-size: 96px">
+          ¡PERO <span class="y">OJO!</span>
+        </div>
+        <div
+          id="w-card"
+          class="card h"
+          style="
+            left: 190px;
+            top: 560px;
+            width: 700px;
+            height: 620px;
+            padding: 70px 50px;
+            text-align: center;
+          "
+        >
+          <div class="lbl" style="color: #252a34">Comisión de depósito</div>
+          <div
+            style="
+              font-size: 190px;
+              font-weight: 900;
+              line-height: 1.05;
+              letter-spacing: -0.04em;
+              margin-top: 24px;
+            "
+          >
+            0 %
+          </div>
+          <div
+            id="w-not"
+            class="h"
+            style="
+              margin-top: 28px;
+              font-size: 52px;
+              font-weight: 900;
+              line-height: 1.12;
+              color: #121212;
+            "
+          >
+            NO SIGNIFICA<br /><span style="background: #f0b90b; padding: 0 12px">MEJOR TASA</span>
+          </div>
+        </div>
+        <div id="w-cmp" class="abs center-x h title" style="top: 262px; font-size: 84px">
+          COMPARA <span class="y">LA TASA</span>
+        </div>
+        <div
+          id="c-a"
+          class="card dk h"
+          style="left: 90px; top: 600px; width: 410px; height: 520px; padding: 44px 36px"
+        >
+          <div class="lbl" style="color: #f0b90b; opacity: 1">Depósito directo</div>
+          <div style="font-size: 26px; opacity: 0.6; margin-top: 46px">Tasa de conversión</div>
+          <div style="font-size: 44px; font-weight: 900; margin-top: 6px">Consultar</div>
+          <div style="font-size: 26px; opacity: 0.6; margin-top: 40px">Recibes</div>
+          <div style="font-size: 44px; font-weight: 900; margin-top: 6px">— USDT</div>
+        </div>
+        <div
+          id="c-b"
+          class="card dk h"
+          style="left: 580px; top: 600px; width: 410px; height: 520px; padding: 44px 36px"
+        >
+          <div class="lbl" style="color: #f0b90b; opacity: 1">P2P</div>
+          <div style="font-size: 26px; opacity: 0.6; margin-top: 46px">Tasa del anuncio</div>
+          <div style="font-size: 44px; font-weight: 900; margin-top: 6px">Consultar</div>
+          <div style="font-size: 26px; opacity: 0.6; margin-top: 40px">Recibes</div>
+          <div style="font-size: 44px; font-weight: 900; margin-top: 6px">— USDT</div>
+        </div>
+        <div
+          id="c-vs"
+          class="abs h"
+          style="
+            left: 470px;
+            top: 820px;
+            width: 140px;
+            height: 80px;
+            border-radius: 40px;
+            background: #f0b90b;
+            color: #121212;
+            font-weight: 900;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.04em;
+          "
+        >
+          VS
+        </div>
+        <div
+          id="w-cmpnote"
+          class="abs center-x h note"
+          style="top: 1180px; opacity: 0; color: #c9ccd3"
+        >
+          Compara cuántos USDT recibes antes de confirmar.
+        </div>
+        <div id="w-av" class="abs center-x h title" style="top: 262px; font-size: 80px">
+          DISPONIBILIDAD<br /><span class="y">GRADUAL</span>
+        </div>
+      </div>
+
+      <!-- ================= S8 BUSINESS ================= -->
+      <div
+        id="s8"
+        class="clip"
+        data-start="47.2"
+        data-duration="11.0"
+        data-track-index="1"
+        style="position: absolute; inset: 0; z-index: 30"
+      >
+        <div
+          id="mv"
+          class="card dk h"
+          style="left: 240px; top: 760px; width: 600px; height: 300px; padding: 44px 48px"
+        >
+          <div class="lbl" style="color: #f0b90b; opacity: 1">Movimiento recibido</div>
+          <div
+            class="ph"
+            style="width: 70%; height: 26px; margin-top: 34px; color: #fff; opacity: 0.25"
+          ></div>
+          <div
+            class="ph"
+            style="width: 45%; height: 26px; margin-top: 18px; color: #fff; opacity: 0.15"
+          ></div>
+        </div>
+        <div id="b-t1" class="abs center-x h title navy" style="top: 262px; font-size: 80px">
+          RECIBIR ES SOLO<br />EL <span style="color: #2563eb">PRINCIPIO</span>
+        </div>
+        <div id="b-t2" class="abs center-x h title navy" style="top: 262px; font-size: 80px">
+          ORGANIZA CADA<br /><span style="color: #2563eb">OPERACIÓN</span>
+        </div>
+        <div id="d1" class="doc h" style="left: 110px; top: 620px">
+          <div class="lbl">Comprobante</div>
+          <div class="ln" style="width: 80%"></div>
+          <div class="ln" style="width: 55%"></div>
+          <span class="badge" style="background: #e0f2fe; color: #102448">Adjunto</span>
+        </div>
+        <div id="d2" class="doc h" style="left: 570px; top: 620px">
+          <div class="lbl">Cobro</div>
+          <div class="ln" style="width: 70%"></div>
+          <div class="ln" style="width: 50%"></div>
+          <span class="badge" style="background: #ccfbf1; color: #0f5f56">Registrado</span>
+        </div>
+        <div id="d3" class="doc h" style="left: 110px; top: 930px">
+          <div class="lbl">Factura</div>
+          <div class="ln" style="width: 75%"></div>
+          <div class="ln" style="width: 60%"></div>
+          <span class="badge" style="background: #dbeafe; color: #1e3a8a">Emitida</span>
+        </div>
+        <div id="d4" class="doc h" style="left: 570px; top: 930px">
+          <div class="lbl">Operación</div>
+          <div class="ln" style="width: 65%"></div>
+          <div class="ln" style="width: 45%"></div>
+          <span class="badge" style="background: #fef3c7; color: #7c5a00">Por revisar</span>
+        </div>
+      </div>
+
+      <!-- ================= S9 NOVAPSIS 360 ================= -->
+      <div
+        id="s9"
+        class="clip"
+        data-start="58.0"
+        data-duration="8.3"
+        data-track-index="1"
+        style="position: absolute; inset: 0; z-index: 30"
+      >
+        <div id="n-brand" class="abs center-x h" style="top: 262px">
+          <!-- Placeholder: reemplazar por el SVG oficial en assets/brand/novapsis/ -->
+          <div style="font-weight: 900; font-size: 96px; letter-spacing: -0.02em; color: #102448">
+            NOVAPSIS <span style="color: #2563eb">360</span>
+          </div>
+        </div>
+        <div
+          id="dash"
+          class="card h"
+          style="
+            left: 90px;
+            top: 470px;
+            width: 900px;
+            height: 880px;
+            border-radius: 44px;
+            background: #fff;
+            padding: 0;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              height: 96px;
+              background: #102448;
+              display: flex;
+              align-items: center;
+              padding: 0 40px;
+              gap: 14px;
+            "
+          >
+            <span style="width: 18px; height: 18px; border-radius: 9px; background: #2dd4bf"></span>
+            <span style="font-size: 28px; font-weight: 700; color: #fff; letter-spacing: 0.04em"
+              >Panel de administración</span
+            >
+            <span style="margin-left: auto; font-size: 18px; color: #9fb3d9; letter-spacing: 0.1em"
+              >REPRESENTACIÓN CONCEPTUAL</span
+            >
+          </div>
+          <svg
+            id="ai-lines"
+            width="900"
+            height="784"
+            viewBox="0 0 900 784"
+            style="position: absolute; left: 0; top: 96px"
+            data-layout-ignore
+          >
+            <path
+              class="ail"
+              d="M240 230 C 240 420, 450 420, 450 560"
+              stroke="#2563EB"
+              stroke-width="4"
+              fill="none"
+              stroke-dasharray="420"
+              stroke-dashoffset="420"
+            />
+            <path
+              class="ail"
+              d="M660 230 C 660 420, 450 420, 450 560"
+              stroke="#2563EB"
+              stroke-width="4"
+              fill="none"
+              stroke-dasharray="420"
+              stroke-dashoffset="420"
+            />
+            <path
+              class="ail"
+              d="M240 440 C 300 520, 400 520, 450 560"
+              stroke="#2DD4BF"
+              stroke-width="4"
+              fill="none"
+              stroke-dasharray="300"
+              stroke-dashoffset="300"
+            />
+            <path
+              class="ail"
+              d="M660 440 C 600 520, 500 520, 450 560"
+              stroke="#2DD4BF"
+              stroke-width="4"
+              fill="none"
+              stroke-dasharray="300"
+              stroke-dashoffset="300"
+            />
+          </svg>
+          <div
+            id="f1"
+            class="h"
+            style="
+              position: absolute;
+              left: 40px;
+              top: 140px;
+              width: 400px;
+              height: 180px;
+              border-radius: 28px;
+              background: #f6f8fc;
+              padding: 30px;
+            "
+          >
+            <div style="font-size: 22px; color: #2563eb; font-weight: 700; letter-spacing: 0.12em">
+              01
+            </div>
+            <div style="font-size: 44px; font-weight: 900; color: #111827; margin-top: 8px">
+              VENTAS
+            </div>
+          </div>
+          <div
+            id="f2"
+            class="h"
+            style="
+              position: absolute;
+              left: 460px;
+              top: 140px;
+              width: 400px;
+              height: 180px;
+              border-radius: 28px;
+              background: #f6f8fc;
+              padding: 30px;
+            "
+          >
+            <div style="font-size: 22px; color: #2563eb; font-weight: 700; letter-spacing: 0.12em">
+              02
+            </div>
+            <div style="font-size: 44px; font-weight: 900; color: #111827; margin-top: 8px">
+              COBROS
+            </div>
+          </div>
+          <div
+            id="f3"
+            class="h"
+            style="
+              position: absolute;
+              left: 40px;
+              top: 350px;
+              width: 400px;
+              height: 180px;
+              border-radius: 28px;
+              background: #f6f8fc;
+              padding: 30px;
+            "
+          >
+            <div style="font-size: 22px; color: #2563eb; font-weight: 700; letter-spacing: 0.12em">
+              03
+            </div>
+            <div style="font-size: 44px; font-weight: 900; color: #111827; margin-top: 8px">
+              FACTURAS
+            </div>
+          </div>
+          <div
+            id="f4"
+            class="h"
+            style="
+              position: absolute;
+              left: 460px;
+              top: 350px;
+              width: 400px;
+              height: 180px;
+              border-radius: 28px;
+              background: #f6f8fc;
+              padding: 30px;
+            "
+          >
+            <div style="font-size: 22px; color: #2563eb; font-weight: 700; letter-spacing: 0.12em">
+              04
+            </div>
+            <div style="font-size: 38px; font-weight: 900; color: #111827; margin-top: 12px">
+              COMPROBANTES
+            </div>
+          </div>
+          <div
+            id="ai"
+            class="h"
+            style="
+              position: absolute;
+              left: 200px;
+              top: 640px;
+              width: 500px;
+              height: 150px;
+              border-radius: 30px;
+              background: #102448;
+              padding: 28px 34px;
+              display: flex;
+              align-items: center;
+              gap: 22px;
+            "
+          >
+            <span
+              id="ai-orb"
+              style="
+                width: 72px;
+                height: 72px;
+                border-radius: 36px;
+                background: radial-gradient(circle at 35% 35%, #7ff0e1, #2dd4bf 45%, #2563eb 100%);
+                flex: none;
+              "
+            ></span>
+            <div>
+              <div style="font-size: 30px; font-weight: 900; color: #fff">Asistente IA</div>
+              <div style="font-size: 22px; color: #9fb3d9; margin-top: 4px">
+                Consulta y organiza tu información
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="n-ai" class="abs center-x h sub navy" style="top: 1385px; font-size: 40px">
+          ADMINISTRACIÓN <span style="color: #2563eb">INTELIGENTE</span>
+        </div>
+      </div>
+
+      <!-- ================= S10 FISCAL ================= -->
+      <div
+        id="s10"
+        class="clip"
+        data-start="66.1"
+        data-duration="4.9"
+        data-track-index="1"
+        style="position: absolute; inset: 0; z-index: 30"
+      >
+        <div id="f-t1" class="abs center-x h title navy" style="top: 262px; font-size: 80px">
+          ¿TU NEGOCIO<br />ESTÁ <span style="color: #2563eb">AL DÍA?</span>
+        </div>
+        <div
+          id="o1"
+          class="doc h"
+          style="
+            left: 340px;
+            top: 640px;
+            width: 400px;
+            height: 300px;
+            background: #102448;
+            color: #fff;
+          "
+        >
+          <div
+            style="
+              width: 150px;
+              height: 30px;
+              border-radius: 12px 12px 0 0;
+              background: #1d3a6e;
+              margin: -30px 0 0 -34px;
+              position: absolute;
+              top: 30px;
+              left: 34px;
+            "
+          ></div>
+          <div class="lbl" style="color: #9fe7dc; margin-top: 20px">Documentos</div>
+          <div class="ln" style="width: 70%; background: #fff"></div>
+          <div class="ln" style="width: 50%; background: #fff"></div>
+        </div>
+        <div id="o2" class="doc h" style="left: 340px; top: 640px; width: 400px; height: 300px">
+          <div class="lbl">Factura</div>
+          <div class="ln" style="width: 80%"></div>
+          <div class="ln" style="width: 60%"></div>
+          <div class="ln" style="width: 40%"></div>
+        </div>
+        <div id="o3" class="doc h" style="left: 340px; top: 640px; width: 400px; height: 300px">
+          <div class="lbl">Calendario</div>
+          <div
+            style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 20px"
+          >
+            <span class="cd"></span><span class="cd"></span><span class="cd"></span
+            ><span class="cd" style="background: #2563eb; opacity: 1"></span><span class="cd"></span
+            ><span class="cd"></span><span class="cd"></span> <span class="cd"></span
+            ><span class="cd"></span><span class="cd"></span><span class="cd"></span
+            ><span class="cd" style="background: #2dd4bf; opacity: 1"></span><span class="cd"></span
+            ><span class="cd"></span>
+          </div>
+          <style>
+            .cd {
+              height: 34px;
+              border-radius: 8px;
+              background: #102448;
+              opacity: 0.1;
+            }
+          </style>
+        </div>
+        <div
+          id="f-t2"
+          class="abs center-x h sub navy"
+          style="top: 1270px; font-size: 40px; letter-spacing: 0.08em"
+        >
+          ORDEN · CONTROL · INFORMACIÓN
+        </div>
+      </div>
+
+      <!-- ================= S11 CTA ================= -->
+      <div
+        id="s11"
+        class="clip"
+        data-start="70.9"
+        data-duration="3.6"
+        data-track-index="1"
+        style="position: absolute; inset: 0; z-index: 30"
+      >
+        <div id="c-q" class="abs center-x h sub navy" style="top: 470px; font-size: 46px">
+          ¿QUIERES ORGANIZAR TU NEGOCIO?
+        </div>
+        <div
+          id="c-com"
+          class="abs center-x h kicker"
+          style="top: 640px; color: #2563eb; font-size: 44px"
+        >
+          Comenta
+        </div>
+        <div id="c-ag-wrap" class="abs center-x" style="top: 700px">
+          <div
+            id="c-ag"
+            class="h"
+            style="
+              display: inline-block;
+              font-weight: 900;
+              font-size: 200px;
+              letter-spacing: -0.02em;
+              color: #102448;
+              padding: 10px 40px;
+              border-radius: 40px;
+              box-shadow: inset 0 0 0 6px #2dd4bf;
+            "
+          >
+            AGENDA
+          </div>
+        </div>
+        <div id="c-ev" class="abs center-x h sub navy" style="top: 1030px">y evaluemos tu caso</div>
+        <div
+          id="c-pulse"
+          class="abs h"
+          style="
+            left: 190px;
+            top: 700px;
+            width: 700px;
+            height: 270px;
+            border-radius: 60px;
+            box-shadow: 0 0 0 6px rgba(45, 212, 191, 0.6);
+          "
+        ></div>
+        <div id="c-logo" class="abs center-x h" style="top: 1270px">
+          <!-- Placeholder: reemplazar por el logotipo oficial Novapsis 360 (SVG) -->
+          <div style="font-weight: 900; font-size: 52px; color: #102448; letter-spacing: -0.01em">
+            NOVAPSIS <span style="color: #2563eb">360</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= CAPTIONS ================= -->
+      {{CAPTIONS}}
+
+      <!-- ================= AUDIO ================= -->
+      <audio
+        id="vo"
+        src="assets/audio/narracion.wav"
+        data-start="0"
+        data-duration="73.27"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+      <audio
+        id="music"
+        src="assets/audio/music.wav"
+        data-start="0"
+        data-duration="{{DUR}}"
+        data-track-index="11"
+        data-volume="0.32"
+      ></audio>
+      <audio
+        id="sfx"
+        src="assets/sound-effects/sfx.wav"
+        data-start="0"
+        data-duration="{{DUR}}"
+        data-track-index="12"
+        data-volume="0.7"
+      ></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out", IO = "power2.inOut";
+      const show = (s, t, d = 0.35, extra = {}) => tl.to(s, { opacity: 1, duration: d, ease: E, ...extra }, t);
+      const hide = (s, t, d = 0.3, extra = {}) => tl.to(s, { opacity: 0, duration: d, ease: "power2.in", ...extra }, t);
+      const scr = (from, to, t) => { tl.to(to, { opacity: 1, duration: 0.3, ease: "none" }, t); tl.to(from, { opacity: 0, duration: 0.3, ease: "none" }, t + 0.05); };
+      const tap = (x, y, t) => {
+        tl.set("#tdot", { left: x, top: y }, t - 0.35);
+        tl.fromTo("#tdot", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: E, immediateRender: false }, t - 0.35);
+        tl.to("#tdot", { scale: 0.8, duration: 0.08 }, t);
+        tl.to("#tdot", { opacity: 0, scale: 1, duration: 0.3 }, t + 0.12);
+        tl.set("#rip", { left: x, top: y }, t);
+        tl.fromTo("#rip", { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 1.6, duration: 0.6, ease: "power2.out", immediateRender: false }, t);
+      };
+
+      // ---------- initial states ----------
+      gsap.set("#phone", { rotationY: -18, rotationX: 6, rotationZ: -4, scale: 0.94, y: 40, transformPerspective: 2200 });
+      gsap.set("#s1-zero", { scale: 0.6 });
+      gsap.set(["#bank"], { x: -60 });
+      gsap.set(["#d1", "#d2", "#d3", "#d4"], { x: 0, y: 40, scale: 0.85 });
+      gsap.set("#w-card", { rotationY: 90, transformPerspective: 2000 });
+      gsap.set("#tdot", { left: 0, top: 0 });
+      gsap.set("#rip", { left: 0, top: 0 });
+
+      // ================= S1 HOOK (0 – 6.9) =================
+      tl.to("#phone", { rotationY: -6, rotationX: 2, rotationZ: 0, scale: 1.0, y: 10, duration: 1.8, ease: "power2.out" }, 0);
+      tl.to("#bg-glow", { scale: 1.15, duration: 4.5, ease: "sine.inOut" }, 0);
+      tap(230, 460, 1.0);
+      tl.fromTo("#hook-btn", { scale: 1 }, { scale: 0.95, duration: 0.08, yoyo: true, repeat: 1, immediateRender: false }, 1.0);
+      tl.to("#hook-flash", { opacity: 1, duration: 0.12 }, 1.02);
+      tl.to("#hook-flash", { opacity: 0, duration: 0.6 }, 1.2);
+      // dolly in towards the screen, then the 0 % emerges
+      tl.to("#phone", { scale: 1.32, y: 120, rotationY: 0, duration: 2.6, ease: "power2.inOut" }, 1.8);
+      tl.to("#phone", { opacity: 0.05, duration: 0.4 }, 4.45);
+      tl.to("#s1-kick", { opacity: 0.0, duration: 0.3 }, 4.4);
+      tl.to("#s1-zero", { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 4.6);
+      show("#s1-zsub", 4.95, 0.4);
+      tl.to("#s1-zref", { opacity: 1, duration: 0.4 }, 5.35);
+      // exit through the screen
+      tl.to("#s1-zero-wrap", { scale: 1.4, opacity: 0, duration: 0.5, ease: "power2.in" }, 6.45);
+
+      // ================= S2 NEWS (6.9 – 16.0) =================
+      tl.set("#scr-hook", { opacity: 0 }, 6.9);
+      tl.set("#scr-direct", { opacity: 1 }, 6.9);
+      tl.to("#phone", { opacity: 1, scale: 0.6, x: 200, y: 170, rotationY: -14, rotationX: 0, duration: 0.9, ease: "power3.out" }, 6.9);
+      show("#s2-title", 7.2, 0.5, { y: 0 });
+      tl.to("#bank", { opacity: 1, x: 0, duration: 0.7, ease: E }, 7.6);
+      show("#flow", 8.3, 0.2);
+      tl.to("#flow-line", { strokeDashoffset: 0, duration: 1.0, ease: "power2.inOut" }, 8.3);
+      tl.fromTo("#flow-dot", { attr: { cx: 0 } }, { attr: { cx: 230 }, duration: 1.2, ease: "none", repeat: 3, immediateRender: false }, 8.5);
+      show("#s2-sub", 10.0, 0.45);
+      // P2P detour
+      scr("#scr-direct", "#scr-p2p", 13.2);
+      tl.to("#flow", { opacity: 0.15, duration: 0.3 }, 13.2);
+      tl.to(".p2p-r", { scale: 0.4, opacity: 0, y: -60, duration: 0.5, stagger: 0.06, ease: "power2.in" }, 14.4);
+      scr("#scr-p2p", "#scr-direct", 15.05);
+      tl.to("#flow", { opacity: 1, duration: 0.3 }, 15.05);
+      // flow line becomes the selector → exit
+      hide(["#s2-title", "#s2-sub", "#bank", "#flow"], 15.6, 0.35);
+
+      // ================= S3 HOW (16.0 – 17.5) =================
+      tl.to("#bg-light", { opacity: 1, duration: 0.6, ease: "power1.inOut" }, 15.9);
+      tl.to("#bg-floor", { opacity: 0.35, duration: 0.6 }, 15.9);
+      tl.to("#bg-glow", { opacity: 0, duration: 0.5 }, 15.9);
+      tl.to("#phone", { x: 0, y: 60, scale: 0.88, rotationY: 0, rotationX: 0, duration: 1.3, ease: "power3.inOut" }, 16.0);
+      scr("#scr-direct", "#scr-home", 16.6);
+      tl.fromTo("#s3-t", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: E, immediateRender: false }, 16.2);
+      hide("#s3-t", 17.2, 0.25);
+
+      // ================= S4 STEP 1 (17.5 – 24.1) =================
+      tl.fromTo("#st1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 17.6);
+      tl.to("#phone", { scale: 0.9, duration: 6, ease: "none" }, 17.6);
+      tap(120, 330, 19.3);
+      tl.to("#home-dep", { scale: 0.96, duration: 0.08, yoyo: true, repeat: 1 }, 19.3);
+      scr("#scr-home", "#scr-cur", 19.65);
+      tl.to("#cur-ves", { backgroundColor: "#FFF6D6", boxShadow: "inset 0 0 0 3px #F0B90B", duration: 0.2 }, 20.5);
+      tap(230, 290, 20.9);
+      scr("#scr-cur", "#scr-met", 21.3);
+      tl.to("#met-pm", { backgroundColor: "#FFF6D6", boxShadow: "inset 0 0 0 3px #F0B90B", duration: 0.25 }, 21.9);
+      tap(230, 290, 22.2);
+      tl.to("#met-tb", { backgroundColor: "#FFF6D6", boxShadow: "inset 0 0 0 3px #F0B90B", duration: 0.25 }, 22.9);
+
+      // ================= S5 STEP 2 (24.1 – 28.4) =================
+      hide("#st1", 23.95, 0.2);
+      tl.fromTo("#st2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 24.15);
+      scr("#scr-met", "#scr-amt", 24.15);
+      gsap.set("#amt-txt .ch", { opacity: 0 });
+      tl.to("#amt-txt .ch", { opacity: 1, duration: 0.01, stagger: 0.11 }, 24.5);
+      tap(230, 470, 25.6);
+      tl.to("#amt-cta", { opacity: 0, duration: 0.2 }, 25.7);
+      tl.to("#amt-sum", { opacity: 1, duration: 0.35 }, 25.75);
+      tl.to("#phone", { x: -150, duration: 0.7, ease: IO }, 26.2);
+      tl.fromTo("#bankapp", { opacity: 0, x: 120 }, { opacity: 1, x: 0, duration: 0.6, ease: E, immediateRender: false }, 26.35);
+      tl.fromTo("#amt-own", { scale: 1 }, { scale: 1.05, duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, 26.6);
+      tl.to("#bankapp", { opacity: 0, x: 120, duration: 0.4, ease: "power2.in" }, 27.3);
+      tl.to("#phone", { x: 0, duration: 0.6, ease: IO }, 27.3);
+      scr("#scr-amt", "#scr-st", 27.3);
+      tl.to("#st-ring", { strokeDashoffset: 0, duration: 0.55, ease: "power1.inOut" }, 27.4);
+      tl.to("#st-a", { opacity: 0, duration: 0.15 }, 27.9);
+      tl.to(["#st-b", "#st-ok"], { opacity: 1, duration: 0.2 }, 27.9);
+
+      // ================= S6 STEP 3 (28.4 – 35.9) =================
+      hide("#st2", 28.3, 0.2);
+      tl.fromTo("#st3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 28.5);
+      scr("#scr-st", "#scr-bal", 28.6);
+      tl.to("#phone", { scale: 0.94, duration: 0.8, ease: IO }, 30.2);
+      tap(330, 360, 30.7);
+      tl.to("#bal-conv", { scale: 0.96, duration: 0.08, yoyo: true, repeat: 1 }, 30.7);
+      scr("#scr-bal", "#scr-cv", 31.1);
+      tl.to("#cv-to", { boxShadow: "inset 0 0 0 3px #F0B90B", duration: 0.3 }, 33.3);
+      tap(110, 470, 33.6);
+      tl.to("#cv-q", { opacity: 0, duration: 0.2 }, 33.65);
+      tl.to("#cv-usdt", { opacity: 1, duration: 0.25 }, 33.65);
+      show("#st3b", 33.7, 0.35);
+      tl.to("#cv-usdc", { opacity: 1, duration: 0.3 }, 34.6);
+      tl.to("#phone", { scale: 0.9, duration: 1.2, ease: "none" }, 34.6);
+
+      // ================= S7 WARNING (35.9 – 47.2) =================
+      hide(["#st3", "#st3b"], 35.7, 0.25);
+      tl.to("#bg-light", { opacity: 0, duration: 0.7, ease: "power1.inOut" }, 35.8);
+      tl.to("#bg-floor", { opacity: 1, duration: 0.6 }, 35.8);
+      tl.to("#phone", { y: 700, scale: 0.6, opacity: 0, duration: 0.7, ease: "power2.in" }, 35.8);
+      tl.fromTo("#w-ojo", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: E, immediateRender: false }, 36.1);
+      // asset card flips to reveal the warning
+      tl.to("#w-card", { opacity: 1, rotationY: 0, duration: 0.8, ease: "power3.out" }, 37.0);
+      tl.fromTo("#w-not", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 38.3);
+      hide("#w-ojo", 39.2, 0.25);
+      tl.to("#w-card", { opacity: 0, scale: 0.85, duration: 0.4, ease: "power2.in" }, 39.3);
+      tl.fromTo("#w-cmp", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: E, immediateRender: false }, 39.45);
+      tl.fromTo("#c-a", { opacity: 0, x: 120 }, { opacity: 1, x: 0, duration: 0.6, ease: E, immediateRender: false }, 39.6);
+      tl.fromTo("#c-b", { opacity: 0, x: -120 }, { opacity: 1, x: 0, duration: 0.6, ease: E, immediateRender: false }, 39.6);
+      tl.fromTo("#c-vs", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)", immediateRender: false }, 40.1);
+      tl.to("#w-cmpnote", { opacity: 1, duration: 0.4 }, 40.6);
+      // cards fold away, phone returns with availability
+      hide(["#w-cmp", "#c-vs", "#w-cmpnote"], 42.4, 0.25);
+      tl.to("#c-a", { opacity: 0, x: 200, scale: 0.8, duration: 0.45, ease: "power2.in" }, 42.4);
+      tl.to("#c-b", { opacity: 0, x: -200, scale: 0.8, duration: 0.45, ease: "power2.in" }, 42.4);
+      tl.set("#scr-cv", { opacity: 0 }, 42.5);
+      tl.set("#scr-av", { opacity: 1 }, 42.5);
+      tl.to("#phone", { opacity: 1, y: 140, x: 0, scale: 0.8, duration: 0.8, ease: E }, 42.6);
+      tl.fromTo("#w-av", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 42.9);
+
+      // ================= S8 BUSINESS (47.2 – 58.2) =================
+      hide("#w-av", 46.9, 0.3);
+      tl.to("#phone", { scale: 0.45, opacity: 0, y: 160, duration: 0.5, ease: "power2.in" }, 46.9);
+      tl.fromTo("#mv", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: E, immediateRender: false }, 47.25);
+      tl.to("#bg-pearl", { opacity: 1, duration: 1.4, ease: "power1.inOut" }, 47.6);
+      tl.to("#bg-floor", { opacity: 0.25, duration: 2.0 }, 47.6);
+      tl.to("#mv", { backgroundColor: "#ffffff", color: "#102448", duration: 1.2, ease: "power1.inOut" }, 47.8);
+      tl.fromTo("#b-t1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E, immediateRender: false }, 50.5);
+      tl.to("#mv", { scale: 0.5, opacity: 0, y: -20, duration: 0.5, ease: "power2.in" }, 52.0);
+      const docs = [["#d1", 52.25], ["#d2", 53.0], ["#d3", 53.75], ["#d4", 54.5]];
+      docs.forEach(([s, t]) => tl.to(s, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.4)" }, t));
+      hide("#b-t1", 55.75, 0.25);
+      tl.fromTo("#b-t2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E, immediateRender: false }, 56.05);
+      tl.to(["#d1", "#d2", "#d3", "#d4"], { y: -8, duration: 0.5, stagger: 0.08, ease: "sine.inOut" }, 56.2);
+
+      // ================= S9 NOVAPSIS 360 (58.0 – 66.3) =================
+      hide("#b-t2", 57.8, 0.25);
+      tl.to(["#d1", "#d2", "#d3", "#d4"], { scale: 0.4, opacity: 0, y: 120, duration: 0.5, stagger: 0.05, ease: "power2.in" }, 57.8);
+      tl.fromTo("#n-brand", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.6, ease: E, immediateRender: false }, 58.05);
+      tl.fromTo("#dash", { opacity: 0, y: 80, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: E, immediateRender: false }, 58.4);
+      [["#f1", 60.1], ["#f2", 60.33], ["#f3", 60.66], ["#f4", 61.1]].forEach(([s, t]) =>
+        tl.fromTo(s, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.35, ease: E, immediateRender: false }, t));
+      tl.to(".ail", { strokeDashoffset: 0, duration: 0.8, stagger: 0.1, ease: "power2.inOut" }, 61.85);
+      tl.fromTo("#ai", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: E, immediateRender: false }, 62.3);
+      tl.fromTo("#ai-orb", { scale: 0.85 }, { scale: 1.08, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 62.6);
+      tl.fromTo("#n-ai", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 63.85);
+
+      // ================= S10 FISCAL (66.1 – 71.0) =================
+      tl.to(["#dash", "#n-ai"], { opacity: 0, y: -160, scale: 0.9, duration: 0.6, ease: "power2.in" }, 65.9);
+      hide("#n-brand", 65.9, 0.4);
+      tl.fromTo("#f-t1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: E, immediateRender: false }, 66.25);
+      // scattered state
+      tl.fromTo("#o1", { opacity: 0, x: -220, y: -60, rotation: -14 }, { opacity: 1, x: -230, y: -40, rotation: -11, duration: 0.5, ease: E, immediateRender: false }, 66.35);
+      tl.fromTo("#o2", { opacity: 0, x: 230, y: -100, rotation: 12 }, { opacity: 1, x: 220, y: 30, rotation: 9, duration: 0.5, ease: E, immediateRender: false }, 66.5);
+      tl.fromTo("#o3", { opacity: 0, x: 0, y: 330, rotation: -6 }, { opacity: 1, x: 10, y: 300, rotation: -4, duration: 0.5, ease: E, immediateRender: false }, 66.65);
+      // organize (on "al día")
+      tl.to("#o1", { x: -250, y: 0, rotation: 0, scale: 0.62, duration: 0.8, ease: IO }, 67.7);
+      tl.to("#o2", { x: 0, y: 0, rotation: 0, scale: 0.62, duration: 0.8, ease: IO }, 67.78);
+      tl.to("#o3", { x: 250, y: 0, rotation: 0, scale: 0.62, duration: 0.8, ease: IO }, 67.86);
+      tl.fromTo("#f-t2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: E, immediateRender: false }, 68.3);
+
+      // ================= S11 CTA (70.9 – 74.2) =================
+      hide(["#f-t1", "#f-t2"], 70.7, 0.3);
+      tl.to(["#o1", "#o2", "#o3"], { opacity: 0, scale: 0.4, y: 60, duration: 0.4, stagger: 0.05, ease: "power2.in" }, 70.65);
+      tl.fromTo("#c-q", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: E, immediateRender: false }, 70.95);
+      tl.fromTo("#c-com", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: E, immediateRender: false }, 71.05);
+      tl.fromTo("#c-ag", { opacity: 0, scale: 1.25, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out", immediateRender: false }, 71.4);
+      tl.fromTo("#c-pulse", { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 1.12, duration: 0.9, ease: "power2.out", immediateRender: false }, 72.0);
+      tl.fromTo("#c-ev", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: E, immediateRender: false }, 72.06);
+      tl.fromTo("#c-logo", { opacity: 0 }, { opacity: 1, duration: 0.5, immediateRender: false }, 71.8);
+      tl.to("#s11", { opacity: 1, duration: 0.01 }, {{DUR}} - 0.05);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
