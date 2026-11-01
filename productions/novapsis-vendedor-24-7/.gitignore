@@ -1,0 +1,11 @@
+review/snap/frame-*.png
+review/final/f_*.png
+renders/
+.hyperframes/
+review/c.json
+review/check.json
+review/render.log
+*.mp4
+*.wav
+portada_instagram.png
+review/snap*/frame-*.png
