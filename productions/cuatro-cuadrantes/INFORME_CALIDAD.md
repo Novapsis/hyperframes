@@ -37,7 +37,7 @@
 
 ## Limitaciones / pendientes
 
-1. **Mano:** la ilustración suministrada por el usuario (`assets/hand/hand-pencil.png`). Se le quitó el fondo, se recortó y se prolongó la manga para que salga del encuadre. La punta del lápiz está anclada al punto de dibujo.
+1. **Mano:** la ilustración suministrada por el usuario (`assets/hand/hand-pencil.png`). Se le quitó el fondo, se recortó la manga en diagonal justo después de su contorno, para que no tape el dibujo. La punta del lápiz está anclada al punto de dibujo.
 2. **Video de referencia:** no se recibió.
 3. **Logo:** el de Novapsis es un PNG extraído del SVG suministrado. Falta la versión vectorial.
 4. **CTA:** hay que verificar que el comentario AGENDA tenga respuesta operativa.
