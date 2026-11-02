@@ -37,7 +37,7 @@
 
 ## Limitaciones / pendientes
 
-1. **La mano es una ilustración vectorial, no fotográfica.** Su posición sí es exacta, porque la punta sigue cada trazo. Para realismo fotográfico hace falta un clip real grabado desde arriba sobre fondo blanco. El motor ya expone la posición de la punta en cada fotograma, así que se puede componer un clip o sprite real sobre `#hand`.
+1. **La mano es el gráfico ✍️ de Twemoji** (licencia CC-BY 4.0, © Twitter/X y colaboradores; archivo en `assets/hand/`). Está rotada y con el bolígrafo recoloreado a marcador negro, y sustituye a la mano dibujada a mano de la v1. Sigue sin ser fotográfica. Su posición sí es exacta, porque la punta sigue cada trazo. Para realismo fotográfico hace falta un clip real grabado desde arriba sobre fondo blanco. El motor ya expone la posición de la punta en cada fotograma, así que se puede componer un clip o sprite real sobre `#hand`.
 2. **Video de referencia:** no se recibió.
 3. **Logo:** el de Novapsis es un PNG extraído del SVG suministrado. Falta la versión vectorial.
 4. **CTA:** hay que verificar que el comentario AGENDA tenga respuesta operativa.
