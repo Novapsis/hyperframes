@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Novapsis 360 — Cómo Funciona un Vendedor Virtual</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Kalam"; font-weight: 400; src: url("assets/fonts/kalam-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Kalam"; font-weight: 700; src: url("assets/fonts/kalam-latin-700-normal.woff2") format("woff2"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #fafaf8; }
+      body { font-family: "Inter", sans-serif; color: #171717; }
+      #board { position: absolute; inset: 0; background: radial-gradient(1400px 1200px at 50% 45%, #ffffff 0%, #fafaf8 60%, #f1f0ec 100%); }
+      #world { position: absolute; left: 0; top: 0; }
+      .ink, .ink-solo, .inkS { fill: none; stroke: #171717; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .hw { font-family: "Kalam", cursive; font-weight: 700; fill: #171717; }
+      .ui { font-family: "Inter", sans-serif; }
+      .fx { opacity: 0; }
+      .ov { position: absolute; left: 0; right: 0; text-align: center; opacity: 0; z-index: 40; font-weight: 800; font-size: 58px; letter-spacing: -0.02em; color: #171717; }
+      .ov .tq { color: #0d9488; }
+      .ovk { font-family: "Kalam", cursive; font-weight: 700; letter-spacing: 0; }
+      .cap { position: absolute; left: 90px; right: 90px; top: 1500px; height: 150px; display: flex; align-items: center; justify-content: center; z-index: 50; }
+      .cap-in { display: inline-block; max-width: 900px; padding: 12px 26px; border-radius: 18px; background: rgba(255,255,255,0.92);
+        box-shadow: 0 6px 24px rgba(23,23,23,0.08); font-weight: 700; font-size: 42px; line-height: 1.25; text-align: center; color: #171717; }
+      .cap .hl { color: #0d9488; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="98.6" data-width="1080" data-height="1920">
+      <div id="stage" class="clip" data-start="0" data-duration="98.6" data-track-index="0" data-layout-allow-overflow data-layout-ignore style="position: absolute; inset: 0; z-index: 1">
+        <div id="board"></div>
+        <svg id="world" width="1080" height="1920" viewBox="0 0 1080 1920">
+          <defs id="defs">
+            <filter id="shadowF" x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.18 0" /><feGaussianBlur stdDeviation="8" /></filter>
+          </defs>
+          <g id="cam">
+            <!-- ================= A0 · ¿QUÉ ES UN VENDEDOR VIRTUAL? ================= -->
+            <g class="op dg" data-area="0" transform="translate(0 0)" data-tx="0" data-ty="0" data-t0="0.15" data-t1="0.85"><path class="ink" d="M440 600 H640 A30 30 0 0 1 670 630 V1050 A30 30 0 0 1 640 1080 H440 A30 30 0 0 1 410 1050 V630 A30 30 0 0 1 440 600 Z" /><path class="ink" d="M515 625 H565" /></g>
+            <g data-area="0" transform="translate(0 0)" data-tx="0" data-ty="0">
+              <g id="a0Bub" class="fx"><rect x="435" y="700" width="210" height="74" rx="24" fill="#dcfce7" stroke="#25d366" stroke-width="3" />
+                <g id="a0Dots" class="dots" data-t0="1.0" data-t1="1.85"><circle cx="500" cy="737" r="7" fill="#25d366" /><circle cx="540" cy="737" r="7" fill="#25d366" /><circle cx="580" cy="737" r="7" fill="#25d366" /></g>
+                <text id="a0Msg" class="ui fx" x="540" y="745" font-size="22" font-weight="700" text-anchor="middle" fill="#14532d">¿En qué te ayudo?</text></g>
+              <g id="a0Bub2" class="fx"><rect x="435" y="800" width="210" height="60" rx="22" fill="#f1f5f9" /><rect x="455" y="822" width="150" height="14" rx="7" fill="#cbd5e1" /></g>
+            </g>
+            <g class="op dg" data-area="0" transform="translate(0 0)" data-tx="0" data-ty="0" data-t0="0.9" data-t1="1.15"><path class="ink" style="stroke: #14b8a6" d="M628 640 l7 16 l16 7 l-16 7 l-7 16 l-7 -16 l-16 -7 l16 -7 Z" /></g>
+            <g class="op wr" data-area="0" transform="translate(0 0)" data-tx="0" data-ty="0" data-t0="1.2" data-t1="2.35"><text class="hw" x="540" y="470" font-size="54" text-anchor="middle">¿QUÉ ES UN <tspan fill="#0d9488">VENDEDOR VIRTUAL?</tspan></text></g>
+
+            <!-- ================= A1 · TIENDA ================= -->
+            <g class="op dg" data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0" data-t0="2.9" data-t1="3.7"><path class="ink" d="M150 520 H930 V620 H150 Z" /><path class="ink" d="M170 620 V1150 M910 620 V1150" /><path class="ink" d="M110 1150 H970" /><path class="ink" d="M520 760 H820 V1150" /><path class="ink" d="M220 760 H460 V1000 H220 Z" /><path class="ink" d="M230 850 H450 M230 930 H450" /></g>
+            <g data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0">
+              <g id="shelfItems" class="fx"><rect x="245" y="815" width="40" height="34" fill="#94a3b8" /><circle cx="330" cy="830" r="18" fill="none" stroke="#475569" stroke-width="5" /><rect x="370" y="820" width="60" height="28" fill="#f2b84b" /><rect x="250" y="895" width="70" height="34" fill="#cbd5e1" /><circle cx="400" cy="910" r="18" fill="none" stroke="#475569" stroke-width="5" /></g>
+              <g id="shopIn" class="fx"><path class="inkS" style="stroke-width: 3" d="M560 1010 H780 V1150" /><rect x="600" y="975" width="60" height="35" fill="#e2e8f0" stroke="#171717" stroke-width="3" /></g>
+              <g id="shopOwner" class="fx"><circle cx="690" cy="935" r="22" fill="#fff" stroke="#171717" stroke-width="4" /><path class="inkS" d="M690 957 V1050 M660 990 H720 M690 1050 L670 1100 M690 1050 L710 1100" /></g>
+              <g id="shutter"><rect x="525" y="765" width="290" height="383" fill="#e5e7eb" stroke="#171717" stroke-width="3" /><path d="M525 820 H815 M525 880 H815 M525 940 H815 M525 1000 H815 M525 1060 H815 M525 1120 H815" stroke="#94a3b8" stroke-width="3" /></g>
+              <g id="plateOpen" class="fx"><rect x="580" y="640" width="180" height="56" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="3" /><text class="ui" x="670" y="677" font-size="26" font-weight="800" text-anchor="middle" fill="#166534">ABIERTO</text></g>
+              <g id="plateClosed" class="fx"><rect x="580" y="640" width="180" height="56" rx="12" fill="#fef3c7" stroke="#b45309" stroke-width="3" /><text class="ui" x="670" y="677" font-size="26" font-weight="800" text-anchor="middle" fill="#92400e">CERRADO</text></g>
+              <rect id="dusk" x="-100" y="0" width="1280" height="1920" fill="#1e293b" opacity="0" />
+              <g id="clkH" class="fx" transform="translate(870 400)"><line x1="0" y1="0" x2="0" y2="-30" stroke="#171717" stroke-width="6" stroke-linecap="round" /></g>
+              <g id="clkM" class="fx" transform="translate(870 400)"><line x1="0" y1="0" x2="0" y2="-46" stroke="#2563eb" stroke-width="4" stroke-linecap="round" /></g>
+              <g id="pend" class="fx"><rect x="420" y="1215" width="300" height="48" rx="16" fill="#fff7e6" stroke="#f2b84b" stroke-width="3" /><text class="ui" x="440" y="1247" font-size="22" font-weight="700" fill="#92400e">¿Tienen bujías?  · sin responder</text>
+                <rect x="420" y="1275" width="300" height="48" rx="16" fill="#fff7e6" stroke="#f2b84b" stroke-width="3" /><text class="ui" x="440" y="1307" font-size="22" font-weight="700" fill="#92400e">¿Hacen envíos?  · sin responder</text>
+                <rect x="420" y="1335" width="300" height="48" rx="16" fill="#fff7e6" stroke="#f2b84b" stroke-width="3" /><text class="ui" x="440" y="1367" font-size="22" font-weight="700" fill="#92400e">¿Cuánto cuesta?  · sin responder</text></g>
+            </g>
+            <g class="op wr" data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0" data-t0="3.75" data-t1="4.6"><text class="hw" x="540" y="590" font-size="48" text-anchor="middle">REPUESTOS PARA MOTOS</text></g>
+            <g class="op dg" data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0" data-t0="4.65" data-t1="5.2"><path class="ink" d="M220 1072 A38 38 0 1 1 219.9 1072" /><path class="ink" d="M380 1072 A38 38 0 1 1 379.9 1072" /><path class="ink" d="M220 1110 L270 1058 L345 1058 L380 1110 M270 1058 L255 1030 L228 1030 M345 1058 L362 1026" /><path class="ink" style="stroke-width: 3" d="M268 1058 C280 1036 320 1032 344 1046 M282 1062 H338 L330 1092 H292 Z M380 1092 H430" /></g>
+            <g id="clkInk" class="op dg" data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0" data-t0="5.3" data-t1="5.85"><path class="ink" d="M870 340 A60 60 0 1 1 869.9 340" /><path class="ink" d="M870 346 V356 M924 400 H914 M870 454 V444 M816 400 H826" /></g>
+            <g id="lbl7" class="op wr" data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0" data-t0="5.9" data-t1="6.5"><text class="hw" x="790" y="415" font-size="42" text-anchor="end">7:00 AM</text></g>
+            <g class="op dg" data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0" data-t0="7.4" data-t1="7.75"><path class="ink" style="stroke: #16a34a; stroke-width: 3" d="M585 645 H755" /></g>
+            <g id="lbl5" class="op wr" data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0" data-t0="18.6" data-t1="19.1"><text class="hw" x="790" y="415" font-size="42" text-anchor="end">5:00 PM</text></g>
+            <g class="op dg" data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0" data-t0="20.05" data-t1="20.5"><path class="ink" d="M790 1200 H880 A16 16 0 0 1 896 1216 V1380 A16 16 0 0 1 880 1396 H790 A16 16 0 0 1 774 1380 V1216 A16 16 0 0 1 790 1200 Z" /></g>
+            <g data-area="1" transform="translate(1200 0)" data-tx="1200" data-ty="0"><g id="badge" class="fx"><circle cx="890" cy="1206" r="22" fill="#f2b84b" /><text class="ui" x="890" y="1214" font-size="24" font-weight="800" text-anchor="middle" fill="#fff">3</text></g></g>
+
+            <!-- ================= A2 · MOSTRADOR (base ya dibujada al entrar la cámara) ================= -->
+            <g data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0">
+              <path class="inkS" d="M140 420 H480 V800 H140 Z M140 540 H480 M140 670 H480" />
+              <rect x="165" y="495" width="50" height="40" fill="#94a3b8" /><circle cx="270" cy="510" r="22" fill="none" stroke="#475569" stroke-width="6" /><rect x="320" y="500" width="70" height="35" fill="#f2b84b" /><rect x="170" y="625" width="80" height="40" fill="#cbd5e1" /><circle cx="330" cy="640" r="22" fill="none" stroke="#475569" stroke-width="6" /><rect x="400" y="760" width="60" height="35" fill="#94a3b8" />
+              <path class="inkS" d="M120 1000 H640 V1120 H120 Z" /><rect x="480" y="955" width="80" height="45" fill="#e2e8f0" stroke="#171717" stroke-width="3" />
+              <g id="owner"><circle cx="330" cy="880" r="26" fill="#fff" stroke="#171717" stroke-width="4" /><path class="inkS" d="M330 906 V1000 M296 940 H364" /></g>
+            </g>
+            <g class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="9.3" data-t1="9.7"><path class="ink" d="M720 866 A24 24 0 1 1 719.9 866" /><path class="ink" d="M720 914 V1010 M690 950 H750 M720 1010 L702 1070 M720 1010 L738 1070" /></g>
+            <g id="b1" class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="9.75" data-t1="10.0"><path class="ink" style="stroke-width: 3" d="M580 470 H990 V540 H580 Z" /></g>
+            <g id="b1t" class="op wr" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="10.0" data-t1="10.45"><text class="hw" x="598" y="520" font-size="32">¿TIENEN BATERÍAS?</text></g>
+            <g id="b1i" class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="10.5" data-t1="10.75"><path class="ink" style="stroke: #2563eb; stroke-width: 3" d="M922 487 H972 V525 H922 Z M932 480 V487 M962 480 V487" /></g>
+            <g class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="10.85" data-t1="11.25"><path class="ink" d="M840 866 A24 24 0 1 1 839.9 866" /><path class="ink" d="M840 914 V1010 M810 950 H870 M840 1010 L822 1070 M840 1010 L858 1070" /></g>
+            <g id="b2" class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="11.3" data-t1="11.5"><path class="ink" style="stroke-width: 3" d="M580 570 H990 V640 H580 Z" /></g>
+            <g id="b2t" class="op wr" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="11.5" data-t1="12.1"><text class="hw" x="598" y="620" font-size="32">NECESITO UNA CADENA</text></g>
+            <g id="b2i" class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="12.15" data-t1="12.5"><path class="ink" style="stroke: #2563eb; stroke-width: 3" d="M930 605 A10 8 0 1 1 929.9 605 M948 605 A10 8 0 1 1 947.9 605 M966 605 A10 8 0 1 1 965.9 605" /></g>
+            <g class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="13.3" data-t1="13.65"><path class="ink" d="M960 866 A24 24 0 1 1 959.9 866" /><path class="ink" d="M960 914 V1010 M930 950 H990 M960 1010 L942 1070 M960 1010 L978 1070" /></g>
+            <g class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="13.7" data-t1="13.85"><path class="ink" style="stroke-width: 3" d="M912 930 H938 V962 H912 Z" /></g>
+            <g id="b3" class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="13.9" data-t1="14.05"><path class="ink" style="stroke-width: 3" d="M580 670 H990 V740 H580 Z" /></g>
+            <g id="b3t" class="op wr" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="14.05" data-t1="14.45"><text class="hw" x="598" y="720" font-size="32">¿MI FACTURA?</text></g>
+            <g class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="14.95" data-t1="15.4"><path class="ink" d="M170 1160 H290 A16 16 0 0 1 306 1176 V1404 A16 16 0 0 1 290 1420 H170 A16 16 0 0 1 154 1404 V1176 A16 16 0 0 1 170 1160 Z" /><path class="ink" style="stroke: #25d366" d="M200 1250 h60 a10 10 0 0 1 10 10 v24 a10 10 0 0 1 -10 10 h-36 l-14 12 v-12 h-10 a10 10 0 0 1 -10 -10 v-24 a10 10 0 0 1 10 -10 Z" /></g>
+            <g data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0">
+              <g id="nt" >
+                <g id="n1" class="fx"><rect x="330" y="1160" width="420" height="48" rx="16" fill="#f0fdf4" stroke="#25d366" stroke-width="3" /><text class="ui" x="352" y="1192" font-size="24" font-weight="700">¿Tienen bujías?</text></g>
+                <g id="n2" class="fx"><rect x="330" y="1218" width="420" height="48" rx="16" fill="#f0fdf4" stroke="#25d366" stroke-width="3" /><text class="ui" x="352" y="1250" font-size="24" font-weight="700">¿Hacen envíos?</text></g>
+                <g id="n3" class="fx"><rect x="330" y="1276" width="420" height="48" rx="16" fill="#f0fdf4" stroke="#25d366" stroke-width="3" /><text class="ui" x="352" y="1308" font-size="24" font-weight="700">¿Cuánto cuesta?</text></g>
+                <g id="n4" class="fx"><rect x="330" y="1334" width="420" height="48" rx="16" fill="#f0fdf4" stroke="#25d366" stroke-width="3" /><text class="ui" x="352" y="1366" font-size="24" font-weight="700">¿Puedo retirar hoy?</text></g>
+                <g id="n5" class="fx"><rect x="330" y="1392" width="420" height="48" rx="16" fill="#f0fdf4" stroke="#25d366" stroke-width="3" /><text class="ui" x="352" y="1424" font-size="24" font-weight="700">¿Está disponible?</text></g>
+              </g>
+              <g id="qrFill" class="fx"><rect x="810.0" y="555.0" width="11.2" height="11.2" fill="#171717" /><rect x="810.0" y="565.9" width="11.2" height="11.2" fill="#171717" /><rect x="810.0" y="576.8" width="11.2" height="11.2" fill="#171717" /><rect x="810.0" y="598.6" width="11.2" height="11.2" fill="#171717" /><rect x="810.0" y="609.5" width="11.2" height="11.2" fill="#171717" /><rect x="810.0" y="620.5" width="11.2" height="11.2" fill="#171717" /><rect x="810.0" y="642.3" width="11.2" height="11.2" fill="#171717" /><rect x="810.0" y="653.2" width="11.2" height="11.2" fill="#171717" /><rect x="810.0" y="664.1" width="11.2" height="11.2" fill="#171717" /><rect x="820.9" y="555.0" width="11.2" height="11.2" fill="#171717" /><rect x="820.9" y="576.8" width="11.2" height="11.2" fill="#171717" /><rect x="820.9" y="598.6" width="11.2" height="11.2" fill="#171717" /><rect x="820.9" y="609.5" width="11.2" height="11.2" fill="#171717" /><rect x="820.9" y="620.5" width="11.2" height="11.2" fill="#171717" /><rect x="820.9" y="642.3" width="11.2" height="11.2" fill="#171717" /><rect x="820.9" y="664.1" width="11.2" height="11.2" fill="#171717" /><rect x="831.8" y="555.0" width="11.2" height="11.2" fill="#171717" /><rect x="831.8" y="565.9" width="11.2" height="11.2" fill="#171717" /><rect x="831.8" y="576.8" width="11.2" height="11.2" fill="#171717" /><rect x="831.8" y="598.6" width="11.2" height="11.2" fill="#171717" /><rect x="831.8" y="642.3" width="11.2" height="11.2" fill="#171717" /><rect x="831.8" y="653.2" width="11.2" height="11.2" fill="#171717" /><rect x="831.8" y="664.1" width="11.2" height="11.2" fill="#171717" /><rect x="842.7" y="609.5" width="11.2" height="11.2" fill="#171717" /><rect x="842.7" y="620.5" width="11.2" height="11.2" fill="#171717" /><rect x="853.6" y="620.5" width="11.2" height="11.2" fill="#171717" /><rect x="864.5" y="576.8" width="11.2" height="11.2" fill="#171717" /><rect x="864.5" y="587.7" width="11.2" height="11.2" fill="#171717" /><rect x="864.5" y="598.6" width="11.2" height="11.2" fill="#171717" /><rect x="864.5" y="609.5" width="11.2" height="11.2" fill="#171717" /><rect x="864.5" y="620.5" width="11.2" height="11.2" fill="#171717" /><rect x="864.5" y="631.4" width="11.2" height="11.2" fill="#171717" /><rect x="864.5" y="642.3" width="11.2" height="11.2" fill="#171717" /><rect x="864.5" y="664.1" width="11.2" height="11.2" fill="#171717" /><rect x="875.5" y="555.0" width="11.2" height="11.2" fill="#171717" /><rect x="875.5" y="565.9" width="11.2" height="11.2" fill="#171717" /><rect x="875.5" y="576.8" width="11.2" height="11.2" fill="#171717" /><rect x="875.5" y="620.5" width="11.2" height="11.2" fill="#171717" /><rect x="875.5" y="642.3" width="11.2" height="11.2" fill="#171717" /><rect x="875.5" y="653.2" width="11.2" height="11.2" fill="#171717" /><rect x="886.4" y="609.5" width="11.2" height="11.2" fill="#171717" /><rect x="886.4" y="620.5" width="11.2" height="11.2" fill="#171717" /><rect x="886.4" y="631.4" width="11.2" height="11.2" fill="#171717" /><rect x="886.4" y="642.3" width="11.2" height="11.2" fill="#171717" /><rect x="886.4" y="653.2" width="11.2" height="11.2" fill="#171717" /><rect x="897.3" y="555.0" width="11.2" height="11.2" fill="#171717" /><rect x="897.3" y="565.9" width="11.2" height="11.2" fill="#171717" /><rect x="897.3" y="576.8" width="11.2" height="11.2" fill="#171717" /><rect x="897.3" y="598.6" width="11.2" height="11.2" fill="#171717" /><rect x="897.3" y="620.5" width="11.2" height="11.2" fill="#171717" /><rect x="897.3" y="653.2" width="11.2" height="11.2" fill="#171717" /><rect x="897.3" y="664.1" width="11.2" height="11.2" fill="#171717" /><rect x="908.2" y="555.0" width="11.2" height="11.2" fill="#171717" /><rect x="908.2" y="576.8" width="11.2" height="11.2" fill="#171717" /><rect x="908.2" y="620.5" width="11.2" height="11.2" fill="#171717" /><rect x="908.2" y="631.4" width="11.2" height="11.2" fill="#171717" /><rect x="908.2" y="664.1" width="11.2" height="11.2" fill="#171717" /><rect x="919.1" y="555.0" width="11.2" height="11.2" fill="#171717" /><rect x="919.1" y="565.9" width="11.2" height="11.2" fill="#171717" /><rect x="919.1" y="576.8" width="11.2" height="11.2" fill="#171717" /><rect x="919.1" y="598.6" width="11.2" height="11.2" fill="#171717" /><rect x="919.1" y="631.4" width="11.2" height="11.2" fill="#171717" /><rect x="919.1" y="642.3" width="11.2" height="11.2" fill="#171717" /><rect x="919.1" y="653.2" width="11.2" height="11.2" fill="#171717" /><text class="ui" x="860" y="720" font-size="18" font-weight="800" text-anchor="middle" fill="#64748b">QR DEMO</text></g>
+              <g id="miniChat" class="fx"><rect x="130" y="440" width="420" height="330" rx="26" fill="#ffffff" stroke="#25d366" stroke-width="4" /><text class="ui" x="155" y="482" font-size="20" font-weight="800" fill="#16a34a">WHATSAPP · DEMO</text>
+                <g id="mq" class="fx"><rect x="150" y="505" width="320" height="60" rx="18" fill="#f1f5f9" /><text class="ui" x="168" y="543" font-size="22" font-weight="700">¿Tienen este repuesto?</text></g>
+                <g id="ma" class="fx"><rect x="210" y="585" width="320" height="60" rx="18" fill="#dcfce7" /><text class="ui" x="228" y="623" font-size="22" font-weight="700">Sí, está disponible.</text></g>
+                <g id="mc" class="fx"><rect x="210" y="665" width="320" height="80" rx="18" fill="#fff" stroke="#14b8a6" stroke-width="3" /><text class="ui" x="230" y="700" font-size="22" font-weight="800">REPUESTO · DEMO</text><text class="ui" x="230" y="730" font-size="20" font-weight="800" fill="#0d9488">● DISPONIBLE</text></g></g>
+            </g>
+            <g id="sign" class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="47.5" data-t1="48.0"><path class="ink" d="M760 440 H980 V760 H760 Z" /></g>
+            <g class="op wr" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="48.05" data-t1="48.55"><text class="hw" x="870" y="490" font-size="28" text-anchor="middle">CONSULTA POR</text></g>
+            <g class="op wr" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="48.6" data-t1="49.0"><text class="hw" x="870" y="528" font-size="28" text-anchor="middle" style="fill: #16a34a">WHATSAPP</text></g>
+            <g class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="49.05" data-t1="49.4"><path class="ink" style="stroke-width: 3" d="M810 555 H930 V675 H810 Z" /></g>
+            <g class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="51.45" data-t1="51.75"><path class="ink" style="stroke-width: 3" d="M676 895 H704 V945 H676 Z" /></g>
+            <g class="op dg" data-area="2" transform="translate(2400 0)" data-tx="2400" data-ty="0" data-t0="51.8" data-t1="52.15"><path class="ink" style="stroke: #25d366; stroke-width: 3; stroke-dasharray: none" d="M700 892 L812 680" /></g>
+
+            <!-- ================= A3 · LA PREGUNTA ================= -->
+            <g class="op dg" data-area="3" transform="translate(3600 0)" data-tx="3600" data-ty="0" data-t0="22.85" data-t1="23.5"><path class="ink" style="stroke-width: 10" d="M440 540 C440 430 640 430 640 540 C640 620 540 620 540 700 V760" /><path class="ink" style="stroke-width: 12" d="M540 830 L540 834" /></g>
+            <g data-area="3" transform="translate(3600 0)" data-tx="3600" data-ty="0">
+              <g id="qd" class="fx"><rect x="150" y="560" width="190" height="52" rx="16" fill="#fff7e6" stroke="#f2b84b" stroke-width="3" /><rect x="740" y="600" width="200" height="52" rx="16" fill="#fff7e6" stroke="#f2b84b" stroke-width="3" /><rect x="170" y="760" width="180" height="52" rx="16" fill="#fff7e6" stroke="#f2b84b" stroke-width="3" /><rect x="740" y="800" width="190" height="52" rx="16" fill="#fff7e6" stroke="#f2b84b" stroke-width="3" />
+                <circle cx="175" cy="586" r="7" fill="#f2b84b" /><circle cx="765" cy="626" r="7" fill="#f2b84b" /><circle cx="195" cy="786" r="7" fill="#f2b84b" /><circle cx="765" cy="826" r="7" fill="#f2b84b" /></g>
+              <g id="oppTxt" class="fx"><text class="hw" x="800" y="1065" font-size="40" style="fill: #94a3b8">OPORTUNIDAD</text><text class="hw" x="800" y="1112" font-size="40" style="fill: #94a3b8">DE VENTA</text></g>
+            </g>
+            <g class="op wr" data-area="3" transform="translate(3600 0)" data-tx="3600" data-ty="0" data-t0="23.55" data-t1="24.05"><text class="hw" x="140" y="1080" font-size="46">CONSULTA</text></g>
+            <path id="arrQ" class="ink-solo" data-area="3" transform="translate(3600 0)" data-tx="3600" data-ty="0" d="M400 1062 C510 1010 650 1010 780 1062 M758 1040 L784 1064 L756 1078" />
+            <g class="op dp" data-path="arrQ" data-p0="0" data-p1="0.5" data-t0="24.1" data-t1="24.7" data-area="3" transform="translate(3600 0)" data-tx="3600" data-ty="0" data-hold="1"></g>
+
+            <!-- ================= A4 · DIAGRAMA ================= -->
+            <g class="op dg" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="26.7" data-t1="27.1"><path class="ink" style="stroke: #25d366" d="M490 420 h100 a20 20 0 0 1 20 20 v40 a20 20 0 0 1 -20 20 h-60 l-25 20 v-20 h-15 a20 20 0 0 1 -20 -20 v-40 a20 20 0 0 1 20 -20 Z" /></g>
+            <g class="op wr" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="27.15" data-t1="27.6"><text class="hw" x="640" y="478" font-size="36">WHATSAPP</text></g>
+            <g class="op dg" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="27.65" data-t1="27.85"><path class="ink" d="M540 545 V612 M528 598 L540 614 L552 598" /></g>
+            <g class="op dg" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="27.9" data-t1="28.6"><path class="ink" d="M455 630 H625 A24 24 0 0 1 649 654 V736 A24 24 0 0 1 625 760 H455 A24 24 0 0 1 431 736 V654 A24 24 0 0 1 455 630 Z" /><path class="ink" style="stroke: #14b8a6" d="M540 673 A22 22 0 1 1 539.9 673" /><path class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M490 695 H515 M565 695 H590" /></g>
+            <g class="op wr" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="28.65" data-t1="29.35"><text class="hw" x="670" y="708" font-size="34">VENDEDOR VIRTUAL</text></g>
+            <g class="op dg" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="29.4" data-t1="29.55"><path class="ink" d="M540 772 V838 M528 824 L540 840 L552 824" /></g>
+            <g class="op dg" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="29.6" data-t1="30.15"><path class="ink" d="M450 865 A90 22 0 1 1 630 865 A90 22 0 1 1 450 865 M450 865 V965 A90 22 0 0 0 630 965 V865 M450 915 A90 22 0 0 0 630 915" /></g>
+            <g class="op wr" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="30.2" data-t1="31.1"><text class="hw" x="540" y="1045" font-size="38" text-anchor="middle">INFORMACIÓN DEL NEGOCIO</text></g>
+            <g class="op dg" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="31.2" data-t1="31.45"><path class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M540 1062 L190 1180" /></g>
+            <g class="op dg" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="31.55" data-t1="31.75"><path class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M540 1062 L423 1180" /></g>
+            <g class="op dg" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="31.85" data-t1="32.05"><path class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M540 1062 L657 1180" /></g>
+            <g class="op dg" data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100" data-t0="32.15" data-t1="32.4"><path class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M540 1062 L890 1180" /></g>
+            <g data-area="4" transform="translate(0 2100)" data-tx="0" data-ty="2100">
+              <g id="ch1" class="fx"><rect x="95" y="1180" width="190" height="64" rx="20" fill="#f0fdfa" stroke="#14b8a6" stroke-width="3" /><text class="ui" x="190" y="1221" font-size="22" font-weight="800" text-anchor="middle" fill="#0f766e">PRODUCTOS</text></g>
+              <g id="ch2" class="fx"><rect x="328" y="1180" width="190" height="64" rx="20" fill="#f0fdfa" stroke="#14b8a6" stroke-width="3" /><text class="ui" x="423" y="1221" font-size="22" font-weight="800" text-anchor="middle" fill="#0f766e">$ PRECIOS</text></g>
+              <g id="ch3" class="fx"><rect x="562" y="1180" width="190" height="64" rx="20" fill="#14b8a6" stroke="#0d9488" stroke-width="3" /><text class="ui" x="657" y="1221" font-size="22" font-weight="800" text-anchor="middle" fill="#ffffff">INVENTARIO</text></g>
+              <g id="ch4" class="fx"><rect x="795" y="1180" width="190" height="64" rx="20" fill="#f0fdfa" stroke="#14b8a6" stroke-width="3" /><circle cx="828" cy="1212" r="12" fill="none" stroke="#0f766e" stroke-width="3" /><path d="M828 1204 V1212 L834 1216" stroke="#0f766e" stroke-width="3" fill="none" /><text class="ui" x="900" y="1221" font-size="22" font-weight="800" text-anchor="middle" fill="#0f766e">HORARIOS</text></g>
+            </g>
+
+            <!-- ================= A5/A6/A7 · CHATS ================= -->
+            <g class="chatP5 fx" data-area="5" transform="translate(1200 2100)" data-tx="1200" data-ty="2100"><rect x="130" y="330" width="820" height="740" rx="36" fill="#ffffff" stroke="#171717" stroke-width="3" /><path d="M130 420 H950" stroke="#e2e8f0" stroke-width="3" /><circle cx="190" cy="375" r="22" fill="#14b8a6" /><text class="ui" x="228" y="385" font-size="28" font-weight="800">Tienda · Vendedor virtual</text><text class="ui" x="915" y="384" font-size="20" font-weight="800" text-anchor="end" fill="#64748b">DEMO</text></g>
+            <g class="chatP6 fx" data-area="6" transform="translate(2400 2100)" data-tx="2400" data-ty="2100"><rect x="130" y="330" width="820" height="740" rx="36" fill="#ffffff" stroke="#171717" stroke-width="3" /><path d="M130 420 H950" stroke="#e2e8f0" stroke-width="3" /><circle cx="190" cy="375" r="22" fill="#14b8a6" /><text class="ui" x="228" y="385" font-size="28" font-weight="800">Tienda · Vendedor virtual</text><text class="ui" x="915" y="384" font-size="20" font-weight="800" text-anchor="end" fill="#64748b">DEMO</text></g>
+            <g class="chatP7 fx" data-area="7" transform="translate(3600 2100)" data-tx="3600" data-ty="2100"><rect x="130" y="330" width="820" height="740" rx="36" fill="#ffffff" stroke="#171717" stroke-width="3" /><path d="M130 420 H950" stroke="#e2e8f0" stroke-width="3" /><circle cx="190" cy="375" r="22" fill="#14b8a6" /><text class="ui" x="228" y="385" font-size="28" font-weight="800">Tienda · Vendedor virtual</text><text class="ui" x="915" y="384" font-size="20" font-weight="800" text-anchor="end" fill="#64748b">DEMO</text></g>
+            <g data-area="5" transform="translate(1200 2100)" data-tx="1200" data-ty="2100">
+              <g id="c5q" class="fx"><rect x="160" y="450" width="560" height="70" rx="24" fill="#f1f5f9" /><text class="ui" x="185" y="495" font-size="28" font-weight="600">Hola, ¿tienen bujías para moto?</text></g>
+              <g id="c5s" class="fx"><rect x="300" y="550" width="480" height="54" rx="27" fill="#ccfbf1" /><text class="ui" x="520" y="586" font-size="22" font-weight="800" text-anchor="middle" fill="#0f766e">CONSULTANDO INVENTARIO</text><g class="dots" data-t0="35.8" data-t1="36.9"><circle cx="700" cy="578" r="5" fill="#0f766e" /><circle cx="718" cy="578" r="5" fill="#0f766e" /><circle cx="736" cy="578" r="5" fill="#0f766e" /></g></g>
+              <g id="c5a" class="fx"><rect x="420" y="630" width="500" height="70" rx="24" fill="#dcfce7" /><text class="ui" x="445" y="675" font-size="28" font-weight="600">Sí, tenemos disponibilidad.</text></g>
+              <g id="c5card" class="fx"><text class="ui" x="470" y="1190" font-size="36" font-weight="800">BUJÍA</text><rect x="470" y="1212" width="210" height="50" rx="25" fill="#dcfce7" /><text class="ui" x="575" y="1245" font-size="22" font-weight="800" text-anchor="middle" fill="#166534">DISPONIBLE</text><text class="ui" x="470" y="1310" font-size="20" font-weight="700" fill="#64748b">Dato de demostración</text></g>
+            </g>
+            <g class="op dg" data-area="5" transform="translate(1200 2100)" data-tx="1200" data-ty="2100" data-t0="36.0" data-t1="36.3"><path class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M330 590 C250 700 250 1000 360 1120" /></g>
+            <g class="op dg" data-area="5" transform="translate(1200 2100)" data-tx="1200" data-ty="2100" data-t0="36.35" data-t1="37.0"><path class="ink" d="M330 1120 H750 V1360 H330 Z" /><path class="ink" style="stroke-width: 3" d="M380 1170 H420 V1200 H380 Z M385 1200 V1290 H415 V1200 M400 1290 V1325 M392 1150 H408 V1170" /></g>
+            <g data-area="6" transform="translate(2400 2100)" data-tx="2400" data-ty="2100">
+              <g id="c6q" class="fx"><rect x="160" y="450" width="560" height="70" rx="24" fill="#f1f5f9" /><text class="ui" x="185" y="495" font-size="28" font-weight="600">¿Precio de bujía y cadena?</text></g>
+              <g id="c6a" class="fx"><rect x="380" y="540" width="540" height="70" rx="24" fill="#dcfce7" /><text class="ui" x="405" y="585" font-size="28" font-weight="600">¡Claro! Te preparo la cotización.</text></g>
+              <g id="c6h" class="fx"><text class="ui" x="260" y="700" font-size="32" font-weight="800">COTIZACIÓN</text><text class="ui" x="820" y="700" font-size="18" font-weight="800" text-anchor="end" fill="#64748b">DEMO</text></g>
+              <g id="c6r1" class="fx"><text class="ui" x="260" y="770" font-size="26">Bujía × 2</text><text class="ui" x="820" y="770" font-size="26" font-weight="700" text-anchor="end">$ 6,00</text></g>
+              <g id="c6r2" class="fx"><text class="ui" x="260" y="822" font-size="26">Cadena × 1</text><text class="ui" x="820" y="822" font-size="26" font-weight="700" text-anchor="end">$ 18,00</text></g>
+              <g id="c6tot" class="fx"><path d="M260 850 H820" stroke="#171717" stroke-width="2" /><text class="ui" x="260" y="895" font-size="28" font-weight="800">TOTAL</text><text class="ui" x="820" y="895" font-size="28" font-weight="800" text-anchor="end">$ 30,00</text><text class="ui" x="260" y="935" font-size="18" fill="#64748b">Precios de ejemplo · no es una factura</text></g>
+              <g id="c6st" class="fx" transform="translate(700 990) rotate(-8)"><rect x="-120" y="-32" width="240" height="64" rx="12" fill="none" stroke="#0d9488" stroke-width="5" /><text class="ui" x="0" y="12" font-size="30" font-weight="900" text-anchor="middle" fill="#0d9488">PREPARADA</text></g>
+            </g>
+            <g class="op dg" data-area="6" transform="translate(2400 2100)" data-tx="2400" data-ty="2100" data-t0="40.25" data-t1="40.9"><path class="ink" d="M230 650 H850 V1040 H230 Z" /><path class="ink" style="stroke-width: 3" d="M260 715 H460" /></g>
+            <g data-area="7" transform="translate(3600 2100)" data-tx="3600" data-ty="2100">
+              <g id="c7q" class="fx"><rect x="160" y="450" width="330" height="70" rx="24" fill="#f1f5f9" /><text class="ui" x="185" y="495" font-size="28" font-weight="600">¿Hacen envíos?</text></g>
+              <g id="c7s" class="fx"><rect x="210" y="550" width="660" height="54" rx="27" fill="#ccfbf1" /><text class="ui" x="540" y="586" font-size="22" font-weight="800" text-anchor="middle" fill="#0f766e">CONSULTANDO INFORMACIÓN DEL NEGOCIO</text></g>
+              <g id="c7o1" class="fx"><text class="ui" x="350" y="850" font-size="30" font-weight="800" text-anchor="middle">ENVÍO</text><text class="ui" x="350" y="882" font-size="18" text-anchor="middle" fill="#64748b">según tus políticas</text></g>
+              <g id="c7o2" class="fx"><text class="ui" x="730" y="850" font-size="30" font-weight="800" text-anchor="middle">RETIRO EN TIENDA</text><text class="ui" x="730" y="882" font-size="18" text-anchor="middle" fill="#64748b">horario configurado</text></g>
+              <g id="c7a" class="fx"><rect x="330" y="930" width="590" height="70" rx="24" fill="#dcfce7" /><text class="ui" x="355" y="975" font-size="28" font-weight="600">Tenemos estas opciones disponibles.</text></g>
+              <rect id="c7sel" class="fx" x="176" y="646" width="348" height="258" rx="20" fill="none" stroke="#25d366" stroke-width="6" />
+            </g>
+            <g class="op dg" data-area="7" transform="translate(3600 2100)" data-tx="3600" data-ty="2100" data-t0="43.3" data-t1="43.85"><path class="ink" d="M180 650 H520 V900 H180 Z" /><path class="ink" style="stroke-width: 3" d="M290 700 H380 V770 H290 Z M380 720 H420 L440 745 V770 H380 M310 790 A12 12 0 1 1 309.9 790 M410 790 A12 12 0 1 1 409.9 790" /></g>
+            <g class="op dg" data-area="7" transform="translate(3600 2100)" data-tx="3600" data-ty="2100" data-t0="43.9" data-t1="44.45"><path class="ink" d="M560 650 H900 V900 H560 Z" /><path class="ink" style="stroke-width: 3" d="M680 690 H780 L790 715 H670 Z M680 715 V790 H770 V715 M715 790 V755 H740 V790" /></g>
+
+            <!-- ================= A8 · VARIAS CONVERSACIONES ================= -->
+            <g class="op dg" data-area="8" transform="translate(0 4200)" data-tx="0" data-ty="4200" data-t0="55.6" data-t1="56.2"><path class="ink" d="M475 730 H605 A24 24 0 0 1 629 754 V1046 A24 24 0 0 1 605 1070 H475 A24 24 0 0 1 451 1046 V754 A24 24 0 0 1 475 730 Z" /></g>
+            <g class="op wr" data-area="8" transform="translate(0 4200)" data-tx="0" data-ty="4200" data-t0="56.25" data-t1="56.55"><text class="hw" x="540" y="860" font-size="28" text-anchor="middle">VENDEDOR</text></g>
+            <g class="op wr" data-area="8" transform="translate(0 4200)" data-tx="0" data-ty="4200" data-t0="56.6" data-t1="56.9"><text class="hw" x="540" y="898" font-size="28" text-anchor="middle" style="fill: #0d9488">VIRTUAL</text></g>
+            <g class="op dg" data-area="8" transform="translate(0 4200)" data-tx="0" data-ty="4200" data-t0="57.15" data-t1="57.47"><path id="k1" class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M470 760 C420 700 360 660 300 622" /><path class="ink" d="M100 380 H420 V620 H100 Z" /></g>
+            <g class="op dg" data-area="8" transform="translate(0 4200)" data-tx="0" data-ty="4200" data-t0="57.55" data-t1="57.87"><path id="k2" class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M610 760 C660 700 720 660 780 622" /><path class="ink" d="M660 380 H980 V620 H660 Z" /></g>
+            <g class="op dg" data-area="8" transform="translate(0 4200)" data-tx="0" data-ty="4200" data-t0="57.95" data-t1="58.27"><path id="k3" class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M470 1040 C420 1080 360 1110 300 1128" /><path class="ink" d="M100 1130 H420 V1370 H100 Z" /></g>
+            <g class="op dg" data-area="8" transform="translate(0 4200)" data-tx="0" data-ty="4200" data-t0="58.35" data-t1="58.67"><path id="k4" class="ink" style="stroke: #14b8a6; stroke-width: 3" d="M610 1040 C660 1080 720 1110 780 1128" /><path class="ink" d="M660 1130 H980 V1370 H660 Z" /></g>
+            <g data-area="8" transform="translate(0 4200)" data-tx="0" data-ty="4200">
+              <circle id="core8" class="fx" cx="540" cy="980" r="28" fill="#14b8a6" />
+              <g id="bx1"><text class="ui" x="120" y="420" font-size="20" font-weight="700" fill="#64748b">Cliente 1 · WhatsApp</text><g id="bq1" class="fx"><rect x="116" y="436" width="288" height="52" rx="18" fill="#f1f5f9" /><text class="ui" x="130" y="470" font-size="21" font-weight="800">¿HAY EXISTENCIAS?</text></g><g class="dots" data-t0="58.0" data-t1="58.9"><circle cx="140" cy="520" r="6" fill="#14b8a6" /><circle cx="160" cy="520" r="6" fill="#14b8a6" /><circle cx="180" cy="520" r="6" fill="#14b8a6" /></g><g id="ba1" class="fx"><rect x="116" y="504" width="288" height="52" rx="18" fill="#dcfce7" /><text class="ui" x="130" y="538" font-size="20" font-weight="800" fill="#166534">✓ DISPONIBLE</text></g><g id="bn1" class="fx"><text class="ui" x="120" y="598" font-size="19" font-weight="700" fill="#64748b">nuevo mensaje</text><g class="dots" data-t0="59.699999999999996" data-t1="62.8"><circle cx="270" cy="592" r="5" fill="#25d366" /><circle cx="286" cy="592" r="5" fill="#25d366" /><circle cx="302" cy="592" r="5" fill="#25d366" /></g></g></g>
+              <g id="bx2"><text class="ui" x="680" y="420" font-size="20" font-weight="700" fill="#64748b">Cliente 2 · WhatsApp</text><g id="bq2" class="fx"><rect x="676" y="436" width="288" height="52" rx="18" fill="#f1f5f9" /><text class="ui" x="690" y="470" font-size="21" font-weight="800">NECESITO COTIZACIÓN</text></g><g class="dots" data-t0="58.4" data-t1="59.5"><circle cx="700" cy="520" r="6" fill="#14b8a6" /><circle cx="720" cy="520" r="6" fill="#14b8a6" /><circle cx="740" cy="520" r="6" fill="#14b8a6" /></g><g id="ba2" class="fx"><rect x="676" y="504" width="288" height="52" rx="18" fill="#dcfce7" /><text class="ui" x="690" y="538" font-size="20" font-weight="800" fill="#166534">✓ COTIZACIÓN PREPARADA</text></g><g id="bn2" class="fx"><text class="ui" x="680" y="598" font-size="19" font-weight="700" fill="#64748b">nuevo mensaje</text><g class="dots" data-t0="60.3" data-t1="62.8"><circle cx="830" cy="592" r="5" fill="#25d366" /><circle cx="846" cy="592" r="5" fill="#25d366" /><circle cx="862" cy="592" r="5" fill="#25d366" /></g></g></g>
+              <g id="bx3"><text class="ui" x="120" y="1170" font-size="20" font-weight="700" fill="#64748b">Cliente 3 · WhatsApp</text><g id="bq3" class="fx"><rect x="116" y="1186" width="288" height="52" rx="18" fill="#f1f5f9" /><text class="ui" x="130" y="1220" font-size="21" font-weight="800">¿CUÁNDO ENVÍAN?</text></g><g class="dots" data-t0="58.8" data-t1="60.0"><circle cx="140" cy="1270" r="6" fill="#14b8a6" /><circle cx="160" cy="1270" r="6" fill="#14b8a6" /><circle cx="180" cy="1270" r="6" fill="#14b8a6" /></g><g id="ba3" class="fx"><rect x="116" y="1254" width="288" height="52" rx="18" fill="#dcfce7" /><text class="ui" x="130" y="1288" font-size="20" font-weight="800" fill="#166534">✓ OPCIONES DISPONIBLES</text></g><g id="bn3" class="fx"><text class="ui" x="120" y="1348" font-size="19" font-weight="700" fill="#64748b">nuevo mensaje</text><g class="dots" data-t0="60.8" data-t1="62.8"><circle cx="270" cy="1342" r="5" fill="#25d366" /><circle cx="286" cy="1342" r="5" fill="#25d366" /><circle cx="302" cy="1342" r="5" fill="#25d366" /></g></g></g>
+              <g id="bx4"><text class="ui" x="680" y="1170" font-size="20" font-weight="700" fill="#64748b">Cliente 4 · WhatsApp</text><g id="bq4" class="fx"><rect x="676" y="1186" width="288" height="52" rx="18" fill="#f1f5f9" /><text class="ui" x="690" y="1220" font-size="21" font-weight="800">¿PUEDO RETIRAR?</text></g><g class="dots" data-t0="59.2" data-t1="60.5"><circle cx="700" cy="1270" r="6" fill="#14b8a6" /><circle cx="720" cy="1270" r="6" fill="#14b8a6" /><circle cx="740" cy="1270" r="6" fill="#14b8a6" /></g><g id="ba4" class="fx"><rect x="676" y="1254" width="288" height="52" rx="18" fill="#dcfce7" /><text class="ui" x="690" y="1288" font-size="20" font-weight="800" fill="#166534">✓ CONSULTA DE RETIRO</text></g><g id="bn4" class="fx"><text class="ui" x="680" y="1348" font-size="19" font-weight="700" fill="#64748b">nuevo mensaje</text><g class="dots" data-t0="61.3" data-t1="62.8"><circle cx="830" cy="1342" r="5" fill="#25d366" /><circle cx="846" cy="1342" r="5" fill="#25d366" /><circle cx="862" cy="1342" r="5" fill="#25d366" /></g></g></g>
+              <circle class="pkt" data-path="k1" data-t0="58.7" data-t1="63.0" data-period="1.1" data-phase="0" r="8" fill="#14b8a6" />
+              <circle class="pkt" data-path="k2" data-t0="58.7" data-t1="63.0" data-period="1.3" data-phase="0.3" r="8" fill="#14b8a6" />
+              <circle class="pkt" data-path="k3" data-t0="58.7" data-t1="63.0" data-period="1.2" data-phase="0.6" r="8" fill="#14b8a6" />
+              <circle class="pkt" data-path="k4" data-t0="58.7" data-t1="63.0" data-period="1.0" data-phase="0.15" r="8" fill="#14b8a6" />
+            </g>
+
+            <!-- ================= A9 · TODO ORGANIZADO ================= -->
+            <g class="op dg" data-area="9" transform="translate(1200 4200)" data-tx="1200" data-ty="4200" data-t0="63.85" data-t1="64.25"><path class="ink" d="M140 660 H220 L240 680 H360 V860 H140 Z M140 700 H360" /></g>
+            <g class="op wr" data-area="9" transform="translate(1200 4200)" data-tx="1200" data-ty="4200" data-t0="64.3" data-t1="64.65"><text class="hw" x="250" y="910" font-size="30" text-anchor="middle">CONSULTAS</text></g>
+            <g class="op dg" data-area="9" transform="translate(1200 4200)" data-tx="1200" data-ty="4200" data-t0="64.7" data-t1="65.1"><path class="ink" d="M430 660 H510 L530 680 H650 V860 H430 Z M430 700 H650" /></g>
+            <g class="op wr" data-area="9" transform="translate(1200 4200)" data-tx="1200" data-ty="4200" data-t0="65.15" data-t1="65.45"><text class="hw" x="540" y="910" font-size="30" text-anchor="middle">PEDIDOS</text></g>
+            <g class="op dg" data-area="9" transform="translate(1200 4200)" data-tx="1200" data-ty="4200" data-t0="65.5" data-t1="65.9"><path class="ink" d="M720 660 H800 L820 680 H940 V860 H720 Z M720 700 H940" /></g>
+            <g class="op wr" data-area="9" transform="translate(1200 4200)" data-tx="1200" data-ty="4200" data-t0="65.95" data-t1="66.3"><text class="hw" x="830" y="910" font-size="30" text-anchor="middle">FACTURAS</text></g>
+            <g data-area="9" transform="translate(1200 4200)" data-tx="1200" data-ty="4200">
+              <g id="cd1" class="fx"><rect x="190" y="440" width="120" height="70" rx="12" fill="#f0fdf4" stroke="#25d366" stroke-width="3" /><rect x="205" y="460" width="80" height="10" rx="5" fill="#86efac" /></g>
+              <g id="cd2" class="fx"><rect x="480" y="440" width="120" height="70" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="3" /><rect x="495" y="460" width="80" height="10" rx="5" fill="#93c5fd" /></g>
+              <g id="cd3" class="fx"><rect x="770" y="440" width="120" height="70" rx="12" fill="#f0fdfa" stroke="#14b8a6" stroke-width="3" /><rect x="785" y="460" width="80" height="10" rx="5" fill="#5eead4" /></g>
+              <g id="fac" class="fx"><text class="ui" x="330" y="1060" font-size="32" font-weight="800">FACTURA</text><text class="ui" x="750" y="1060" font-size="18" font-weight="800" text-anchor="end" fill="#64748b">DEMO</text><rect x="330" y="1090" width="300" height="14" rx="7" fill="#e2e8f0" /><rect x="330" y="1120" width="220" height="14" rx="7" fill="#e2e8f0" /><rect x="330" y="1150" width="260" height="14" rx="7" fill="#e2e8f0" /></g>
+              <g id="facSt" class="fx" transform="translate(640 1240) rotate(-8)"><rect x="-120" y="-30" width="240" height="60" rx="12" fill="none" stroke="#0d9488" stroke-width="5" /><text class="ui" x="0" y="11" font-size="28" font-weight="900" text-anchor="middle" fill="#0d9488">PREPARADA</text></g>
+              <g id="reg" class="fx"><rect x="230" y="1330" width="620" height="60" rx="30" fill="#fff7e6" stroke="#f2b84b" stroke-width="3" /><text class="ui" x="540" y="1369" font-size="24" font-weight="800" text-anchor="middle" fill="#92400e">REGISTRO · PENDIENTE DE VALIDACIÓN</text></g>
+            </g>
+            <g class="op dg" data-area="9" transform="translate(1200 4200)" data-tx="1200" data-ty="4200" data-t0="66.75" data-t1="67.4"><path class="ink" d="M300 1000 H780 V1300 H300 Z" /></g>
+
+            <!-- ================= A10 · CONTROL HUMANO ================= -->
+            <g data-area="10" transform="translate(2400 4200)" data-tx="2400" data-ty="4200"><g id="pedido" class="fx"><rect x="140" y="560" width="400" height="70" rx="18" fill="#f0fdfa" stroke="#14b8a6" stroke-width="3" /><text class="ui" x="340" y="603" font-size="22" font-weight="800" text-anchor="middle" fill="#0f766e">PEDIDO · LISTO PARA REVISIÓN</text></g>
+              <g id="chk1" class="fx"><circle cx="945" cy="760" r="22" fill="#14b8a6" /><path d="M934 760 L942 768 L957 752" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" /></g>
+              <g id="chk2" class="fx"><circle cx="945" cy="930" r="22" fill="#14b8a6" /><path d="M934 930 L942 938 L957 922" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" /></g></g>
+            <g class="op dg" data-area="10" transform="translate(2400 4200)" data-tx="2400" data-ty="4200" data-t0="72.45" data-t1="73.4"><path class="ink" d="M140 980 H560 M170 980 V1090 M530 980 V1090" /><path class="ink" d="M300 790 A30 30 0 1 1 299.9 790" /><path class="ink" d="M300 850 V975 M300 885 L385 935" /><path class="ink" d="M400 978 L418 900 L500 900 L490 978" /></g>
+            <g class="op dg" data-area="10" transform="translate(2400 4200)" data-tx="2400" data-ty="4200" data-t0="73.5" data-t1="73.75"><path class="ink" style="stroke-width: 3" d="M590 700 H990 V820 H590 Z" /></g>
+            <g class="op wr" data-area="10" transform="translate(2400 4200)" data-tx="2400" data-ty="4200" data-t0="73.8" data-t1="74.4"><text class="hw" x="610" y="775" font-size="32">VERIFICAR PAGO</text></g>
+            <g class="op dg" data-area="10" transform="translate(2400 4200)" data-tx="2400" data-ty="4200" data-t0="74.85" data-t1="75.1"><path class="ink" style="stroke-width: 3" d="M590 870 H990 V990 H590 Z" /></g>
+            <g class="op wr" data-area="10" transform="translate(2400 4200)" data-tx="2400" data-ty="4200" data-t0="75.15" data-t1="75.75"><text class="hw" x="610" y="945" font-size="30">COORDINAR ENTREGA</text></g>
+
+            <!-- ================= A11 · RESUMEN ================= -->
+            <g class="op dg" data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200" data-t0="77.1" data-t1="77.5"><path class="ink" style="stroke: #14b8a6" d="M540 840 A60 60 0 1 1 539.9 840" /><path class="ink" style="stroke: #14b8a6" d="M540 880 A20 20 0 1 1 539.9 880" /></g>
+            <g class="op dg" data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200" data-t0="77.6" data-t1="78.1"><path class="ink" d="M150 850 H320 L300 820 H170 Z M165 850 V990 H305 V850 M215 990 V940 H255 V990" /></g>
+            <g class="op dg" data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200" data-t0="78.15" data-t1="78.6"><path class="ink" d="M770 860 A60 16 0 1 1 890 860 A60 16 0 1 1 770 860 M770 860 V960 A60 16 0 0 0 890 960 V860 M770 910 A60 16 0 0 0 890 910" /></g>
+            <g class="op dg" data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200" data-t0="78.65" data-t1="79.1"><path class="ink" d="M490 555 A18 18 0 1 1 489.9 555 M490 591 V640 M470 610 H510" /><path class="ink" d="M590 555 A18 18 0 1 1 589.9 555 M590 591 V640 M570 610 H610" /></g>
+            <g class="op dg" data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200" data-t0="79.15" data-t1="79.5"><path class="ink" d="M540 1180 A20 20 0 1 1 539.9 1180 M540 1220 V1280 M516 1240 H564" /></g>
+            <g class="op dg" data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200" data-t0="80.6" data-t1="80.9"><path id="s1" class="ink" style="stroke-width: 3" d="M482 900 L330 920" /></g>
+            <g class="op dg" data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200" data-t0="81.0" data-t1="81.3"><path id="s2" class="ink" style="stroke-width: 3" d="M598 900 L768 905" /></g>
+            <g class="op dg" data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200" data-t0="81.4" data-t1="81.65"><path id="s3" class="ink" style="stroke-width: 3" d="M540 842 L540 660" /></g>
+            <g class="op dg" data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200" data-t0="81.75" data-t1="82.0"><path id="s4" class="ink" style="stroke-width: 3" d="M540 960 L540 1160" /></g>
+            <g data-area="11" transform="translate(3600 4200)" data-tx="3600" data-ty="4200">
+              <g id="sumL" class="fx"><text class="ui" x="235" y="1035" font-size="24" font-weight="800" text-anchor="middle">TIENDA</text><text class="ui" x="830" y="1025" font-size="24" font-weight="800" text-anchor="middle">INVENTARIO</text><text class="ui" x="540" y="520" font-size="24" font-weight="800" text-anchor="middle" fill="#16a34a">CLIENTES · WHATSAPP</text><text class="ui" x="540" y="1330" font-size="24" font-weight="800" text-anchor="middle">TU EQUIPO</text><text class="ui" x="660" y="830" font-size="22" font-weight="800" fill="#0d9488">VENDEDOR VIRTUAL</text></g>
+              <g id="closedS" class="fx"><rect x="167" y="853" width="136" height="135" fill="#cbd5e1" stroke="#171717" stroke-width="3" /><path d="M167 885 H303 M167 920 H303 M167 955 H303" stroke="#94a3b8" stroke-width="3" /><path d="M300 770 A26 26 0 1 0 330 810 A20 20 0 1 1 300 770 Z" fill="#475569" /></g>
+              <g id="nb1" class="fx"><rect x="640" y="560" width="150" height="44" rx="16" fill="#f0fdf4" stroke="#25d366" stroke-width="3" /><text class="ui" x="715" y="590" font-size="20" font-weight="800" text-anchor="middle" fill="#166534">✓ atendido</text></g>
+              <g id="nb2" class="fx"><rect x="290" y="560" width="150" height="44" rx="16" fill="#f0fdf4" stroke="#25d366" stroke-width="3" /><text class="ui" x="365" y="590" font-size="20" font-weight="800" text-anchor="middle" fill="#166534">✓ atendido</text></g>
+              <g id="nb3" class="fx"><rect x="640" y="620" width="150" height="44" rx="16" fill="#f0fdf4" stroke="#25d366" stroke-width="3" /><text class="ui" x="715" y="650" font-size="20" font-weight="800" text-anchor="middle" fill="#166534">✓ atendido</text></g>
+              <circle class="pkt" data-path="s1" data-t0="82.1" data-t1="86.8" data-period="1.2" data-phase="0" r="7" fill="#14b8a6" />
+              <circle class="pkt" data-path="s2" data-t0="82.1" data-t1="86.8" data-period="1.0" data-phase="0.4" r="7" fill="#14b8a6" />
+              <circle class="pkt" data-path="s3" data-t0="82.1" data-t1="86.8" data-period="0.9" data-phase="0.2" r="7" fill="#25d366" />
+              <circle class="pkt" data-path="s4" data-t0="82.1" data-t1="86.8" data-period="1.3" data-phase="0.7" r="7" fill="#14b8a6" />
+              <rect id="night" x="-100" y="0" width="1280" height="1920" fill="#1e293b" opacity="0" />
+            </g>
+
+            <!-- ================= A12 · RECUPERA TU TIEMPO ================= -->
+            <g class="op dg" data-area="12" transform="translate(0 6300)" data-tx="0" data-ty="6300" data-t0="87.4" data-t1="88.0"><path class="ink" d="M540 660 A120 120 0 1 1 539.9 660" /><path class="ink" d="M540 668 V686 M652 780 H634 M540 892 V874 M428 780 H446" /></g>
+            <g data-area="12" transform="translate(0 6300)" data-tx="0" data-ty="6300"><g id="c12h" class="fx" transform="translate(540 780)"><line x1="0" y1="0" x2="0" y2="-80" stroke="#14b8a6" stroke-width="6" stroke-linecap="round" /></g></g>
+            <g class="op wr" data-area="12" transform="translate(0 6300)" data-tx="0" data-ty="6300" data-t0="88.1" data-t1="88.75"><text class="hw" x="270" y="1060" font-size="52" text-anchor="middle">TU TIEMPO</text></g>
+            <g class="op wr" data-area="12" transform="translate(0 6300)" data-tx="0" data-ty="6300" data-t0="88.85" data-t1="89.5"><text class="hw" x="810" y="1060" font-size="52" text-anchor="middle">TU NEGOCIO</text></g>
+            <g class="op dg" data-area="12" transform="translate(0 6300)" data-tx="0" data-ty="6300" data-t0="89.55" data-t1="90.0"><path id="arc12" class="ink" style="stroke: #14b8a6" d="M330 1100 C430 1220 650 1220 750 1100" /></g>
+            <g data-area="12" transform="translate(0 6300)" data-tx="0" data-ty="6300"><circle class="pkt" data-path="arc12" data-t0="90.05" data-t1="91.6" data-period="0.8" data-phase="0" r="9" fill="#14b8a6" /></g>
+
+            <!-- ================= A13 · AGENDA ================= -->
+            <g class="op dg" data-area="13" transform="translate(1200 6300)" data-tx="1200" data-ty="6300" data-t0="91.8" data-t1="92.35"><path class="ink" d="M170 760 H910 A40 40 0 0 1 950 800 V1060 A40 40 0 0 1 910 1100 H300 L230 1160 L240 1100 H170 A40 40 0 0 1 130 1060 V800 A40 40 0 0 1 170 760 Z" /></g>
+            <g class="op wr" data-area="13" transform="translate(1200 6300)" data-tx="1200" data-ty="6300" data-t0="92.4" data-t1="93.5"><text class="hw" x="540" y="1005" font-size="200" text-anchor="middle">AGENDA</text></g>
+            <g class="op dg" data-area="13" transform="translate(1200 6300)" data-tx="1200" data-ty="6300" data-t0="93.55" data-t1="93.9"><path class="ink" style="stroke: #14b8a6; stroke-width: 9" d="M230 1050 C420 1070 680 1040 850 1058" /></g>
+
+            <!-- ================= HAND ================= -->
+            <g id="hand" transform="translate(1400 2400)">
+              <g id="handIn" transform="scale(0.78)">
+                <g id="handShadow" transform="translate(16 20)"><image href="assets/hand/hand-pencil.png" x="-1" y="-72" width="544" height="611" filter="url(#shadowF)" /></g>
+                <image href="assets/hand/hand-pencil.png" x="-1" y="-72" width="544" height="611" />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- ============ SCREEN OVERLAYS ============ -->
+      <div id="o1" class="ov" style="top: 250px">CLIENTES <span class="tq">ESPERANDO</span></div>
+      <div id="o2" class="ov" style="top: 250px">MENSAJES <span style="color: #b45309">SIN RESPONDER</span></div>
+      <div id="o3" class="ov" style="top: 250px">¿CUÁNTAS <span style="color: #b45309">OPORTUNIDADES?</span></div>
+      <div id="o4" class="ov" style="top: 250px">CONOCE <span class="tq">TU NEGOCIO</span></div>
+      <div id="o5" class="ov" style="top: 250px">CONSULTA <span class="tq">TU INVENTARIO</span></div>
+      <div id="o6" class="ov" style="top: 250px"><span class="tq">COTIZACIONES</span></div>
+      <div id="o7" class="ov" style="top: 250px">INFORMACIÓN <span class="tq">AL INSTANTE</span></div>
+      <div id="o8" class="ov" style="top: 245px; font-size: 54px">VARIOS CLIENTES</div>
+      <div id="o8b" class="ov" style="top: 305px; font-size: 54px"><span class="tq">AL MISMO TIEMPO</span></div>
+      <div id="o9" class="ov" style="top: 250px">TODO <span class="tq">ORGANIZADO</span></div>
+      <div id="o10" class="ov" style="top: 250px">CONTROL <span class="tq">HUMANO</span></div>
+      <div id="o11" class="ov" style="top: 250px; font-size: 54px">TU NEGOCIO <span class="tq">SIGUE ATENDIENDO</span></div>
+      <div id="o12" class="ov" style="top: 250px">RECUPERA <span class="tq">TU TIEMPO</span></div>
+      <div id="o13" class="ov ovk" style="top: 330px; font-size: 52px">¿QUIERES TU PROPIO<br /><span class="tq">VENDEDOR VIRTUAL?</span></div>
+      <div id="o14" class="ov" style="top: 1210px; font-size: 38px">DESCUBRE CÓMO <span class="tq">AUTOMATIZAR TU NEGOCIO</span></div>
+      <div id="o15" class="ov" style="top: 1300px"><img src="assets/brand/novapsis/novapsis-logo.png" alt="Novapsis" style="width: 104px; height: 104px" /></div>
+
+      <div id="cap1" class="clip cap" data-start="0.05" data-duration="2.15" data-track-index="5"><span class="cap-in">¿Sabes cómo funciona un <span class="hl">vendedor virtual</span>?</span></div>
+      <div id="cap2" class="clip cap" data-start="2.69" data-duration="2.41" data-track-index="5"><span class="cap-in">Imagina una tienda de repuestos para motos.</span></div>
+      <div id="cap3" class="clip cap" data-start="5.28" data-duration="1.32" data-track-index="5"><span class="cap-in">Son las <span class="hl">siete de la mañana</span>.</span></div>
+      <div id="cap4" class="clip cap" data-start="7.24" data-duration="1.41" data-track-index="5"><span class="cap-in">El dueño abre su negocio.</span></div>
+      <div id="cap5" class="clip cap" data-start="9.15" data-duration="3.77" data-track-index="5"><span class="cap-in">Un cliente busca una <span class="hl">batería</span>, otro necesita una <span class="hl">cadena</span></span></div>
+      <div id="cap6" class="clip cap" data-start="13.28" data-duration="1.32" data-track-index="5"><span class="cap-in">y otro está esperando su <span class="hl">factura</span>.</span></div>
+      <div id="cap7" class="clip cap" data-start="14.9" data-duration="2.25" data-track-index="5"><span class="cap-in">Mientras tanto, ¡el <span class="hl">WhatsApp</span> no deja de sonar!</span></div>
+      <div id="cap8" class="clip cap" data-start="17.46" data-duration="2.09" data-track-index="5"><span class="cap-in">A las <span class="hl">cinco de la tarde</span> cierra la tienda,</span></div>
+      <div id="cap9" class="clip cap" data-start="20.01" data-duration="2.11" data-track-index="5"><span class="cap-in">pero todavía tiene <span class="hl">mensajes sin responder</span>.</span></div>
+      <div id="cap10" class="clip cap" data-start="22.56" data-duration="2.74" data-track-index="5"><span class="cap-in">¿Cuántas <span class="hl">oportunidades de venta</span> se están perdiendo?</span></div>
+      <div id="cap11" class="clip cap" data-start="26.11" data-duration="5.21" data-track-index="5"><span class="cap-in">Ahora imagina que tu negocio tuviera un vendedor que conoce todos tus productos,</span></div>
+      <div id="cap12" class="clip cap" data-start="31.53" data-duration="1.37" data-track-index="5"><span class="cap-in"><span class="hl">precios, existencias y horarios</span>.</span></div>
+      <div id="cap13" class="clip cap" data-start="33.37" data-duration="1.84" data-track-index="5"><span class="cap-in">Un cliente pregunta por una <span class="hl">bujía</span>.</span></div>
+      <div id="cap14" class="clip cap" data-start="35.71" data-duration="2.7" data-track-index="5"><span class="cap-in">El vendedor <span class="hl">consulta el inventario</span> y le responde.</span></div>
+      <div id="cap15" class="clip cap" data-start="38.86" data-duration="1.73" data-track-index="5"><span class="cap-in">Otro necesita una <span class="hl">cotización</span>.</span></div>
+      <div id="cap16" class="clip cap" data-start="40.98" data-duration="0.76" data-track-index="5"><span class="cap-in">¡Se la prepara!</span></div>
+      <div id="cap17" class="clip cap" data-start="42.15" data-duration="1.62" data-track-index="5"><span class="cap-in">Otro pregunta por los <span class="hl">envíos</span>.</span></div>
+      <div id="cap18" class="clip cap" data-start="44.25" data-duration="1.85" data-track-index="5"><span class="cap-in">Le explica las opciones disponibles.</span></div>
+      <div id="cap19" class="clip cap" data-start="46.57" data-duration="1.89" data-track-index="5"><span class="cap-in">¿Y el cliente que está dentro de la tienda,</span></div>
+      <div id="cap20" class="clip cap" data-start="48.64" data-duration="2.25" data-track-index="5"><span class="cap-in">pero no quiere hacer cola solo para preguntar?</span></div>
+      <div id="cap21" class="clip cap" data-start="51.41" data-duration="3.3" data-track-index="5"><span class="cap-in">Escanea un código y consulta directamente por <span class="hl">WhatsApp</span>.</span></div>
+      <div id="cap22" class="clip cap" data-start="55.21" data-duration="1.47" data-track-index="5"><span class="cap-in">¡Y aquí viene lo interesante!</span></div>
+      <div id="cap23" class="clip cap" data-start="57.14" data-duration="3.92" data-track-index="5"><span class="cap-in">Tu vendedor virtual puede atender <span class="hl">múltiples conversaciones</span> al mismo tiempo,</span></div>
+      <div id="cap24" class="clip cap" data-start="61.21" data-duration="1.47" data-track-index="5"><span class="cap-in">mientras tú sigues trabajando.</span></div>
+      <div id="cap25" class="clip cap" data-start="62.82" data-duration="3.35" data-track-index="5"><span class="cap-in">Además, deja las consultas y los pedidos <span class="hl">organizados</span>.</span></div>
+      <div id="cap26" class="clip cap" data-start="66.68" data-duration="2.62" data-track-index="5"><span class="cap-in">Incluso puede preparar <span class="hl">facturas</span> y registrar operaciones,</span></div>
+      <div id="cap27" class="clip cap" data-start="69.3" data-duration="2.64" data-track-index="5"><span class="cap-in">según la configuración de tu negocio.</span></div>
+      <div id="cap28" class="clip cap" data-start="72.45" data-duration="4.12" data-track-index="5"><span class="cap-in">Y tú mantienes el <span class="hl">control</span> para verificar los pagos y coordinar las entregas.</span></div>
+      <div id="cap29" class="clip cap" data-start="77.04" data-duration="3.05" data-track-index="5"><span class="cap-in">Eso es un <span class="hl">vendedor virtual</span> con inteligencia artificial.</span></div>
+      <div id="cap30" class="clip cap" data-start="80.6" data-duration="3.22" data-track-index="5"><span class="cap-in">Un asistente conectado a la <span class="hl">información real</span> de tu empresa,</span></div>
+      <div id="cap31" class="clip cap" data-start="83.97" data-duration="2.75" data-track-index="5"><span class="cap-in">que puede seguir atendiendo incluso después de cerrar.</span></div>
+      <div id="cap32" class="clip cap" data-start="87.27" data-duration="3.95" data-track-index="5"><span class="cap-in">¿Te gustaría <span class="hl">recuperar tiempo</span> y dejar de perder oportunidades de venta?</span></div>
+      <div id="cap33" class="clip cap" data-start="91.71" data-duration="2.59" data-track-index="5"><span class="cap-in">Comenta <span class="hl">AGENDA</span> y te ayudamos a descubrir</span></div>
+      <div id="cap34" class="clip cap" data-start="94.3" data-duration="2.57" data-track-index="5"><span class="cap-in">cómo automatizar la atención de tu negocio.</span></div>
+
+      <audio id="vo" src="assets/audio/narracion.wav" data-start="0" data-duration="96.88" data-track-index="10" data-volume="1"></audio>
+      <audio id="music" src="assets/audio/music.wav" data-start="0" data-duration="98.6" data-track-index="11" data-volume="0.28"></audio>
+      <audio id="sfx" src="assets/sound-effects/sfx.wav" data-start="0" data-duration="98.6" data-track-index="12" data-volume="0.7"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const DUR = 98.6;
+      const tl = gsap.timeline({ paused: true });
+      const $ = (s) => document.querySelector(s);
+      const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+      const ease = (p) => 0.5 - 0.5 * Math.cos(Math.PI * clamp(p, 0, 1));
+      const AREAS = [[0, 0], [1200, 0], [2400, 0], [3600, 0], [0, 2100], [1200, 2100], [2400, 2100], [3600, 2100], [0, 4200], [1200, 4200], [2400, 4200], [3600, 4200], [0, 6300], [1200, 6300]];
+      const A = (k, dx = 0, dy = 0, s = 1) => [AREAS[k][0] + 540 + dx, AREAS[k][1] + 960 + dy, s];
+
+      // camera keys: [time, cx, cy, s] eased between consecutive keys
+      const camKeys = [
+        [0, ...A(0, 0, 0, 1)], [2.4, ...A(0, 0, -20, 1.08)], [2.9, ...A(1)], [8.85, ...A(1)], [9.35, ...A(2)],
+        [14.9, ...A(2)], [15.4, ...A(2, -90, 320, 1.5)], [17.3, ...A(2, -90, 320, 1.5)], [17.9, ...A(1)],
+        [19.95, ...A(1)], [20.5, ...A(1, 60, 100, 1.12)], [22.3, ...A(1, 60, 100, 1.12)], [22.8, ...A(3)],
+        [25.9, ...A(3)], [26.6, ...A(4)], [33.1, ...A(4)], [33.6, ...A(5)], [38.6, ...A(5)], [39.1, ...A(6)],
+        [41.9, ...A(6)], [42.4, ...A(7)], [46.2, ...A(7)], [46.9, ...A(2)], [51.3, ...A(2)], [51.9, ...A(2, -60, -120, 1.25)],
+        [54.8, ...A(2, -60, -120, 1.25)], [55.4, ...A(8)], [63.0, ...A(8)], [63.6, ...A(9)], [71.7, ...A(9)], [72.3, ...A(10)],
+        [76.8, ...A(10)], [77.3, ...A(11)], [86.9, ...A(11)], [87.4, ...A(12)], [91.3, ...A(12)], [91.8, ...A(13)], [DUR, ...A(13)],
+      ];
+      function camAt(t) {
+        for (let i = 0; i < camKeys.length - 1; i++) {
+          const a = camKeys[i], b = camKeys[i + 1];
+          if (t <= b[0]) { const p = ease((t - a[0]) / (b[0] - a[0] || 1)); return [a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p, a[3] + (b[3] - a[3]) * p]; }
+        }
+        const z = camKeys[camKeys.length - 1]; return [z[1], z[2], z[3]];
+      }
+
+      const ops = [];
+      document.querySelectorAll(".op").forEach((g) => {
+        const o = { el: g, t0: +g.dataset.t0, t1: +g.dataset.t1, tx: +(g.dataset.tx || 0), ty: +(g.dataset.ty || 0), hold: g.dataset.hold === "1" };
+        if (g.classList.contains("dg")) {
+          o.type = "dg";
+          o.paths = [...g.querySelectorAll(".ink")].map((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = L + " " + (L + 2); p.style.strokeDashoffset = L; return { p, L }; });
+          const tot = o.paths.reduce((s, x) => s + x.L, 0);
+          const gap = o.paths.length > 1 ? Math.min(0.05, ((o.t1 - o.t0) * 0.2) / (o.paths.length - 1)) : 0;
+          const drawT = o.t1 - o.t0 - gap * (o.paths.length - 1);
+          let c = o.t0; o.paths.forEach((x) => { x.a = c; x.b = c + (drawT * x.L) / tot; c = x.b + gap; });
+        } else if (g.classList.contains("dp")) {
+          o.type = "dp"; o.p0 = +g.dataset.p0; o.p1 = +g.dataset.p1;
+          const p = document.getElementById(g.dataset.path); o.path = p; o.L = p.getTotalLength();
+          if (!p.dataset.init) { p.style.strokeDasharray = o.L + " " + (o.L + 2); p.style.strokeDashoffset = o.L; p.dataset.init = "1"; }
+        } else {
+          o.type = "wr";
+          const id = "cp" + ops.length;
+          const cp = document.createElementNS("http://www.w3.org/2000/svg", "clipPath"); cp.setAttribute("id", id);
+          const r = document.createElementNS("http://www.w3.org/2000/svg", "rect"); r.setAttribute("x", -2000); r.setAttribute("y", -2000); r.setAttribute("width", 0); r.setAttribute("height", 6000);
+          cp.appendChild(r); $("#defs").appendChild(cp); g.setAttribute("clip-path", "url(#" + id + ")"); o.rect = r; o.text = g.querySelector("text");
+        }
+        ops.push(o);
+      });
+      ops.sort((a, b) => a.t0 - b.t0);
+
+      function tipOf(o, t) {
+        if (o.type === "dg") {
+          let cur = o.paths[0]; for (const x of o.paths) { if (t >= x.a) cur = x; }
+          const p = clamp((t - cur.a) / (cur.b - cur.a), 0, 1); const pt = cur.p.getPointAtLength(cur.L * p); return [o.tx + pt.x, o.ty + pt.y];
+        }
+        if (o.type === "dp") { const p = o.p0 + (o.p1 - o.p0) * clamp((t - o.t0) / (o.t1 - o.t0), 0, 1); const pt = o.path.getPointAtLength(o.L * p); return [o.tx + pt.x, o.ty + pt.y]; }
+        const bb = o.text.getBBox(); const p = clamp((t - o.t0) / (o.t1 - o.t0), 0, 1); const fs = +o.text.getAttribute("font-size");
+        return [o.tx + bb.x + bb.width * p, o.ty + bb.y + bb.height * 0.62 + Math.sin(p * bb.width * 0.22) * fs * 0.16];
+      }
+      const startOf = (o) => tipOf(o, o.t0);
+      function renderOps(t) {
+        for (const o of ops) {
+          if (o.type === "dg") o.paths.forEach((x) => { const p = clamp((t - x.a) / (x.b - x.a), 0, 1); x.p.style.strokeDashoffset = x.L * (1 - p); });
+          else if (o.type === "wr") { const bb = o.text.getBBox(); const p = clamp((t - o.t0) / (o.t1 - o.t0), 0, 1); o.rect.setAttribute("x", bb.x - 10); o.rect.setAttribute("width", p >= 1 ? 6000 : (bb.width + 20) * p); }
+        }
+        const groups = {}; ops.filter((o) => o.type === "dp").forEach((o) => (groups[o.path.id] = groups[o.path.id] || []).push(o));
+        Object.values(groups).forEach((list) => { let prog = 0; for (const o of list) if (t >= o.t0) prog = o.p0 + (o.p1 - o.p0) * clamp((t - o.t0) / (o.t1 - o.t0), 0, 1); list[0].path.style.strokeDashoffset = list[0].L * (1 - prog); });
+      }
+      const screenToWorld = (sx, sy, cam) => [cam[0] + (sx - 540) / cam[2], cam[1] + (sy - 960) / cam[2]];
+      function handAt(t, cam) {
+        const rest = screenToWorld(1300, 2300, cam);
+        let prev = null, next = null;
+        for (const o of ops) { if (o.t0 <= t) prev = o; else { next = o; break; } }
+        if (prev && t <= prev.t1) return [...tipOf(prev, t), 0];
+        const gapEnd = next ? next.t0 : Infinity, prevEnd = prev ? prev.t1 : -Infinity;
+        const a = prev ? tipOf(prev, prev.t1) : rest;
+        if (prev && prev.hold && t < gapEnd) {
+          if (next && t > gapEnd - 0.45) { const b = startOf(next); const p = ease((t - (gapEnd - 0.45)) / 0.45); return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, Math.sin(Math.PI * p)]; }
+          return [...a, 0];
+        }
+        const gap = gapEnd - prevEnd;
+        if (gap < 1.4 && next && prev) { const b = startOf(next); const p = ease((t - prevEnd) / gap); return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, Math.sin(Math.PI * p)]; }
+        if (prev && t < prevEnd + 0.5) { const p = ease((t - prevEnd) / 0.5); return [a[0] + (rest[0] - a[0]) * p, a[1] + (rest[1] - a[1]) * p, p]; }
+        if (next && t > gapEnd - 0.5) { const b = startOf(next); const p = ease((t - (gapEnd - 0.5)) / 0.5); return [rest[0] + (b[0] - rest[0]) * p, rest[1] + (b[1] - rest[1]) * p, 1 - p]; }
+        return [...rest, 1];
+      }
+      const pkts = [...document.querySelectorAll(".pkt")].map((c) => { const p = document.getElementById(c.dataset.path); return { c, p, L: p.getTotalLength(), t0: +c.dataset.t0, t1: +c.dataset.t1, per: +c.dataset.period, ph: +c.dataset.phase }; });
+      const dots = [...document.querySelectorAll(".dots")].map((g) => ({ g, t0: +g.dataset.t0, t1: +g.dataset.t1, cs: [...g.querySelectorAll("circle")] }));
+      const handEl = $("#hand"), camEl = $("#cam"), shadow = $("#handShadow");
+      function frame(t) {
+        const cam = camAt(t);
+        camEl.setAttribute("transform", `translate(540 960) scale(${cam[2]}) translate(${-cam[0]} ${-cam[1]})`);
+        renderOps(t);
+        const h = handAt(t, cam); const k = 1 / cam[2];
+        handEl.setAttribute("transform", `translate(${h[0]} ${h[1]}) scale(${k * (1 + 0.05 * h[2])})`);
+        shadow.setAttribute("transform", `translate(${16 + 22 * h[2]} ${20 + 26 * h[2]})`);
+        for (const q of pkts) { const on = t >= q.t0 && t <= q.t1; q.c.setAttribute("opacity", on ? 1 : 0); if (on) { const u = (((t - q.t0) / q.per + q.ph) % 1); const pt = q.p.getPointAtLength(q.L * u); q.c.setAttribute("cx", pt.x); q.c.setAttribute("cy", pt.y); } }
+        for (const d of dots) { const on = t >= d.t0 && t < d.t1; d.g.setAttribute("opacity", on ? 1 : 0); d.cs.forEach((c, i) => c.setAttribute("opacity", 0.3 + 0.7 * Math.max(0, Math.sin((t * 6 - i * 0.9))))); }
+        // clocks
+        const p = clamp((t - 17.6) / 1.0, 0, 1); const ep = ease(p);
+        $("#clkH").setAttribute("transform", `translate(870 400) rotate(${210 + 300 * ep})`);
+        $("#clkM").setAttribute("transform", `translate(870 400) rotate(${3600 * ep})`);
+        $("#c12h").setAttribute("transform", `translate(540 780) rotate(${Math.max(0, t - 88.0) * 120})`);
+      }
+      const drv = { t: 0 };
+      tl.to(drv, { t: DUR, duration: DUR, ease: "none", onUpdate: () => frame(drv.t) }, 0);
+      frame(0);
+
+      const on = (s, t, d = 0.3, o = 1) => tl.to(s, { opacity: o, duration: d, ease: "power1.out" }, t);
+      const off = (s, t, d = 0.3) => tl.to(s, { opacity: 0, duration: d, ease: "power1.in" }, t);
+      const pop = (s, t) => tl.fromTo(s, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, t);
+      // A0
+      on("#a0Bub", 0.95); on("#a0Msg", 1.85, 0.25); on("#a0Bub2", 2.05);
+      // A1
+      on("#shelfItems", 3.7, 0.4);
+      gsap.set("#shutter", { transformOrigin: "50% 0%" });
+      tl.to("#shutter", { scaleY: 0.06, duration: 0.7, ease: "power2.inOut" }, 7.25);
+      on("#shopIn", 7.5); on("#shopOwner", 7.6); on("#plateOpen", 7.95);
+      on(["#clkH", "#clkM"], 5.85, 0.2);
+      tl.to("#dusk", { opacity: 0.07, duration: 1.0 }, 18.0);
+      off("#lbl7", 18.35, 0.25);
+      off("#shopOwner", 19.0, 0.3);
+      tl.to("#shutter", { scaleY: 1, duration: 0.7, ease: "power2.inOut" }, 19.15);
+      off("#plateOpen", 19.6, 0.2); on("#plateClosed", 19.6, 0.25);
+      on("#badge", 20.55, 0.2); off(["#clkInk", "#clkH", "#clkM", "#lbl5"], 19.95, 0.3); on("#pend", 20.65, 0.4);
+      // A2 owner busy
+      tl.to("#owner", { x: -110, duration: 0.5, ease: "sine.inOut" }, 10.55); tl.to("#owner", { x: 0, duration: 0.5, ease: "sine.inOut" }, 11.4);
+      tl.to("#owner", { x: -110, y: -120, duration: 0.5, ease: "sine.inOut" }, 12.55); tl.to("#owner", { x: 0, y: 0, duration: 0.5, ease: "sine.inOut" }, 13.3);
+      tl.to("#owner", { x: 150, duration: 0.5, ease: "sine.inOut" }, 14.2); tl.to("#owner", { x: 0, duration: 0.5 }, 15.3);
+      ["#n1", "#n2", "#n3", "#n4", "#n5"].forEach((s, i) => pop(s, 15.5 + i * 0.32));
+      off(["#b1", "#b1t", "#b1i", "#b2", "#b2t", "#b2i", "#b3", "#b3t", "#nt"], 46.3, 0.4);
+      on("#qrFill", 49.4, 0.3);
+      on("#miniChat", 52.3, 0.3); pop("#mq", 52.6); pop("#ma", 53.4); pop("#mc", 53.9);
+      // A3
+      on("#qd", 23.4, 0.5); on("#oppTxt", 24.75, 0.5);
+      // A4 chips
+      pop("#ch1", 31.45); pop("#ch2", 31.75); pop("#ch3", 32.05); pop("#ch4", 32.4);
+      // A5-A7 chats
+      on(".chatP5", 33.35); pop("#c5q", 33.6); pop("#c5s", 35.75); on("#c5card", 37.0, 0.3); pop("#c5a", 37.35);
+      on(".chatP6", 38.8); pop("#c6q", 38.95); pop("#c6a", 39.95); on("#c6h", 40.9, 0.25); on("#c6r1", 41.0, 0.2); on("#c6r2", 41.15, 0.2); on("#c6tot", 41.3, 0.25);
+      tl.fromTo("#c6st", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out", immediateRender: false }, 41.45);
+      on(".chatP7", 42.1); pop("#c7q", 42.3); pop("#c7s", 42.85); on("#c7o1", 43.85, 0.25); on("#c7o2", 44.45, 0.25); pop("#c7a", 44.5); on("#c7sel", 45.0, 0.3);
+      // A8 boxes
+      on("#core8", 56.95, 0.3);
+      pop("#bq1", 57.6); pop("#ba1", 58.9); on("#bn1", 59.699999999999996, 0.25);
+      pop("#bq2", 58.0); pop("#ba2", 59.5); on("#bn2", 60.3, 0.25);
+      pop("#bq3", 58.4); pop("#ba3", 60.0); on("#bn3", 60.8, 0.25);
+      pop("#bq4", 58.8); pop("#ba4", 60.5); on("#bn4", 61.3, 0.25);
+      ["#bx1", "#bx2", "#bx3", "#bx4", "#core8"].forEach((s) => tl.to(s, { opacity: 0, scale: 0.5, duration: 0.4, ease: "power2.in", transformOrigin: "50% 50%" }, 62.75));
+      // A9
+      [["#cd1", 64.3], ["#cd2", 65.15], ["#cd3", 65.95]].forEach(([s, t]) => { tl.fromTo(s, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.2, immediateRender: false }, t); tl.to(s, { y: 240, opacity: 0, duration: 0.6, ease: "power2.in" }, t + 0.25); });
+      on("#fac", 67.4, 0.3);
+      tl.fromTo("#facSt", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out", immediateRender: false }, 67.75);
+      pop("#reg", 68.8);
+      // A10
+      pop("#pedido", 72.6);
+      tl.fromTo("#chk1", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", svgOrigin: "945 760", immediateRender: false }, 74.55);
+      tl.fromTo("#chk2", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", svgOrigin: "945 930", immediateRender: false }, 75.85);
+      // A11
+      on("#sumL", 79.6, 0.4); on("#c12h", 88.0, 0.2);
+      tl.to(["#s1", "#s2", "#s4"], { stroke: "#14b8a6", duration: 0.4 }, 82.0); tl.to("#s3", { stroke: "#25d366", duration: 0.4 }, 82.0);
+      tl.to("#night", { opacity: 0.08, duration: 0.8 }, 84.0); on("#closedS", 84.0, 0.5);
+      pop("#nb1", 84.5); pop("#nb2", 85.2); pop("#nb3", 85.9);
+      // overlays
+      const ov = (s, a, b) => { tl.fromTo(s, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, a); tl.to(s, { opacity: 0, duration: 0.3 }, b); };
+      ov("#o1", 13.2, 14.7); ov("#o2", 20.2, 22.15); ov("#o3", 23.0, 25.75); ov("#o4", 32.55, 33.05); ov("#o5", 33.7, 38.5); ov("#o6", 39.0, 41.8);
+      ov("#o7", 45.0, 46.1); ov("#o8", 57.2, 62.7); ov("#o8b", 58.4, 62.7); ov("#o9", 63.9, 71.6); ov("#o10", 75.9, 76.75); ov("#o11", 84.2, 86.8); ov("#o12", 90.1, 91.25);
+      ov("#o13", 91.9, DUR + 1); ov("#o14", 94.1, DUR + 1); ov("#o15", 94.5, DUR + 1);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
