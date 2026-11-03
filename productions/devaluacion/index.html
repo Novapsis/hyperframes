@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Novapsis — Devaluación</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #101318; }
+      body { font-family: "Inter", sans-serif; color: #f2f1ed; -webkit-font-smoothing: antialiased; }
+      .a { position: absolute; }
+      .h { opacity: 0; }
+      .cx { left: 0; right: 0; text-align: center; }
+      .lab { font-weight: 700; font-size: 30px; letter-spacing: 0.22em; text-transform: uppercase; color: #9aa3ae; }
+      .big { font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+      .gold { color: #d4a54a; } .red { color: #dc4545; } .tq { color: #1d9a8a; } .bl { color: #3478c4; }
+      .foot { font-size: 22px; font-weight: 600; color: #8b939c; letter-spacing: 0.04em; }
+      #bg { position: absolute; inset: 0; background: radial-gradient(1100px 1000px at 50% 40%, #202731 0%, #101318 70%); }
+      #vign { position: absolute; inset: 0; background: radial-gradient(900px 1300px at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%); }
+      #world { position: absolute; inset: 0; perspective: 1600px; perspective-origin: 50% 40%; }
+      #cam { position: absolute; inset: 0; transform-style: preserve-3d; }
+      /* conceptual dollar */
+      .bill { position: absolute; width: 520px; height: 222px; border-radius: 10px; background: linear-gradient(135deg, #dfe3d2 0%, #c9d1b8 50%, #dbe0cc 100%);
+        box-shadow: 0 30px 70px rgba(0,0,0,0.6), inset 0 0 0 6px #b9c3a3, inset 0 0 0 9px #e8ebdd; overflow: hidden; }
+      .bill .ov { position: absolute; left: 185px; top: 36px; width: 150px; height: 150px; border-radius: 50%; border: 5px solid #6f7d5a; display: flex; align-items: center; justify-content: center;
+        font-weight: 900; font-size: 92px; color: #4b5a3a; background: radial-gradient(circle, #e9ecdc, #cdd5bb); }
+      .bill .c { position: absolute; font-weight: 900; font-size: 46px; color: #4b5a3a; }
+      .bill .t { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-size: 15px; font-weight: 800; letter-spacing: 0.3em; color: #5e6b4a; }
+      .bill .g { position: absolute; inset: 0; background: repeating-linear-gradient(115deg, rgba(80,95,60,0.06) 0 2px, transparent 2px 9px); }
+      /* bolivar stacks (schematic) */
+      .stk { position: absolute; width: 120px; transform-origin: 50% 100%; }
+      .stk .f { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; border-radius: 4px; background: repeating-linear-gradient(0deg, #8a3b3b 0 3px, #b4605a 3px 7px); box-shadow: inset 0 0 0 2px rgba(0,0,0,0.25); }
+      .stk .tp { position: absolute; left: 0; right: 0; top: -22px; height: 26px; border-radius: 6px; background: linear-gradient(180deg, #d9877e, #b4605a); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; color: #3a1515; }
+      .plat { position: absolute; height: 26px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(212,165,74,0.22), rgba(0,0,0,0) 70%); }
+      .chip { display: inline-flex; align-items: center; gap: 12px; padding: 12px 26px; border-radius: 999px; background: rgba(242,241,237,0.06); border: 1px solid rgba(242,241,237,0.16); font-weight: 800; font-size: 30px; letter-spacing: 0.12em; }
+      .glass { position: absolute; border-radius: 28px; background: rgba(32,39,49,0.72); border: 1px solid rgba(242,241,237,0.1); box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+      .coin { position: absolute; width: 230px; height: 230px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 900; color: #f2f1ed;
+        box-shadow: 0 30px 70px rgba(0,0,0,0.6), inset 0 -10px 30px rgba(0,0,0,0.35), inset 0 10px 20px rgba(255,255,255,0.25); }
+      .node { position: absolute; width: 190px; height: 130px; border-radius: 24px; background: rgba(32,39,49,0.85); border: 1px solid rgba(242,241,237,0.14); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 800; font-size: 26px; }
+      .node small { font-size: 17px; font-weight: 600; color: #9aa3ae; }
+      .rk { position: absolute; width: 290px; height: 96px; border-radius: 22px; background: rgba(220,69,69,0.1); border: 1px solid rgba(220,69,69,0.45); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 26px; letter-spacing: 0.06em; color: #f2c4c4; }
+      .rk.n { background: rgba(242,241,237,0.05); border-color: rgba(242,241,237,0.18); color: #c9cdd2; }
+      .cap { position: absolute; left: 90px; right: 90px; top: 1510px; height: 140px; display: flex; align-items: center; justify-content: center; z-index: 50; }
+      .cap-in { display: inline-block; max-width: 900px; padding: 12px 26px; border-radius: 18px; background: rgba(10,12,16,0.82); font-weight: 700; font-size: 40px; line-height: 1.25; text-align: center; color: #f2f1ed; }
+      .cap .hl { color: #d4a54a; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="76.2" data-width="1080" data-height="1920">
+      <div id="stage" class="clip" data-start="0" data-duration="76.2" data-track-index="0" data-layout-allow-overflow data-layout-ignore style="position: absolute; inset: 0; z-index: 1">
+        <div id="bg"></div>
+        <div id="world"><div id="cam">
+          <!-- particles (bolívares) -->
+          <div id="parts"><div class="pt a" style="left:636px;top:485px;width:30px;height:14px;background:#6b2b2b;border-radius:2px;transform:rotate(-19deg)"></div><div class="pt a" style="left:307px;top:1117px;width:36px;height:16px;background:#6b2b2b;border-radius:2px;transform:rotate(-8deg)"></div><div class="pt a" style="left:833px;top:598px;width:30px;height:14px;background:#6b2b2b;border-radius:2px;transform:rotate(19deg)"></div><div class="pt a" style="left:674px;top:484px;width:42px;height:19px;background:#b4605a;border-radius:2px;transform:rotate(-16deg)"></div><div class="pt a" style="left:136px;top:1029px;width:36px;height:16px;background:#6b2b2b;border-radius:2px;transform:rotate(17deg)"></div><div class="pt a" style="left:884px;top:709px;width:42px;height:19px;background:#6b2b2b;border-radius:2px;transform:rotate(37deg)"></div><div class="pt a" style="left:223px;top:689px;width:30px;height:14px;background:#8a3b3b;border-radius:2px;transform:rotate(-0deg)"></div><div class="pt a" style="left:764px;top:1022px;width:36px;height:16px;background:#6b2b2b;border-radius:2px;transform:rotate(6deg)"></div><div class="pt a" style="left:879px;top:459px;width:36px;height:16px;background:#8a3b3b;border-radius:2px;transform:rotate(16deg)"></div><div class="pt a" style="left:590px;top:511px;width:42px;height:19px;background:#8a3b3b;border-radius:2px;transform:rotate(11deg)"></div><div class="pt a" style="left:940px;top:622px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(-1deg)"></div><div class="pt a" style="left:399px;top:485px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(-16deg)"></div><div class="pt a" style="left:756px;top:1033px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(-10deg)"></div><div class="pt a" style="left:884px;top:630px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(-15deg)"></div><div class="pt a" style="left:175px;top:848px;width:30px;height:14px;background:#8a3b3b;border-radius:2px;transform:rotate(38deg)"></div><div class="pt a" style="left:689px;top:1106px;width:36px;height:16px;background:#d9877e;border-radius:2px;transform:rotate(-11deg)"></div><div class="pt a" style="left:226px;top:1026px;width:36px;height:16px;background:#6b2b2b;border-radius:2px;transform:rotate(30deg)"></div><div class="pt a" style="left:434px;top:1029px;width:42px;height:19px;background:#b4605a;border-radius:2px;transform:rotate(10deg)"></div><div class="pt a" style="left:900px;top:785px;width:36px;height:16px;background:#8a3b3b;border-radius:2px;transform:rotate(35deg)"></div><div class="pt a" style="left:772px;top:1111px;width:36px;height:16px;background:#b4605a;border-radius:2px;transform:rotate(-10deg)"></div><div class="pt a" style="left:605px;top:531px;width:42px;height:19px;background:#d9877e;border-radius:2px;transform:rotate(-3deg)"></div><div class="pt a" style="left:704px;top:942px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(36deg)"></div><div class="pt a" style="left:128px;top:691px;width:42px;height:19px;background:#6b2b2b;border-radius:2px;transform:rotate(-16deg)"></div><div class="pt a" style="left:615px;top:561px;width:30px;height:14px;background:#d9877e;border-radius:2px;transform:rotate(21deg)"></div><div class="pt a" style="left:771px;top:511px;width:30px;height:14px;background:#8a3b3b;border-radius:2px;transform:rotate(-15deg)"></div><div class="pt a" style="left:297px;top:987px;width:30px;height:14px;background:#d9877e;border-radius:2px;transform:rotate(-25deg)"></div><div class="pt a" style="left:476px;top:915px;width:30px;height:14px;background:#d9877e;border-radius:2px;transform:rotate(36deg)"></div><div class="pt a" style="left:677px;top:593px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(-13deg)"></div><div class="pt a" style="left:656px;top:1042px;width:36px;height:16px;background:#d9877e;border-radius:2px;transform:rotate(-22deg)"></div><div class="pt a" style="left:212px;top:800px;width:30px;height:14px;background:#d9877e;border-radius:2px;transform:rotate(25deg)"></div><div class="pt a" style="left:814px;top:565px;width:36px;height:16px;background:#d9877e;border-radius:2px;transform:rotate(25deg)"></div><div class="pt a" style="left:649px;top:988px;width:36px;height:16px;background:#8a3b3b;border-radius:2px;transform:rotate(-6deg)"></div><div class="pt a" style="left:545px;top:1018px;width:36px;height:16px;background:#d9877e;border-radius:2px;transform:rotate(11deg)"></div><div class="pt a" style="left:140px;top:721px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(-2deg)"></div><div class="pt a" style="left:938px;top:928px;width:30px;height:14px;background:#6b2b2b;border-radius:2px;transform:rotate(27deg)"></div><div class="pt a" style="left:301px;top:486px;width:42px;height:19px;background:#d9877e;border-radius:2px;transform:rotate(-30deg)"></div><div class="pt a" style="left:315px;top:464px;width:42px;height:19px;background:#8a3b3b;border-radius:2px;transform:rotate(32deg)"></div><div class="pt a" style="left:866px;top:832px;width:30px;height:14px;background:#6b2b2b;border-radius:2px;transform:rotate(20deg)"></div><div class="pt a" style="left:458px;top:1079px;width:42px;height:19px;background:#b4605a;border-radius:2px;transform:rotate(-13deg)"></div><div class="pt a" style="left:322px;top:1026px;width:36px;height:16px;background:#b4605a;border-radius:2px;transform:rotate(-12deg)"></div><div class="pt a" style="left:796px;top:556px;width:36px;height:16px;background:#8a3b3b;border-radius:2px;transform:rotate(26deg)"></div><div class="pt a" style="left:116px;top:867px;width:36px;height:16px;background:#b4605a;border-radius:2px;transform:rotate(21deg)"></div><div class="pt a" style="left:547px;top:475px;width:36px;height:16px;background:#b4605a;border-radius:2px;transform:rotate(29deg)"></div><div class="pt a" style="left:761px;top:471px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(-1deg)"></div><div class="pt a" style="left:138px;top:925px;width:42px;height:19px;background:#6b2b2b;border-radius:2px;transform:rotate(-15deg)"></div><div class="pt a" style="left:413px;top:570px;width:36px;height:16px;background:#6b2b2b;border-radius:2px;transform:rotate(-30deg)"></div><div class="pt a" style="left:577px;top:927px;width:36px;height:16px;background:#b4605a;border-radius:2px;transform:rotate(5deg)"></div><div class="pt a" style="left:146px;top:753px;width:42px;height:19px;background:#6b2b2b;border-radius:2px;transform:rotate(11deg)"></div><div class="pt a" style="left:146px;top:1043px;width:30px;height:14px;background:#d9877e;border-radius:2px;transform:rotate(10deg)"></div><div class="pt a" style="left:908px;top:724px;width:30px;height:14px;background:#8a3b3b;border-radius:2px;transform:rotate(-23deg)"></div><div class="pt a" style="left:785px;top:593px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(35deg)"></div><div class="pt a" style="left:424px;top:1051px;width:36px;height:16px;background:#b4605a;border-radius:2px;transform:rotate(-3deg)"></div><div class="pt a" style="left:213px;top:993px;width:42px;height:19px;background:#6b2b2b;border-radius:2px;transform:rotate(13deg)"></div><div class="pt a" style="left:197px;top:840px;width:30px;height:14px;background:#6b2b2b;border-radius:2px;transform:rotate(-29deg)"></div><div class="pt a" style="left:760px;top:470px;width:30px;height:14px;background:#b4605a;border-radius:2px;transform:rotate(13deg)"></div><div class="pt a" style="left:426px;top:997px;width:36px;height:16px;background:#b4605a;border-radius:2px;transform:rotate(-38deg)"></div><div class="pt a" style="left:207px;top:768px;width:42px;height:19px;background:#d9877e;border-radius:2px;transform:rotate(6deg)"></div><div class="pt a" style="left:781px;top:465px;width:42px;height:19px;background:#8a3b3b;border-radius:2px;transform:rotate(-31deg)"></div><div class="pt a" style="left:739px;top:1076px;width:30px;height:14px;background:#d9877e;border-radius:2px;transform:rotate(30deg)"></div><div class="pt a" style="left:262px;top:493px;width:30px;height:14px;background:#8a3b3b;border-radius:2px;transform:rotate(-4deg)"></div><div class="pt a" style="left:698px;top:1081px;width:36px;height:16px;background:#d9877e;border-radius:2px;transform:rotate(8deg)"></div><div class="pt a" style="left:899px;top:819px;width:30px;height:14px;background:#6b2b2b;border-radius:2px;transform:rotate(0deg)"></div><div class="pt a" style="left:927px;top:721px;width:42px;height:19px;background:#8a3b3b;border-radius:2px;transform:rotate(-7deg)"></div><div class="pt a" style="left:886px;top:906px;width:30px;height:14px;background:#6b2b2b;border-radius:2px;transform:rotate(32deg)"></div><div class="pt a" style="left:235px;top:505px;width:42px;height:19px;background:#6b2b2b;border-radius:2px;transform:rotate(33deg)"></div><div class="pt a" style="left:714px;top:567px;width:36px;height:16px;background:#8a3b3b;border-radius:2px;transform:rotate(-28deg)"></div><div class="pt a" style="left:543px;top:1076px;width:42px;height:19px;background:#d9877e;border-radius:2px;transform:rotate(14deg)"></div><div class="pt a" style="left:601px;top:1109px;width:30px;height:14px;background:#d9877e;border-radius:2px;transform:rotate(-38deg)"></div><div class="pt a" style="left:381px;top:966px;width:30px;height:14px;background:#6b2b2b;border-radius:2px;transform:rotate(39deg)"></div><div class="pt a" style="left:503px;top:1008px;width:42px;height:19px;background:#b4605a;border-radius:2px;transform:rotate(-1deg)"></div></div>
+          <!-- the dollar (protagonist, continuous) -->
+          <div id="billW" class="a" style="left: 280px; top: 640px; width: 520px; height: 222px">
+            <div id="bill" class="bill"><div class="g"></div><div class="ov">1</div><div class="c" style="left: 24px; top: 14px">1</div><div class="c" style="right: 24px; top: 14px">1</div><div class="c" style="left: 24px; bottom: 30px">1</div><div class="c" style="right: 24px; bottom: 30px">1</div><div class="t">1 USD · ILUSTRACIÓN CONCEPTUAL</div></div>
+            <div id="billGeo" class="a h" style="inset: 0; border-radius: 10px; border: 4px solid #d4a54a; box-shadow: 0 0 60px rgba(212,165,74,0.35)"><div class="a" style="left: 185px; top: 36px; width: 150px; height: 150px; border-radius: 50%; border: 4px solid #d4a54a"></div></div>
+          </div>
+          <div id="billPlat" class="plat h" style="left: 260px; top: 870px; width: 560px"></div>
+          <!-- stacks -->
+          <div id="stacks" class="a h" style="left: 0; top: 0; width: 1080px; height: 1920px">
+            <div class="plat" style="left: 120px; top: 1225px; width: 840px; height: 40px"></div>
+            <div class="stk s1" style="left:140px;top:1000px;height:150px;opacity:0.8"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s1" style="left:270px;top:980px;height:170px;opacity:0.8"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s1" style="left:400px;top:1010px;height:140px;opacity:0.8"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s1" style="left:530px;top:970px;height:180px;opacity:0.8"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s1" style="left:660px;top:990px;height:160px;opacity:0.8"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s1" style="left:790px;top:1000px;height:150px;opacity:0.8"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s1" style="left:80px;top:1090px;height:130px"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s1" style="left:205px;top:1050px;height:170px"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s0" style="left:330px;top:1070px;height:150px"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s0" style="left:455px;top:1060px;height:160px"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s0" style="left:580px;top:1070px;height:150px"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s1" style="left:705px;top:1045px;height:175px"><div class="f"></div><div class="tp">Bs</div></div><div class="stk s1" style="left:830px;top:1080px;height:140px"><div class="f"></div><div class="tp">Bs</div></div>
+          </div>
+          <div id="stkLab" class="a cx h foot" style="top: 1262px">Pilas esquemáticas · no representan billetes reales</div>
+        </div></div>
+        <div id="vign"></div>
+      </div>
+
+      <!-- ===== S1 ===== -->
+      <div id="s1" class="clip" data-start="0" data-duration="7.6" data-track-index="1" style="position: absolute; inset: 0; z-index: 10; perspective: 1200px">
+        <div id="t1" class="a cx big" style="top: 860px; font-size: 128px; letter-spacing: -0.01em; white-space: nowrap"><span class="ltr" style="display:inline-block">D</span><span class="ltr" style="display:inline-block">E</span><span class="ltr" style="display:inline-block">V</span><span class="ltr" style="display:inline-block">A</span><span class="ltr" style="display:inline-block">L</span><span class="ltr" style="display:inline-block">U</span><span class="ltr" style="display:inline-block">A</span><span class="ltr" style="display:inline-block">C</span><span class="ltr" style="display:inline-block">I</span><span class="ltr" style="display:inline-block">Ó</span><span class="ltr" style="display:inline-block">N</span></div>
+        <div id="t1b" class="a cx h lab" style="top: 1030px; font-size: 34px; color: #f2f1ed">Tus ahorros pueden <span class="red">perder valor</span></div>
+        <div id="t75" class="a cx h big red" style="top: 1110px; font-size: 120px">−75 %</div>
+      </div>
+
+      <!-- ===== S2/S3 numbers ===== -->
+      <div id="s23" class="clip" data-start="8.3" data-duration="12.0" data-track-index="1" style="position: absolute; inset: 0; z-index: 10">
+        <div class="a cx" style="top: 270px"><span id="date" class="chip h"><span style="width: 12px; height: 12px; border-radius: 6px; background: #d4a54a; display: inline-block"></span><span id="dateA">NOVIEMBRE 2025</span><span id="dateB" class="h" style="position: absolute; margin-left: 38px">NOVIEMBRE 2026</span></span></div>
+        <div id="usd" class="a h" style="left: 800px; top: 700px; font-weight: 900; font-size: 50px" ><span class="gold">100 USD</span></div>
+        <div id="cnt" class="a cx h big" style="top: 1300px; font-size: 128px"><span id="cntN">0</span><span style="font-size: 70px; color: #9aa3ae"> Bs</span></div>
+        <div id="eq" class="a cx h" style="top: 1430px; font-weight: 800; font-size: 34px"><span class="gold">= 100 USD</span></div>
+        <div id="ref1" class="a cx h foot" style="top: 345px">Tasa de referencia BCV · 03/11/2025</div>
+        <div id="ref2" class="a cx h foot" style="top: 345px">Tasa de referencia BCV · 03/11/2026</div>
+      </div>
+
+      <!-- ===== S4 value lost ===== -->
+      <div id="s4" class="clip" data-start="20.2" data-duration="10.4" data-track-index="1" style="position: absolute; inset: 0; z-index: 10">
+        <div id="s4h" class="a cx h" style="top: 260px; font-weight: 900; font-size: 54px">LOS MISMOS <span class="gold">22.396 Bs</span></div>
+        <div id="colA" class="a h" style="left: 250px; top: 600px; width: 200px; height: 460px">
+          <div class="a cx" style="top: -60px; font-weight: 900; font-size: 40px" ><span class="gold">≈100 USD</span></div>
+          <div class="a" style="left: 0; right: 0; bottom: 0; height: 400px; border-radius: 16px 16px 6px 6px; background: linear-gradient(180deg, #e3b964, #a47a2c); box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset -20px 0 30px rgba(0,0,0,0.25)"></div>
+          <div class="a cx lab" style="bottom: -54px; color: #f2f1ed">2025</div>
+        </div>
+        <div id="colB" class="a h" style="left: 630px; top: 600px; width: 200px; height: 460px">
+          <div id="colBlab" class="a cx" style="top: -60px; font-weight: 900; font-size: 40px"><span class="red">≈25,13 USD</span></div>
+          <div id="colBbar" class="a" style="left: 0; right: 0; bottom: 0; height: 400px; border-radius: 16px 16px 6px 6px; background: linear-gradient(180deg, #ef6b6b, #9c2c2c); box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset -20px 0 30px rgba(0,0,0,0.25); transform-origin: 50% 100%"></div>
+          <div class="a cx lab" style="bottom: -54px; color: #f2f1ed">2026</div>
+        </div>
+        <div id="pct" class="a cx h big red" style="top: 1150px; font-size: 168px; text-shadow: 0 0 60px rgba(220,69,69,0.35)">−74,87 %</div>
+        <div id="pctS" class="a cx h lab" style="top: 1340px; color: #f2f1ed">Valor frente al dólar</div>
+        <div id="calc" class="a cx h foot" style="top: 1410px">22.396 Bs ÷ 89.111 Bs × 100 USD ≈ 25,13 USD · tasas BCV de referencia</div>
+      </div>
+
+      <!-- ===== S5 stablecoins ===== -->
+      <div id="s5" class="clip" data-start="30.5" data-duration="21.0" data-track-index="1" style="position: absolute; inset: 0; z-index: 10; perspective: 1200px">
+        <div id="s5h" class="a cx h" style="top: 260px; font-weight: 900; font-size: 58px">¿CÓMO <span class="tq">REDUCIR EL RIESGO?</span></div>
+        <div id="cT" class="coin h" style="left: 200px; top: 520px; background: radial-gradient(circle at 35% 30%, #4fd1bf, #1d9a8a 55%, #0f5c53)"><span style="font-size: 30px; letter-spacing: 0.1em">TOKEN</span><span style="font-size: 54px">USDT</span></div>
+        <div id="cC" class="coin h" style="left: 650px; top: 520px; background: radial-gradient(circle, #6aa6e6 0%, #3478c4 55%, #1b4a80)"><span style="font-size: 30px; letter-spacing: 0.1em">TOKEN</span><span style="font-size: 54px">USDC</span></div>
+        <div id="par" class="a h" style="left: 120px; right: 120px; top: 830px; height: 0; border-top: 4px dashed #d4a54a"></div>
+        <div id="parL" class="a cx h" style="top: 850px; font-weight: 800; font-size: 32px; letter-spacing: 0.08em"><span class="gold">OBJETIVO DE PARIDAD: 1 USD</span></div>
+        <div id="parN" class="a cx h foot" style="top: 900px">El precio de mercado puede desviarse ligeramente</div>
+        <div id="flow" class="a" style="left: 0; top: 1040px; width: 1080px; height: 180px">
+          <div id="f1" class="node h" style="left: 50px">Bs<small>bolívares</small></div>
+          <div id="f2" class="node h" style="left: 300px">PROVEEDOR<small>conversión</small></div>
+          <div id="f3" class="node h" style="left: 550px">STABLECOIN<small>USDT / USDC</small></div>
+          <div id="f4" class="node h" style="left: 800px">BILLETERA<small>digital</small></div>
+          <div id="a1" class="a h" style="left: 245px; top: 58px; width: 50px; height: 4px; background: #1d9a8a"></div>
+          <div id="a2" class="a h" style="left: 495px; top: 58px; width: 50px; height: 4px; background: #1d9a8a"></div>
+          <div id="a3" class="a h" style="left: 745px; top: 58px; width: 50px; height: 4px; background: #1d9a8a"></div>
+        </div>
+        <div id="fee" class="a cx h foot" style="top: 1195px; color: #d4a54a">Comisiones y tipo de cambio variable según el proveedor y el mercado</div>
+        <div id="expo" class="a cx h" style="top: 1270px"><span class="chip" style="font-size: 26px; color: #4fd1bf">REDUCE LA EXPOSICIÓN · NO LA ELIMINA</span></div>
+      </div>
+
+      <!-- ===== S6 risks + bitcoin ===== -->
+      <div id="s6" class="clip" data-start="51.3" data-duration="13.4" data-track-index="1" style="position: absolute; inset: 0; z-index: 10; perspective: 1200px">
+        <div id="warn" class="a cx h" style="top: 260px; font-weight: 900; font-size: 58px"><span style="color: #f0b44a">⚠ ATENCIÓN</span></div>
+        <div id="w1" class="a cx h" style="top: 360px; font-weight: 800; font-size: 42px">NO SON DÓLARES BANCARIOS</div>
+        <div id="w2" class="a cx h" style="top: 420px; font-weight: 800; font-size: 42px">NI ESTÁN <span class="red">LIBRES DE RIESGOS</span></div>
+        <div id="risks" class="a" style="left: 0; top: 560px; width: 1080px; height: 400px">
+          <div id="r1" class="rk h" style="left: 80px; top: 0">COMISIONES</div>
+          <div id="r2" class="rk h" style="left: 395px; top: 0">ESTAFAS</div>
+          <div id="r3" class="rk h" style="left: 710px; top: 0; font-size: 22px">PÉRDIDAS DE VALOR</div>
+          <div id="r4" class="rk n h" style="left: 80px; top: 130px">RED</div>
+          <div id="r5" class="rk n h" style="left: 395px; top: 130px">DIRECCIÓN</div>
+          <div id="r6" class="rk n h" style="left: 710px; top: 130px">CUSTODIA</div>
+        </div>
+        <div id="btc" class="coin h" style="left: 425px; top: 560px; background: radial-gradient(circle at 35% 30%, #ffc56b, #e08a1e 55%, #8a4b06)"><span style="font-size: 120px; line-height: 1">₿</span></div>
+        <div id="btcT" class="a cx h" style="top: 830px; font-weight: 900; font-size: 64px">BITCOIN <span class="red">≠</span> <span class="tq">STABLECOIN</span></div>
+        <svg id="chart" class="a h" style="left: 90px; top: 950px" width="900" height="360" viewBox="0 0 900 360" data-layout-ignore>
+          <path d="M0 330 H900" stroke="rgba(242,241,237,0.15)" stroke-width="2" />
+          <path id="chartL" d="M0 240 L80 200 L150 230 L230 140 L300 170 L370 80 L440 120 L510 60 L580 160 L640 250 L700 210 L760 300 L830 230 L900 270" stroke="#e08a1e" stroke-width="6" fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="1400" stroke-dashoffset="1400" />
+        </svg>
+        <div id="chartN" class="a cx h foot" style="top: 1320px">Gráfico ilustrativo · no son datos reales · sin promesa de rentabilidad</div>
+      </div>
+
+      <!-- ===== S7 conclusion + brand ===== -->
+      <div id="s7" class="clip" data-start="64.6" data-duration="11.6" data-track-index="1" style="position: absolute; inset: 0; z-index: 10">
+        <div id="c1" class="a cx h" style="top: 1060px; font-weight: 900; font-size: 58px">PROTEGE TU <span class="gold">PODER ADQUISITIVO</span></div>
+        <div id="c2" class="a cx h" style="top: 1150px; font-weight: 900; font-size: 58px">CONOCE <span class="tq">TUS OPCIONES</span></div>
+        <div id="brand" class="a cx h" style="top: 560px">
+          <img src="assets/brand/novapsis/novapsis-logo.png" alt="Novapsis" style="width: 220px; height: 220px" />
+          <div style="font-weight: 900; font-size: 96px; letter-spacing: 0.06em; margin-top: 20px">NOVAPSIS</div>
+          <div class="lab" style="margin-top: 14px; color: #c9cdd2">Tecnología fácil de entender</div>
+        </div>
+        <div id="cta" class="a cx h" style="top: 1110px"><span class="chip" style="color: #f2f1ed; border-color: rgba(29,154,138,0.7); background: rgba(29,154,138,0.12)">SÍGUENOS PARA APRENDER MÁS</span></div>
+        <div id="disc" class="a cx h foot" style="top: 1220px">Contenido educativo · no es asesoría financiera</div>
+      </div>
+
+      <div id="cap1" class="clip cap" data-start="0.0" data-duration="1.0" data-track-index="5"><span class="cap-in"><span class="hl">¡Devaluación!</span></span></div>
+      <div id="cap2" class="clip cap" data-start="1.04" data-duration="2.76" data-track-index="5"><span class="cap-in">¿Sabías que puedes perder casi el <span class="hl">75 %</span></span></div>
+      <div id="cap3" class="clip cap" data-start="3.86" data-duration="2.99" data-track-index="5"><span class="cap-in">del valor de tus ahorros sin gastar un solo bolívar?</span></div>
+      <div id="cap4" class="clip cap" data-start="7.28" data-duration="0.72" data-track-index="5"><span class="cap-in">Mira esto.</span></div>
+      <div id="cap5" class="clip cap" data-start="8.5" data-duration="2.4" data-track-index="5"><span class="cap-in">En noviembre de 2025, <span class="hl">100 dólares</span></span></div>
+      <div id="cap6" class="clip cap" data-start="10.96" data-duration="3.04" data-track-index="5"><span class="cap-in">equivalían a unos <span class="hl">22.400 bolívares</span>.</span></div>
+      <div id="cap7" class="clip cap" data-start="14.46" data-duration="3.39" data-track-index="5"><span class="cap-in">Un año después, necesitas más de <span class="hl">89.000 bolívares</span></span></div>
+      <div id="cap8" class="clip cap" data-start="17.9" data-duration="2.0" data-track-index="5"><span class="cap-in">para comprar esos mismos 100 dólares.</span></div>
+      <div id="cap9" class="clip cap" data-start="20.4" data-duration="2.3" data-track-index="5"><span class="cap-in">Y si hubieras guardado los bolívares,</span></div>
+      <div id="cap10" class="clip cap" data-start="22.76" data-duration="2.74" data-track-index="5"><span class="cap-in">hoy apenas representarían unos <span class="hl">25 dólares</span>.</span></div>
+      <div id="cap11" class="clip cap" data-start="25.58" data-duration="4.52" data-track-index="5"><span class="cap-in">Casi el <span class="hl">75 %</span> de su valor frente al dólar desapareció.</span></div>
+      <div id="cap12" class="clip cap" data-start="30.66" data-duration="2.84" data-track-index="5"><span class="cap-in">Entonces, ¿cómo puedes reducir ese riesgo?</span></div>
+      <div id="cap13" class="clip cap" data-start="33.94" data-duration="2.46" data-track-index="5"><span class="cap-in">Aquí entran <span class="hl">USDT y USDC</span>.</span></div>
+      <div id="cap14" class="clip cap" data-start="36.78" data-duration="4.62" data-track-index="5"><span class="cap-in">Son criptomonedas diseñadas para mantener un valor cercano al dólar estadounidense.</span></div>
+      <div id="cap15" class="clip cap" data-start="41.84" data-duration="3.36" data-track-index="5"><span class="cap-in">Puedes adquirirlas con bolívares mediante servicios compatibles</span></div>
+      <div id="cap16" class="clip cap" data-start="45.26" data-duration="2.34" data-track-index="5"><span class="cap-in">y conservarlas en una billetera digital.</span></div>
+      <div id="cap17" class="clip cap" data-start="48.08" data-duration="3.32" data-track-index="5"><span class="cap-in">Así puedes <span class="hl">reducir tu exposición</span> a la devaluación del bolívar.</span></div>
+      <div id="cap18" class="clip cap" data-start="51.46" data-duration="1.54" data-track-index="5"><span class="cap-in">Pero atención,</span></div>
+      <div id="cap19" class="clip cap" data-start="53.1" data-duration="3.0" data-track-index="5"><span class="cap-in">no son dólares bancarios ni están <span class="hl">libres de riesgos</span>.</span></div>
+      <div id="cap20" class="clip cap" data-start="56.36" data-duration="3.54" data-track-index="5"><span class="cap-in">Existen comisiones, estafas y posibles pérdidas de valor.</span></div>
+      <div id="cap21" class="clip cap" data-start="60.06" data-duration="1.44" data-track-index="5"><span class="cap-in">Y <span class="hl">Bitcoin</span> es diferente.</span></div>
+      <div id="cap22" class="clip cap" data-start="61.88" data-duration="2.52" data-track-index="5"><span class="cap-in">Su precio puede subir o bajar considerablemente.</span></div>
+      <div id="cap23" class="clip cap" data-start="64.8" data-duration="4.3" data-track-index="5"><span class="cap-in">Recuerda, proteger tus ahorros no significa buscar ganancias milagrosas.</span></div>
+      <div id="cap24" class="clip cap" data-start="69.28" data-duration="4.27" data-track-index="5"><span class="cap-in">Significa <span class="hl">conocer tus opciones</span> y aprender a tomar mejores decisiones.</span></div>
+
+      <audio id="vo" src="assets/audio/narracion.wav" data-start="0" data-duration="73.63" data-track-index="10" data-volume="1"></audio>
+      <audio id="music" src="assets/audio/music.wav" data-start="0" data-duration="76.2" data-track-index="11" data-volume="0.3"></audio>
+      <audio id="sfx" src="assets/sound-effects/sfx.wav" data-start="0" data-duration="76.2" data-track-index="12" data-volume="0.75"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const DUR = 76.2;
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out", IO = "power2.inOut";
+      const show = (s, t, d = 0.45, y = 24) => tl.fromTo(s, { opacity: 0, y: y, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: d, ease: E, immediateRender: false }, t);
+      const hide = (s, t, d = 0.3) => tl.to(s, { opacity: 0, duration: d, ease: "power2.in" }, t);
+      const fmt = (n) => Math.round(n).toLocaleString("es-ES").replace(/,/g, ".").replace(/\s/g, ".");
+      const fmtN = (n) => { const s = String(Math.round(n)); return s.replace(/\B(?=(\d{3})+(?!\d))/g, "."); };
+
+      // ---------- S1 ----------
+      gsap.set(".ltr", { opacity: 0, z: 600, filter: "blur(16px)" });
+      tl.to(".ltr", { opacity: 1, z: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.035, ease: "power4.out" }, 0.2);
+      tl.to(".ltr", { x: (i) => (i - 5) * 4, duration: 1.4, ease: "sine.inOut" }, 1.3);
+      show("#t1b", 1.4); show("#t75", 2.86, 0.4);
+      // push through the word
+      tl.to("#t1", { scale: 4.2, duration: 0.7, ease: "power3.in" }, 6.0); tl.to("#t1", { opacity: 0, duration: 0.4, ease: "power2.in" }, 6.15);
+      hide(["#t1b", "#t75"], 6.1, 0.3);
+      // dollar reveal with bolívar particles
+      gsap.set("#billW", { opacity: 0, z: -900, rotationY: -25 });
+      tl.to("#billW", { opacity: 1, z: 0, rotationY: -8, duration: 1.2, ease: E }, 6.55);
+      gsap.set(".pt", { opacity: 0 });
+      tl.to(".pt", { opacity: (i) => 0.35 + (i % 5) * 0.12, duration: 0.6, stagger: 0.004 }, 6.6);
+      tl.to(".pt", { x: (i) => ((i * 37) % 60) - 30, y: (i) => ((i * 53) % 80) - 40, rotation: (i) => ((i * 29) % 90) - 45, duration: 3, ease: "sine.inOut" }, 6.6);
+      tl.to("#billW", { rotationY: 8, y: -10, duration: 1.4, ease: "sine.inOut" }, 7.6);
+
+      gsap.set([".s0", ".s1"], { scaleY: 0 });
+      // ---------- S2 past ----------
+      tl.to(".pt", { opacity: 0, scale: 0.4, duration: 0.6 }, 8.4);
+      tl.to("#billW", { y: -140, rotationY: 0, rotationX: 18, scale: 0.78, duration: 1.0, ease: IO }, 8.4);
+      tl.to("#billPlat", { opacity: 1, y: -150, duration: 0.8 }, 8.8);
+      show("#date", 8.6, 0.4, 12); show("#ref1", 9.0, 0.4, 8);
+      tl.to("#stacks", { opacity: 1, duration: 0.4 }, 9.4);
+      tl.fromTo(".s0", { scaleY: 0 }, { scaleY: 1, duration: 0.7, stagger: 0.12, ease: "back.out(1.4)", immediateRender: false }, 9.5);
+      show("#stkLab", 10.0, 0.4, 8);
+      show("#usd", 10.34, 0.4, 10);
+      show("#cnt", 10.9, 0.3, 10);
+      const cnt = { v: 0 };
+      tl.to(cnt, { v: 22396, duration: 1.6, ease: "power2.out", onUpdate: () => (document.getElementById("cntN").textContent = fmtN(cnt.v)) }, 11.0);
+      show("#eq", 12.7, 0.35, 8);
+      // ---------- S3 time passes ----------
+      tl.to("#dateA", { opacity: 0, y: -20, duration: 0.3 }, 14.5);
+      tl.fromTo("#dateB", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, 14.6);
+      hide("#ref1", 14.5, 0.25); show("#ref2", 14.7, 0.35, 8);
+      hide("#eq", 14.5, 0.25);
+      tl.fromTo(".s1", { scaleY: 0 }, { scaleY: 1, duration: 0.6, stagger: 0.07, ease: "back.out(1.3)", immediateRender: false }, 15.5);
+      tl.to(".s0", { scaleY: 1.6, duration: 1.2, ease: IO }, 15.6);
+      tl.to(".s1", { scaleY: 1.6, duration: 1.2, ease: IO }, 16.4);
+      tl.to(cnt, { v: 89111, duration: 1.8, ease: "power2.inOut", onUpdate: () => (document.getElementById("cntN").textContent = fmtN(cnt.v)) }, 15.6);
+      tl.to("#cam", { scale: 0.86, y: 40, duration: 2.6, ease: IO }, 15.6);
+      tl.to("#cntN", { color: "#dc4545", duration: 0.4 }, 17.3);
+      show("#eq", 18.6, 0.35, 8);
+
+      // ---------- S4 value lost ----------
+      hide(["#date", "#ref2", "#usd", "#cnt", "#eq", "#stkLab"], 20.1, 0.3);
+      tl.to("#stacks", { opacity: 0, y: 200, duration: 0.6, ease: "power2.in" }, 20.2);
+      tl.to("#billW", { opacity: 0.0, y: -260, duration: 0.6, ease: "power2.in" }, 20.2);
+      tl.to("#billPlat", { opacity: 0, duration: 0.4 }, 20.2);
+      tl.to("#cam", { scale: 1, y: 0, duration: 0.8, ease: IO }, 20.2);
+      show("#s4h", 20.6, 0.45);
+      show("#colA", 21.6, 0.5, 30); show("#colB", 22.4, 0.5, 30);
+      tl.fromTo("#colBbar", { scaleY: 1 }, { scaleY: 0.2513, duration: 1.4, ease: "power3.inOut", immediateRender: false }, 23.3);
+      tl.fromTo("#colBlab", { y: 0 }, { y: 299, duration: 1.4, ease: "power3.inOut", immediateRender: false }, 23.3);
+      tl.fromTo("#pct", { opacity: 0, scale: 1.4, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out", immediateRender: false }, 25.6);
+      show("#pctS", 28.1, 0.4, 10); show("#calc", 28.6, 0.4, 8);
+
+      // ---------- S5 stablecoins ----------
+      tl.to("#pct", { opacity: 0, scale: 1.3, filter: "blur(18px)", duration: 0.7, ease: "power2.in" }, 30.4);
+      hide(["#s4h", "#colA", "#colB", "#pctS", "#calc"], 30.4, 0.4);
+      show("#s5h", 31.0, 0.45);
+      gsap.set(["#cT", "#cC"], { rotationY: 90 });
+      tl.to("#cT", { opacity: 1, rotationY: 0, duration: 0.8, ease: E }, 34.5);
+      tl.to("#cC", { opacity: 1, rotationY: 0, duration: 0.8, ease: E }, 35.55);
+      tl.to(["#cT", "#cC"], { rotationY: 360, duration: 2.4, ease: "sine.inOut" }, 36.6);
+      tl.fromTo("#par", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.7, ease: E, immediateRender: false }, 38.7);
+      show("#parL", 39.3, 0.4, 10); show("#parN", 40.2, 0.4, 8);
+      [["#f1", 43.1], ["#a1", 43.5], ["#f2", 44.0], ["#a2", 44.6], ["#f3", 45.0], ["#a3", 46.2], ["#f4", 46.6]].forEach(([s, t]) => show(s, t, 0.35, 14));
+      show("#fee", 47.1, 0.4, 8);
+      show("#expo", 48.3, 0.4, 10);
+
+      // ---------- S6 risks + bitcoin ----------
+      hide(["#s5h", "#cT", "#cC", "#par", "#parL", "#parN", "#flow", "#fee", "#expo"], 51.2, 0.35);
+      show("#warn", 52.0, 0.4); show("#w1", 53.1, 0.4, 12); show("#w2", 54.5, 0.4, 12);
+      show("#r1", 56.78, 0.3, 14); show("#r2", 57.8, 0.3, 14); show("#r3", 58.86, 0.3, 14);
+      show("#r4", 59.2, 0.3, 14); show("#r5", 59.3, 0.3, 14); show("#r6", 59.4, 0.3, 14);
+      hide(["#warn", "#w1", "#w2", "#risks"], 59.95, 0.3);
+      gsap.set("#btc", { rotationY: -90 });
+      tl.to("#btc", { opacity: 1, rotationY: 0, duration: 0.7, ease: E }, 60.15);
+      show("#btcT", 60.9, 0.4, 12);
+      tl.to("#chart", { opacity: 1, duration: 0.2 }, 61.85);
+      tl.to("#chartL", { strokeDashoffset: 0, duration: 1.7, ease: "none" }, 61.9);
+      show("#chartN", 62.6, 0.35, 8);
+      tl.to("#btc", { y: -60, duration: 0.5, ease: "sine.out" }, 62.56); tl.to("#btc", { y: 40, duration: 0.6, ease: "sine.inOut" }, 63.02);
+
+      // ---------- S7 conclusion ----------
+      hide(["#btc", "#btcT", "#chart", "#chartN"], 64.5, 0.4);
+      tl.to("#billW", { opacity: 1, y: 0, rotationX: 0, rotationY: 0, scale: 1, duration: 1.0, ease: E }, 64.8);
+      tl.to("#bill", { opacity: 0, duration: 1.2, ease: IO }, 66.2);
+      tl.to("#billGeo", { opacity: 1, duration: 1.0, ease: IO }, 66.2);
+      tl.to("#billW", { rotationZ: 90, scale: 0.7, duration: 1.6, ease: IO }, 67.0);
+      show("#c1", 65.7, 0.45);
+      show("#c2", 69.96, 0.45);
+      tl.to("#billW", { opacity: 0, scale: 0.4, duration: 0.6, ease: "power2.in" }, 72.4);
+      hide(["#c1", "#c2"], 72.4, 0.35);
+      tl.fromTo("#brand", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.7, ease: E, immediateRender: false }, 72.8);
+      show("#cta", 73.6, 0.45, 12); show("#disc", 74.0, 0.4, 8);
+      tl.to("#s7", { opacity: 1, duration: 0.01 }, DUR - 0.05);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
