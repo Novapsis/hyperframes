@@ -4,6 +4,8 @@ Estudio de producción de Reels verticales (1080×1920, 30 fps) para Novapsis co
 
 ## Flujo obligatorio
 
+Ejecuta todo Python con `.venv/bin/python` (lo crea `setup.sh`; tiene numpy, pillow y faster-whisper).
+
 1. **Audio primero.** Usa la locución aprobada sin cambiar palabras. Si el proyecto no tiene `build/words.json`, transcríbela con `.venv/bin/python tools/transcribe.py <wav> <proyecto>/build/words.json`. Todo se sincroniza a tiempos de palabra medidos.
 2. **Velocidad de la voz.** Solo se ajusta si hay un tramo realmente rápido, con `atempo` sin cambiar el tono, o añadiendo pausas breves (0,3–0,7 s) en momentos de impacto. Siempre se avisa al usuario.
 3. **Construcción.** Cada proyecto se genera desde `build/index.template.html`, `build/build.py` y `build/make_audio.py`. Nunca se edita `index.html` a mano.
