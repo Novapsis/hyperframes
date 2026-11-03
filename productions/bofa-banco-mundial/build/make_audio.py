@@ -32,11 +32,11 @@ def paper(d=0.3,a=0.08):
     n=int(d*SR); tt=np.arange(n)/SR; no=rng.standard_normal(n); hi=no-np.convolve(no,np.ones(8)/8,"same"); return hi*np.sin(np.pi*tt/d)*a
 def blip(f=1200,a=0.07):
     n=int(0.12*SR); tt=np.arange(n)/SR; return np.sin(2*np.pi*f*tt)*np.exp(-tt*35)*a
-add(0.02,impact(0.7)); add(0.1,blip(900)); add(1.0,whoosh(1.2)); add(1.5,whoosh(1.0,0.035))
+add(0.02,impact(0.7)); add(0.1,blip(900)); 
 add(1.48,glass(2600)); add(2.6,glass(3100)); add(4.96,blip(1400))
-add(6.5,whoosh(0.8)); add(7.14,impact(0.15))
+add(7.14,impact(0.15))
 for i in range(10): add(8.3+i*0.06,paper())
-add(10.6,whoosh(1.4,0.03)); add(11.8,glass(2200,0.06)); add(14.9,whoosh(0.8))
-add(17.85,impact(0.18)); add(20.5,glass(1800,0.08)); add(21.45,whoosh(0.7))
+add(11.8,glass(2200,0.06)); 
+add(17.85,impact(0.18)); add(20.5,glass(1800,0.08)); 
 add(22.95,impact(0.6)); add(22.95,glass(1500,0.06))
 write(os.path.join(HERE,"../assets/sound-effects/sfx.wav"),L*0.9,R*0.9); print("ok")
