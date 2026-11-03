@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Novapsis Studio — Los 4 Cuadrantes del Dinero</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Kalam"; font-weight: 400; src: url("assets/fonts/kalam-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Kalam"; font-weight: 700; src: url("assets/fonts/kalam-latin-700-normal.woff2") format("woff2"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #fafaf8; }
+      body { font-family: "Inter", sans-serif; color: #171717; }
+      #board { position: absolute; inset: 0; background: radial-gradient(1400px 1200px at 50% 45%, #ffffff 0%, #fafaf8 60%, #f1f0ec 100%); }
+      #world { position: absolute; left: 0; top: 0; }
+      .ink, .ink-solo { fill: none; stroke: #171717; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .hw { font-family: "Kalam", cursive; font-weight: 700; fill: #171717; }
+      .hw4 { font-family: "Kalam", cursive; font-weight: 400; fill: #171717; }
+      .tint { opacity: 0; }
+      .ov { position: absolute; left: 0; right: 0; text-align: center; opacity: 0; z-index: 40; }
+      .ovk { font-family: "Kalam", cursive; font-weight: 700; }
+      .cap { position: absolute; left: 90px; right: 90px; top: 1500px; height: 150px; display: flex; align-items: center; justify-content: center; z-index: 50; }
+      .cap-in { display: inline-block; max-width: 900px; padding: 12px 26px; border-radius: 18px; background: rgba(255,255,255,0.92);
+        box-shadow: 0 6px 24px rgba(23,23,23,0.08); font-weight: 700; font-size: 42px; line-height: 1.25; text-align: center; color: #171717; }
+      .cap .hl { color: #0d9488; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="{{DUR}}" data-width="1080" data-height="1920">
+      <div id="stage" class="clip" data-start="0" data-duration="{{DUR}}" data-track-index="0" data-layout-allow-overflow data-layout-ignore style="position: absolute; inset: 0; z-index: 1">
+        <div id="board"></div>
+        <svg id="world" width="1080" height="1920" viewBox="0 0 1080 1920">
+          <defs id="defs">
+            <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3cfae" /><stop offset="0.55" stop-color="#e3ad86" /><stop offset="1" stop-color="#c98f69" /></linearGradient>
+            <linearGradient id="skin2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d79e78" /><stop offset="0.5" stop-color="#f0c7a4" /><stop offset="1" stop-color="#d49a73" /></linearGradient>
+            <linearGradient id="barrel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b0b0b" /><stop offset="0.35" stop-color="#3a3a3a" /><stop offset="0.55" stop-color="#1a1a1a" /><stop offset="1" stop-color="#050505" /></linearGradient>
+            <filter id="shadowF" x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.18 0" /><feGaussianBlur stdDeviation="8" /></filter>
+            <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9" /></filter>
+          </defs>
+          <g id="cam">
+            <!-- cell tints -->
+            <rect id="tE" class="tint" x="110" y="530" width="430" height="430" fill="#2563eb" />
+            <rect id="tD" class="tint" x="540" y="530" width="430" height="430" fill="#0d9488" />
+            <rect id="tA" class="tint" x="110" y="960" width="430" height="430" fill="#f59e0b" />
+            <rect id="tI" class="tint" x="540" y="960" width="430" height="430" fill="#7c3aed" />
+
+            <!-- ============ S1: quadrant ============ -->
+            <g class="op dg" data-t0="0.45" data-t1="0.95"><path class="ink" d="M540 530 V1390" /></g>
+            <g class="op dg" data-t0="1.0" data-t1="1.5"><path class="ink" d="M110 960 H970" /></g>
+            <g class="op wr" data-t0="1.6" data-t1="1.85" transform="translate(110 530)"><text id="LE" class="hw" x="24" y="92" font-size="84">E</text></g>
+            <g class="op wr" data-t0="1.9" data-t1="2.15" transform="translate(540 530)"><text id="LD" class="hw" x="24" y="92" font-size="84">D</text></g>
+            <g class="op wr" data-t0="2.2" data-t1="2.45" transform="translate(110 960)"><text id="LA" class="hw" x="24" y="92" font-size="84">A</text></g>
+            <g class="op wr" data-t0="2.5" data-t1="2.72" transform="translate(540 960)"><text id="LI" class="hw" x="30" y="92" font-size="84">I</text></g>
+            <g id="title1" class="op wr" data-t0="2.85" data-t1="3.9"><text class="hw" x="540" y="380" font-size="66" text-anchor="middle">LOS 4 CUADRANTES</text></g>
+            <g id="title2" class="op wr" data-t0="3.95" data-t1="4.55"><text class="hw" x="540" y="455" font-size="66" text-anchor="middle">DEL <tspan fill="#0d9488">DINERO</tspan></text></g>
+            <!-- S2 -->
+            <g id="title3" class="op wr" data-t0="5.0" data-t1="6.4"><text class="hw" x="540" y="395" font-size="50" text-anchor="middle">4 FORMAS DE GENERAR INGRESOS</text></g>
+            <g id="title4" class="op wr" data-t0="6.45" data-t1="7.2"><text class="hw4" x="540" y="455" font-size="32" text-anchor="middle" fill="#64748b" style="fill: #64748b">Modelo de Robert Kiyosaki</text></g>
+
+            <!-- ============ CELL E (110,530) ============ -->
+            <g transform="translate(110 530)">
+              <circle id="eClockFace" cx="330" cy="215" r="40" fill="#2563eb" class="tint" />
+              <g id="eHandM" transform="translate(330 215)"><line x1="0" y1="0" x2="0" y2="-28" stroke="#2563eb" stroke-width="5" stroke-linecap="round" class="tint" /></g>
+              <path id="eDocFill" class="tint" d="M290 305 h80 v95 h-80 Z" fill="#2563eb" />
+            </g>
+            <g class="op dg" data-t0="7.3" data-t1="7.75" data-tx="110" data-ty="530" transform="translate(110 530)">
+              <path class="ink" d="M330 175 A40 40 0 1 1 329.9 175" /><path class="ink" d="M330 215 L330 190" /><path class="ink" d="M330 215 L348 222" />
+            </g>
+            <g id="eCircle" class="op dg" data-t0="9.3" data-t1="9.7" data-tx="110" data-ty="530" transform="translate(110 530)">
+              <path class="ink" style="stroke: #2563eb; stroke-width: 3" d="M330 152 C380 152 395 200 392 220 C388 262 350 280 318 276 C276 270 262 236 268 205 C275 170 305 150 345 158" />
+            </g>
+            <g class="op wr" data-t0="10.45" data-t1="11.1" transform="translate(110 530)"><text class="hw" x="24" y="140" font-size="36"><tspan fill="#2563eb">1.</tspan> EMPLEADO</text></g>
+            <g class="op dg" data-t0="11.65" data-t1="12.75" data-tx="110" data-ty="530" transform="translate(110 530)">
+              <path class="ink" d="M25 350 L205 350" /><path class="ink" d="M45 350 L45 410" /><path class="ink" d="M190 350 L190 410" />
+              <path class="ink" d="M100 348 L112 300 L168 300 L160 348" />
+              <path class="ink" d="M62 255 A20 20 0 1 1 61.9 255" />
+              <path class="ink" d="M62 295 C56 318 56 336 64 352" /><path class="ink" d="M62 312 C80 318 92 326 108 330" />
+              <path class="ink" d="M30 352 L30 408 M30 380 L64 380" />
+            </g>
+            <g class="op wr" data-t0="12.8" data-t1="13.35" transform="translate(110 530)"><text class="hw" x="20" y="430" font-size="26">TIEMPO + TRABAJO</text></g>
+            <g class="op dg" data-t0="13.4" data-t1="13.6" data-tx="110" data-ty="530" transform="translate(110 530)"><path id="eArrow" class="ink" d="M330 262 L330 300" /><path class="ink" d="M321 291 L330 302 L339 291" /></g>
+            <g class="op dg" data-t0="13.62" data-t1="14.05" data-tx="110" data-ty="530" transform="translate(110 530)">
+              <path class="ink" d="M290 305 H370 V400 H290 Z" /><path class="ink" d="M338 322 C326 316 312 320 314 330 C316 340 340 338 340 350 C340 362 322 364 312 356 M327 314 V368" /><path class="ink" d="M302 380 H358" />
+            </g>
+            <g class="op wr" data-t0="14.08" data-t1="14.45" transform="translate(110 530)"><text class="hw" x="292" y="430" font-size="26">SALARIO</text></g>
+            <g class="op dg" data-t0="15.0" data-t1="15.25" data-tx="110" data-ty="530" transform="translate(110 530)"><path class="ink" style="stroke: #f59e0b" d="M316 286 L344 272 M316 296 L344 282" /></g>
+
+            <!-- ============ CELL A (110,960) ============ -->
+            <path id="aAwning" class="tint" d="M135 1210 L220 1210 L210 1185 L145 1185 Z" fill="#f59e0b" />
+            <g class="op dg" data-t0="7.8" data-t1="8.3" data-tx="110" data-ty="960" transform="translate(110 960)">
+              <path class="ink" d="M215 237 A18 18 0 1 1 214.9 237" /><path class="ink" d="M215 273 L215 320" /><path class="ink" d="M192 292 L238 292" /><path class="ink" d="M215 320 L200 352 M215 320 L230 352" />
+            </g>
+            <g class="op wr" data-t0="18.3" data-t1="19.05" transform="translate(110 960)"><text class="hw" x="24" y="140" font-size="36"><tspan fill="#f59e0b">2.</tspan> AUTOEMPLEADO</text></g>
+            <g class="op dg" data-t0="19.1" data-t1="19.75" data-tx="110" data-ty="960" transform="translate(110 960)">
+              <path class="ink" d="M30 250 L30 342 L105 342 L105 250" /><path class="ink" d="M25 250 L110 250 L100 225 L35 225 Z" /><path class="ink" d="M58 342 L58 302 L80 302 L80 342" />
+            </g>
+            <g id="aC1" class="op dg" data-t0="20.65" data-t1="20.8" data-tx="110" data-ty="960" transform="translate(110 960)"><path class="ink" d="M234 280 L290 205" /></g>
+            <g class="op wr aT" data-t0="20.82" data-t1="21.05" transform="translate(110 960)"><text class="hw" x="294" y="205" font-size="26">Clientes</text></g>
+            <g id="aC2" class="op dg" data-t0="21.12" data-t1="21.25" data-tx="110" data-ty="960" transform="translate(110 960)"><path class="ink" d="M238 290 L296 258" /></g>
+            <g class="op wr aT" data-t0="21.27" data-t1="21.5" transform="translate(110 960)"><text class="hw" x="300" y="265" font-size="26">Ventas</text></g>
+            <g id="aC3" class="op dg" data-t0="21.6" data-t1="21.73" data-tx="110" data-ty="960" transform="translate(110 960)"><path class="ink" d="M238 300 L296 318" /></g>
+            <g class="op wr aT" data-t0="21.75" data-t1="22.0" transform="translate(110 960)"><text class="hw" x="300" y="326" font-size="26">Facturas</text></g>
+            <g id="aC4" class="op dg" data-t0="22.08" data-t1="22.2" data-tx="110" data-ty="960" transform="translate(110 960)"><path class="ink" d="M232 312 L290 378" /></g>
+            <g class="op wr aT" data-t0="22.22" data-t1="22.5" transform="translate(110 960)"><text class="hw" x="294" y="388" font-size="26">Organizar</text></g>
+            <g class="op wr" data-t0="22.6" data-t1="23.4" transform="translate(110 960)"><text class="hw" x="20" y="428" font-size="26">TODO DEPENDE DE TI</text></g>
+            <g class="op dg" data-t0="23.5" data-t1="23.9" data-tx="110" data-ty="960" transform="translate(110 960)"><path class="ink" d="M165 206 A16 16 0 1 1 164.9 206" /><path class="ink" d="M165 222 L165 212 M165 222 L172 225" /></g>
+            <g transform="translate(110 960)"><g id="aHand" transform="translate(165 222)"><line x1="0" y1="0" x2="0" y2="-11" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" class="tint" /></g></g>
+
+            <!-- ============ CELL D (540,530) ============ -->
+            <g class="op dg" data-t0="8.35" data-t1="8.75" data-tx="540" data-ty="530" transform="translate(540 530)">
+              <path class="ink" d="M40 300 L40 205 L100 205 L100 300 Z" /><path class="ink" d="M55 225 H85 M55 248 H85 M55 271 H85" />
+            </g>
+            <g class="op wr" data-t0="27.8" data-t1="28.95" transform="translate(540 530)"><text class="hw" x="24" y="140" font-size="34"><tspan fill="#0d9488">3.</tspan> DUEÑO DE NEGOCIO</text></g>
+            <g transform="translate(540 530)">
+              <g transform="translate(200 260)"><g id="gr1"><path id="gf1" class="tint" d="{{GEAR 40 10}}" fill="#0d9488" /><g class="op dg" data-t0="29.45" data-t1="29.85" data-tx="740" data-ty="790"><path class="ink gear" d="{{GEAR 40 10}}" /><path class="ink gear" d="M0 -12 A12 12 0 1 1 -0.1 -12" /></g></g></g>
+              <g transform="translate(266 308)"><g id="gr2"><path id="gf2" class="tint" d="{{GEAR 30 8}}" fill="#0d9488" /><g class="op dg" data-t0="29.85" data-t1="30.2" data-tx="806" data-ty="838"><path class="ink gear" d="{{GEAR 30 8}}" /><path class="ink gear" d="M0 -9 A9 9 0 1 1 -0.1 -9" /></g></g></g>
+              <g transform="translate(330 254)"><g id="gr3"><path id="gf3" class="tint" d="{{GEAR 34 9}}" fill="#0d9488" /><g class="op dg" data-t0="30.2" data-t1="30.6" data-tx="870" data-ty="784"><path class="ink gear" d="{{GEAR 34 9}}" /><path class="ink gear" d="M0 -10 A10 10 0 1 1 -0.1 -10" /></g></g></g>
+            </g>
+            <g class="op dg" data-t0="30.8" data-t1="31.7" data-tx="540" data-ty="530" transform="translate(540 530)">
+              <path class="ink" d="M180 362 A11 11 0 1 1 179.9 362" /><path class="ink" d="M180 384 L180 410 M168 396 L192 396" />
+              <path class="ink" d="M250 362 A11 11 0 1 1 249.9 362" /><path class="ink" d="M250 384 L250 410 M238 396 L262 396" />
+              <path class="ink" d="M320 362 A11 11 0 1 1 319.9 362" /><path class="ink" d="M320 384 L320 410 M308 396 L332 396" />
+            </g>
+            <g id="dOwner" class="op dg" data-t0="31.75" data-t1="33.1" data-tx="540" data-ty="530" transform="translate(540 530)">
+              <path class="ink" d="M395 168 A14 14 0 1 1 394.9 168" /><path class="ink" d="M395 196 L395 232 M380 210 L410 210" />
+              <path class="ink" style="stroke-width: 3" d="M388 240 C360 300 250 330 186 352" /><path class="ink" style="stroke-width: 3" d="M394 242 C380 300 300 330 254 352" /><path class="ink" style="stroke-width: 3" d="M400 242 C405 300 350 330 324 352" />
+            </g>
+            <g class="op wr" data-t0="33.6" data-t1="34.9" transform="translate(540 530)"><text class="hw" x="20" y="430" font-size="23">SISTEMAS · EQUIPOS · DELEGACIÓN</text></g>
+            <!-- master scene: unfinished arrow + later additions -->
+            <path id="arrowFix" class="ink-solo" transform="translate(540 530)" d="M196 205 C236 168 296 166 326 206 M314 200 L327 209 L330 194" />
+            <g class="op dp" data-path="arrowFix" data-p0="0" data-p1="0.52" data-t0="62.75" data-t1="63.88" data-tx="540" data-ty="530" data-hold="1"></g>
+            <g class="op dg" data-t0="77.6" data-t1="78.3" data-tx="540" data-ty="530" transform="translate(540 530)">
+              <path class="ink" style="stroke: #0d9488" d="M110 362 A11 11 0 1 1 109.9 362" /><path class="ink" style="stroke: #0d9488" d="M110 384 L110 410 M98 396 L122 396" />
+            </g>
+            <g class="op dg" data-t0="78.33" data-t1="78.58" data-tx="540" data-ty="530" transform="translate(540 530)"><path class="ink" style="stroke: #0d9488; stroke-width: 3" d="M118 368 C140 330 160 310 172 292" /></g>
+            <g class="op dg" data-t0="79.15" data-t1="79.8" data-tx="540" data-ty="530" transform="translate(540 530)">
+              <path class="ink" style="stroke-width: 3" d="M150 156 H222 V184 H150 Z" /><path class="ink" style="stroke-width: 3" d="M226 170 H240" /><path class="ink" style="stroke-width: 3" d="M244 156 H316 V184 H244 Z" /><path class="ink" style="stroke-width: 3" d="M320 170 H334" /><path class="ink" style="stroke-width: 3" d="M338 156 H418 V184 H338 Z" />
+            </g>
+            <g id="procTxt" opacity="0" transform="translate(540 530)">
+              <text class="hw4" x="186" y="177" font-size="15" text-anchor="middle">ENTRADA</text><text class="hw4" x="280" y="177" font-size="15" text-anchor="middle">PROCESO</text><text class="hw4" x="378" y="177" font-size="15" text-anchor="middle">RESULTADO</text>
+            </g>
+            <g class="op dp" data-path="arrowFix" data-p0="0.52" data-p1="1" data-t0="80.0" data-t1="80.5" data-tx="540" data-ty="530"></g>
+
+            <!-- ============ CELL I (540,960) ============ -->
+            <circle id="iCoinFill" class="tint" cx="610" cy="1200" r="34" fill="#7c3aed" />
+            <g class="op dg" data-t0="8.8" data-t1="9.25" data-tx="540" data-ty="960" transform="translate(540 960)">
+              <path class="ink" d="M262 262 L262 402 L412 402" /><path id="iLine" class="ink" d="M268 382 L300 352 L330 362 L370 306 L405 292" />
+            </g>
+            <g class="op wr" data-t0="38.5" data-t1="39.5" transform="translate(540 960)"><text class="hw" x="24" y="140" font-size="36"><tspan fill="#7c3aed">4.</tspan> INVERSIONISTA</text></g>
+            <g class="op dg" data-t0="40.45" data-t1="41.0" data-tx="540" data-ty="960" transform="translate(540 960)"><path class="ink" d="M70 206 A34 34 0 1 1 69.9 206" /><path class="ink" d="M82 226 C72 218 58 222 60 232 C62 242 82 238 82 250 C82 260 66 262 58 254 M70 214 V266" /></g>
+            <g class="op dg" data-t0="41.05" data-t1="41.3" data-tx="540" data-ty="960" transform="translate(540 960)"><path class="ink" d="M110 240 L158 240 M148 230 L160 240 L148 250" /></g>
+            <g class="op dg" data-t0="41.35" data-t1="41.95" data-tx="540" data-ty="960" transform="translate(540 960)"><path class="ink" d="M170 272 L170 222 L202 196 L234 222 L234 272 Z" /><path class="ink" d="M194 272 L194 246 L210 246 L210 272" /></g>
+            <g class="op dg" data-t0="42.0" data-t1="42.45" data-tx="540" data-ty="960" transform="translate(540 960)"><path class="ink" d="M200 312 A28 28 0 1 1 199.9 312" /><path class="ink" d="M200 340 L200 312 M200 340 L225 352" /></g>
+            <g class="op wr" data-t0="42.7" data-t1="43.6" transform="translate(540 960)"><text class="hw" x="20" y="430" font-size="26">CAPITAL → ACTIVOS</text></g>
+            <g class="op dg" data-t0="44.4" data-t1="45.0" data-tx="540" data-ty="960" transform="translate(540 960)"><path class="ink" style="stroke: #f59e0b" d="M268 372 L295 336 L318 368 L346 318 L372 350 L405 304" /></g>
+            <g class="op wr" data-t0="45.05" data-t1="45.6" transform="translate(540 960)"><text class="hw" x="330" y="282" font-size="24" style="fill: #b45309">RIESGO</text></g>
+
+            <!-- ============ S7 / S8 ============ -->
+            <g id="divider" class="op dg" data-t0="48.1" data-t1="48.9"><path class="ink" style="stroke: #0d9488; stroke-width: 5" d="M540 470 V1450" /></g>
+            <g id="lbL" class="op wr" data-t0="49.0" data-t1="50.2"><text class="hw" x="325" y="505" font-size="30" text-anchor="middle">TIEMPO Y TRABAJO</text></g>
+            <g id="lbR" class="op wr" data-t0="51.8" data-t1="53.0"><text class="hw" x="755" y="505" font-size="30" text-anchor="middle" style="fill: #0d9488">SISTEMAS Y ACTIVOS</text></g>
+            <g id="multi" class="op dg" data-t0="57.15" data-t1="58.35">
+              <path class="ink" style="stroke-width: 5" d="M540 922 A14 14 0 1 1 539.9 922" /><path class="ink" style="stroke-width: 5" d="M540 950 L540 990 M524 966 L556 966" />
+              <path class="ink" style="stroke: #2563eb; stroke-width: 4" d="M528 940 C480 880 420 820 380 780" /><path class="ink" style="stroke: #7c3aed; stroke-width: 4" d="M552 984 C600 1050 660 1110 700 1140" />
+            </g>
+            <g id="mt1" class="op wr" data-t0="58.45" data-t1="59.35"><text class="hw" x="540" y="410" font-size="44" text-anchor="middle">PUEDES ESTAR EN VARIOS</text></g>
+            <g id="mt2" class="op wr" data-t0="59.45" data-t1="60.95"><text class="hw" x="540" y="480" font-size="38" text-anchor="middle" style="fill: #64748b">NINGUNO GARANTIZA RIQUEZA</text></g>
+
+            <!-- ============ SHEET 2 (AGENDA) ============ -->
+            <g id="sg" opacity="0">
+              <g transform="translate(180 2500)"><g class="sgr"><path d="{{GEAR 46 11}}" fill="#ccfbf1" stroke="#171717" stroke-width="4" /></g></g>
+              <g transform="translate(905 2560)"><g class="sgr"><path d="{{GEAR 34 9}}" fill="none" stroke="#171717" stroke-width="4" /></g></g>
+              <g transform="translate(160 3270)"><g class="sgr"><path d="{{GEAR 30 8}}" fill="none" stroke="#171717" stroke-width="4" /></g></g>
+              <g transform="translate(920 3230)"><g class="sgr"><path d="{{GEAR 44 10}}" fill="#ccfbf1" stroke="#171717" stroke-width="4" /></g></g>
+            </g>
+            <g id="agenda" class="op wr" data-t0="84.6" data-t1="85.9"><text class="hw" x="540" y="2985" font-size="240" text-anchor="middle">AGENDA</text></g>
+            <g class="op dg" data-t0="85.95" data-t1="86.35"><path class="ink" style="stroke: #14b8a6; stroke-width: 9" d="M170 3035 C380 3060 700 3030 910 3048" /></g>
+
+            <!-- ============ HAND ============ -->
+            <g id="hand" transform="translate(1400 2400)">
+              <g id="handIn" transform="scale(0.78)">
+                <g id="handShadow" transform="translate(16 20)"><image href="assets/hand/hand-pencil.png" x="-1" y="-72" width="544" height="611" filter="url(#shadowF)" /></g>
+                <image href="assets/hand/hand-pencil.png" x="-1" y="-72" width="544" height="611" />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- ============ SCREEN OVERLAYS ============ -->
+      <div id="ov-stop" class="ov" style="top: 250px; font-weight: 800; font-size: 64px; letter-spacing: -0.02em">¿TU NEGOCIO<br /><span style="color: #b45309">SE DETENDRÍA?</span></div>
+      <div id="ov-tt" class="ov ovk" style="top: 330px; font-size: 64px">
+        <span id="ov-tt1" style="opacity: 0">TU TIEMPO</span>
+        <svg width="190" height="40" viewBox="0 0 190 40" style="vertical-align: middle; margin: 0 14px"><path id="ov-arr" d="M8 20 C60 14 120 26 182 20" stroke="#171717" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="180" stroke-dashoffset="180" /></svg>
+        <span id="ov-tt2" style="opacity: 0; color: #64748b">TU DINERO</span>
+      </div>
+      <div id="ov-sol" class="ov ovk" style="top: 255px; font-size: 46px; opacity: 1">
+        <span id="sol1" style="opacity: 0; color: #0d9488">DELEGAR</span><span id="sol2" style="opacity: 0; color: #0d9488"> · CREAR SISTEMAS</span><span id="sol3" style="opacity: 0; color: #0d9488"> · AUTOMATIZAR</span>
+      </div>
+      <div id="ov-sys" class="ov ovk" style="top: 1350px; font-size: 50px; color: #0d9488"><span style="background: rgba(255,255,255,0.94); padding: 6px 26px; border-radius: 16px">EL SISTEMA SIGUE FUNCIONANDO</span></div>
+      <div id="ov-q1" class="ov ovk" style="top: 270px; font-size: 64px">¿Y TU NEGOCIO?</div>
+      <div id="ov-q2" class="ov ovk" style="top: 360px; font-size: 52px; color: #0d9488">¿DEPENDE DE TI PARA TODO?</div>
+      <div id="ov-com" class="ov" style="top: 690px; font-weight: 700; font-size: 44px; letter-spacing: 0.18em; color: #64748b">COMENTA LA PALABRA</div>
+      <div id="ov-tag" class="ov ovk" style="top: 1200px; font-size: 48px">DELEGA. SISTEMATIZA. <span style="color: #0d9488">AUTOMATIZA.</span></div>
+      <div id="ov-logo" class="ov" style="top: 1310px"><img src="assets/brand/novapsis/novapsis-logo.png" alt="Novapsis" style="width: 110px; height: 110px" /></div>
+
+{{CAPTIONS}}
+
+      <audio id="vo" src="assets/audio/narracion.wav" data-start="0" data-duration="91.1" data-track-index="10" data-volume="1"></audio>
+      <audio id="music" src="assets/audio/music.wav" data-start="0" data-duration="{{DUR}}" data-track-index="11" data-volume="0.28"></audio>
+      <audio id="sfx" src="assets/sound-effects/sfx.wav" data-start="0" data-duration="{{DUR}}" data-track-index="12" data-volume="0.7"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const DUR = {{DUR}};
+      const tl = gsap.timeline({ paused: true });
+      const $ = (s) => document.querySelector(s);
+      const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+      const ease = (p) => 0.5 - 0.5 * Math.cos(Math.PI * clamp(p, 0, 1));
+
+      // ---------- camera keys (time, cx, cy, s) — eased between consecutive keys ----------
+      const C = { full: [540, 960, 1], up: [540, 920, 1.02], E: [325, 805, 2.25], A: [325, 1235, 2.25], D: [755, 805, 2.25], I: [755, 1235, 2.25] };
+      const camKeys = [
+        [0, ...C.full], [0.4, ...C.full], [4.6, ...C.full], [5.4, ...C.up], [9.75, ...C.up], [10.5, ...C.E], [17.45, ...C.E], [18.25, ...C.A],
+        [26.95, ...C.A], [27.75, ...C.D], [37.7, ...C.D], [38.45, ...C.I], [46.2, ...C.I], [47.3, ...C.full], [61.4, ...C.full], [62.6, 790, 820, 2.3],
+        [66.7, 790, 820, 2.3], [68.4, 800, 795, 2.85], [69.4, 800, 795, 2.85], [70.6, ...C.full], [75.15, ...C.full], [76.3, 790, 820, 2.3],
+        [81.9, 790, 820, 2.3], [82.9, ...C.full], [83.55, ...C.full], [84.35, 540, 2880, 1], [DUR, 540, 2880, 1],
+      ];
+      function camAt(t) {
+        for (let i = 0; i < camKeys.length - 1; i++) {
+          const a = camKeys[i], b = camKeys[i + 1];
+          if (t <= b[0]) { const p = ease((t - a[0]) / (b[0] - a[0] || 1)); return [a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p, a[3] + (b[3] - a[3]) * p]; }
+        }
+        const z = camKeys[camKeys.length - 1]; return [z[1], z[2], z[3]];
+      }
+
+      // ---------- ops ----------
+      const ops = [];
+      document.querySelectorAll(".op").forEach((g) => {
+        const o = { el: g, t0: +g.dataset.t0, t1: +g.dataset.t1, tx: +(g.dataset.tx || 0), ty: +(g.dataset.ty || 0), hold: g.dataset.hold === "1" };
+        if (g.classList.contains("dg")) {
+          o.type = "dg";
+          o.paths = [...g.querySelectorAll(".ink")].map((p) => { const L = p.getTotalLength(); p.style.strokeDasharray = L + " " + (L + 2); p.style.strokeDashoffset = L; return { p, L }; });
+          const tot = o.paths.reduce((s, x) => s + x.L, 0);
+          const gap = o.paths.length > 1 ? Math.min(0.06, ((o.t1 - o.t0) * 0.25) / (o.paths.length - 1)) : 0;
+          const drawT = o.t1 - o.t0 - gap * (o.paths.length - 1);
+          let c = o.t0;
+          o.paths.forEach((x) => { x.a = c; x.b = c + (drawT * x.L) / tot; c = x.b + gap; });
+        } else if (g.classList.contains("dp")) {
+          o.type = "dp"; o.p0 = +g.dataset.p0; o.p1 = +g.dataset.p1;
+          const p = document.getElementById(g.dataset.path); o.path = p; o.L = p.getTotalLength();
+          if (!p.dataset.init) { p.style.strokeDasharray = o.L + " " + (o.L + 2); p.style.strokeDashoffset = o.L; p.dataset.init = "1"; }
+        } else {
+          o.type = "wr";
+          const id = "cp" + ops.length;
+          const cp = document.createElementNS("http://www.w3.org/2000/svg", "clipPath"); cp.setAttribute("id", id);
+          const r = document.createElementNS("http://www.w3.org/2000/svg", "rect"); r.setAttribute("x", -2000); r.setAttribute("y", -2000); r.setAttribute("width", 0); r.setAttribute("height", 6000);
+          cp.appendChild(r); $("#defs").appendChild(cp); g.setAttribute("clip-path", "url(#" + id + ")"); o.rect = r; o.text = g.querySelector("text");
+          const m = (g.getAttribute("transform") || "").match(/translate\(([-\d.]+)[ ,]+([-\d.]+)\)/); if (m) { o.tx = +m[1]; o.ty = +m[2]; }
+        }
+        ops.push(o);
+      });
+      ops.sort((a, b) => a.t0 - b.t0);
+
+      function tipOf(o, t) { // world position of the marker tip for op o at time t (clamped)
+        if (o.type === "dg") {
+          let cur = o.paths[0];
+          for (const x of o.paths) { if (t >= x.a) cur = x; }
+          const p = clamp((t - cur.a) / (cur.b - cur.a), 0, 1);
+          const pt = cur.p.getPointAtLength(cur.L * p); return [o.tx + pt.x, o.ty + pt.y];
+        }
+        if (o.type === "dp") {
+          const p = o.p0 + (o.p1 - o.p0) * clamp((t - o.t0) / (o.t1 - o.t0), 0, 1);
+          const pt = o.path.getPointAtLength(o.L * p); return [o.tx + pt.x, o.ty + pt.y];
+        }
+        const bb = o.text.getBBox(); const p = clamp((t - o.t0) / (o.t1 - o.t0), 0, 1); const fs = +o.text.getAttribute("font-size");
+        return [o.tx + bb.x + bb.width * p, o.ty + bb.y + bb.height * 0.62 + Math.sin(p * bb.width * 0.22) * fs * 0.16];
+      }
+      function startOf(o) { return tipOf(o, o.t0); }
+
+      function renderOps(t) {
+        for (const o of ops) {
+          if (o.type === "dg") o.paths.forEach((x) => { const p = clamp((t - x.a) / (x.b - x.a), 0, 1); x.p.style.strokeDashoffset = x.L * (1 - p); });
+          else if (o.type === "wr") { const bb = o.text.getBBox(); const p = clamp((t - o.t0) / (o.t1 - o.t0), 0, 1); o.rect.setAttribute("x", bb.x - 10); o.rect.setAttribute("width", p >= 1 ? 6000 : (bb.width + 20) * p); }
+        }
+        // partial path (two ops share one path)
+        const dps = ops.filter((o) => o.type === "dp"); let prog = 0;
+        for (const o of dps) { if (t >= o.t0) prog = o.p0 + (o.p1 - o.p0) * clamp((t - o.t0) / (o.t1 - o.t0), 0, 1); }
+        if (dps.length) dps[0].path.style.strokeDashoffset = dps[0].L * (1 - prog);
+      }
+
+      function screenToWorld(sx, sy, cam) { return [cam[0] + (sx - 540) / cam[2], cam[1] + (sy - 960) / cam[2]]; }
+
+      function handAt(t, cam) { // returns [x, y, lift(0..1)] in world coords, or null for offscreen rest
+        const rest = screenToWorld(1250, 2250, cam);
+        let prev = null, next = null;
+        for (const o of ops) { if (o.t0 <= t) prev = o; else { next = o; break; } }
+        if (prev && t <= prev.t1) return [...tipOf(prev, t), 0];
+        const gapEnd = next ? next.t0 : Infinity;
+        const prevEnd = prev ? prev.t1 : -Infinity;
+        const a = prev ? tipOf(prev, prev.t1) : rest;
+        if (prev && prev.hold && t < gapEnd) {
+          if (next && t > gapEnd - 0.45) { const b = startOf(next); const p = ease((t - (gapEnd - 0.45)) / 0.45); return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, Math.sin(Math.PI * p)]; }
+          return [...a, 0];
+        }
+        const gap = gapEnd - prevEnd;
+        if (gap < 1.6 && next && prev) { const b = startOf(next); const p = ease((t - prevEnd) / gap); return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, Math.sin(Math.PI * p)]; }
+        // exit after prev, enter before next
+        if (prev && t < prevEnd + 0.55) { const p = ease((t - prevEnd) / 0.55); return [a[0] + (rest[0] - a[0]) * p, a[1] + (rest[1] - a[1]) * p, p]; }
+        if (next && t > gapEnd - 0.55) { const b = startOf(next); const p = ease((t - (gapEnd - 0.55)) / 0.55); return [rest[0] + (b[0] - rest[0]) * p, rest[1] + (b[1] - rest[1]) * p, 1 - p]; }
+        return [...rest, 1];
+      }
+
+      // ---------- gear angle: integral of a piecewise speed profile ----------
+      const gearProf = [
+        { el: "#gr1", dir: 1, v: 70, on: 29.85, stop: [63.9, 64.7], re: [78.6, 79.2] },
+        { el: "#gr2", dir: -1, v: 93, on: 30.2, stop: [64.3, 65.2], re: [79.8, 80.4] },
+        { el: "#gr3", dir: 1, v: 82, on: 30.6, stop: [64.7, 65.7], re: [80.5, 81.1] },
+      ];
+      function speed(g, t) {
+        if (t < g.on) return 0;
+        if (t < g.stop[0]) return g.v * clamp((t - g.on) / 0.5, 0, 1);
+        if (t < g.stop[1]) return g.v * (1 - (t - g.stop[0]) / (g.stop[1] - g.stop[0]));
+        if (t < g.re[0]) return 0;
+        return g.v * clamp((t - g.re[0]) / (g.re[1] - g.re[0]), 0, 1);
+      }
+      function gearAngle(g, t) { let a = 0; const dt = 1 / 60; for (let x = 0; x < t; x += dt) a += speed(g, x) * Math.min(dt, t - x); return a * g.dir; }
+
+      const handEl = $("#hand"), camEl = $("#cam"), handIn = $("#handIn"), shadow = $("#handShadow");
+      function frame(t) {
+        const cam = camAt(t);
+        camEl.setAttribute("transform", `translate(540 960) scale(${cam[2]}) translate(${-cam[0]} ${-cam[1]})`);
+        renderOps(t);
+        const h = handAt(t, cam);
+        const k = 1 / cam[2];
+        handEl.setAttribute("transform", `translate(${h[0]} ${h[1]}) scale(${k * (1 + 0.05 * h[2])})`);
+        shadow.setAttribute("transform", `translate(${16 + 22 * h[2]} ${20 + 26 * h[2]})`);
+        gearProf.forEach((g) => $(g.el).setAttribute("transform", `rotate(${gearAngle(g, t)})`));
+        document.querySelectorAll(".sgr").forEach((g, i) => g.setAttribute("transform", `rotate(${(i % 2 ? -1 : 1) * 40 * Math.max(0, t - 86.4)})`));
+        // clocks
+        const em = t < 11.0 ? 0 : (t - 11.0) * 60;
+        $("#eHandM").setAttribute("transform", `translate(330 215) rotate(${em})`);
+        const am = t < 23.9 ? 0 : (t - 23.9) * 45;
+        $("#aHand").setAttribute("transform", `translate(165 222) rotate(${am})`);
+      }
+      const drv = { t: 0 };
+      tl.to(drv, { t: DUR, duration: DUR, ease: "none", onUpdate: () => frame(drv.t) }, 0);
+      frame(0);
+
+      // ---------- colour accents & overlays (plain GSAP) ----------
+      const on = (s, t, o = 0.08, d = 0.4) => tl.to(s, { opacity: o, duration: d, ease: "power1.out" }, t);
+      on("#tE", 2.75); on("#tD", 2.8); on("#tA", 2.85); on("#tI", 2.9);
+      tl.to("#LE", { fill: "#2563eb", duration: 0.3 }, 2.75); tl.to("#LD", { fill: "#0d9488", duration: 0.3 }, 2.8);
+      tl.to("#LA", { fill: "#f59e0b", duration: 0.3 }, 2.85); tl.to("#LI", { fill: "#7c3aed", duration: 0.3 }, 2.9);
+      tl.to(["#title1", "#title2"], { opacity: 0, duration: 0.35 }, 4.6);
+      tl.to(["#title3", "#title4"], { opacity: 0, duration: 0.3 }, 9.6);
+      on("#eClockFace", 7.8, 0.12); on("#eHandM line", 7.8, 1);
+      on("#eDocFill", 14.45, 0.18);
+      tl.to("#eArrow", { opacity: 0.25, duration: 0.4 }, 15.3); tl.to("#eDocFill", { opacity: 0.05, duration: 0.5 }, 15.3);
+      on("#aAwning", 19.8, 0.6);
+      tl.to(["#aC1 path", "#aC2 path", "#aC3 path", "#aC4 path"], { stroke: "#f59e0b", duration: 0.3 }, 22.5);
+      on("#aHand line", 23.95, 1);
+      tl.to(["#aC1 path", "#aC2 path", "#aC3 path", "#aC4 path"], { stroke: "#94a3b8", duration: 0.5 }, 24.4);
+      tl.to(".aT", { opacity: 0.4, duration: 0.6 }, 24.5);
+      ["#gf1", "#gf2", "#gf3"].forEach((s, i) => on(s, 30.0 + i * 0.35, 0.35));
+      tl.to("#dOwner", { x: 26, opacity: 0.35, duration: 1.0, ease: "sine.inOut" }, 35.5);
+      on("#iCoinFill", 41.0, 0.2);
+      tl.to("#iLine", { stroke: "#7c3aed", duration: 0.4 }, 42.6);
+            tl.to(["#lbL", "#lbR", "#divider"], { opacity: 0, duration: 0.4 }, 55.9);
+      tl.to(["#tD", "#tA"], { opacity: 0.02, duration: 0.4 }, 58.4); tl.to(["#tE", "#tI"], { opacity: 0.16, duration: 0.4 }, 58.4);
+      tl.to(["#tD", "#tA", "#tE", "#tI"], { opacity: 0.08, duration: 0.5 }, 61.0);
+      tl.to(["#mt1", "#mt2", "#multi"], { opacity: 0, duration: 0.4 }, 61.25);
+      // the stop: turquoise drains
+      tl.to(["#gf1", "#gf2", "#gf3"], { opacity: 0.0, duration: 1.8, stagger: 0.3 }, 64.0);
+      tl.to("#tD", { opacity: 0, duration: 1.5 }, 64.0);
+      tl.to(".gear", { stroke: "#475569", duration: 1.5 }, 64.0);
+      tl.fromTo("#ov-stop", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, 66.75);
+      tl.to("#ov-stop", { opacity: 0, duration: 0.35 }, 69.2);
+      tl.to("#ov-tt", { opacity: 1, duration: 0.01 }, 72.7);
+      tl.to("#ov-tt1", { opacity: 1, duration: 0.35 }, 72.75);
+      tl.to("#ov-arr", { strokeDashoffset: 95, duration: 0.5, ease: "power1.out" }, 73.25);
+      tl.to("#ov-tt2", { opacity: 1, duration: 0.35 }, 73.9);
+      tl.to("#ov-tt", { opacity: 0, duration: 0.4 }, 74.95);
+      // rebirth
+      tl.to("#sol1", { opacity: 1, duration: 0.3 }, 78.4); tl.to("#sol2", { opacity: 1, duration: 0.3 }, 79.2); tl.to("#sol3", { opacity: 1, duration: 0.3 }, 80.3);
+      tl.to("#procTxt", { opacity: 1, duration: 0.3 }, 79.8);
+      tl.to(".gear", { stroke: "#171717", duration: 0.6 }, 80.5);
+      tl.to(["#gf1", "#gf2", "#gf3"], { opacity: 0.35, duration: 0.6, stagger: 0.15 }, 80.55);
+      tl.to("#tD", { opacity: 0.1, duration: 0.6 }, 80.55);
+      tl.fromTo("#ov-sys", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", immediateRender: false }, 81.2);
+      tl.to(["#ov-sys", "#ov-sol"], { opacity: 0, duration: 0.35 }, 82.0);
+      tl.fromTo("#ov-q1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, 82.15);
+      tl.fromTo("#ov-q2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, 82.75);
+      tl.to(["#ov-q1", "#ov-q2"], { opacity: 0, duration: 0.3 }, 83.45);
+      tl.fromTo("#ov-com", { opacity: 0 }, { opacity: 1, duration: 0.4, immediateRender: false }, 84.15);
+      tl.to("#sg", { opacity: 1, duration: 0.8 }, 86.4);
+      tl.fromTo("#ov-tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, immediateRender: false }, 87.0);
+      tl.fromTo("#ov-logo", { opacity: 0 }, { opacity: 1, duration: 0.6, immediateRender: false }, 87.6);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
