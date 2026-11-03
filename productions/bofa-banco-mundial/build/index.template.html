@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Novapsis — Bank of America + Banco Mundial</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #101820; }
+      body { font-family: "Inter", sans-serif; color: #f5f5f2; -webkit-font-smoothing: antialiased; }
+      .a { position: absolute; } .h { opacity: 0; } .cx { left: 0; right: 0; text-align: center; }
+      .gold { color: #c9a45d; } .bl { color: #2867a8; } .gr { color: #8996a3; } .tq { color: #2ca58d; }
+      .lab { font-weight: 700; font-size: 28px; letter-spacing: 0.24em; text-transform: uppercase; color: #8996a3; }
+      .ext { font-weight: 900; letter-spacing: -0.02em; color: #f5f5f2;
+        text-shadow: 0 1px 0 #c9a45d, 0 2px 0 #b8934c, 0 3px 0 #a7833f, 0 4px 0 #957333, 0 5px 0 #846428, 0 6px 0 #73561e, 0 14px 30px rgba(0,0,0,0.6); }
+      .glass { position: absolute; border-radius: 26px; background: linear-gradient(135deg, rgba(245,245,242,0.12), rgba(245,245,242,0.03)); border: 1px solid rgba(245,245,242,0.22);
+        box-shadow: 0 30px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.25); backdrop-filter: blur(2px); }
+      .tag { display: inline-block; padding: 10px 24px; border-radius: 999px; font-weight: 800; font-size: 26px; letter-spacing: 0.16em; }
+      #bg { position: absolute; inset: 0; background: radial-gradient(1200px 1100px at 50% 38%, #173b4d 0%, #101820 65%, #0a1016 100%); }
+      #world { position: absolute; inset: 0; perspective: 1500px; perspective-origin: 50% 40%; }
+      #cam { position: absolute; inset: 0; transform-style: preserve-3d; }
+      .doc { position: absolute; width: 260px; height: 46px; border-radius: 6px; background: linear-gradient(180deg, #f5f5f2, #d9d6cc); box-shadow: 0 6px 14px rgba(0,0,0,0.4); }
+      .bld { position: absolute; bottom: 0; background: linear-gradient(180deg, #2867a8, #173b4d); border: 1px solid rgba(245,245,242,0.25); box-shadow: inset 0 0 0 2px rgba(0,0,0,0.15); }
+      .bld i { position: absolute; left: 8px; right: 8px; height: 6px; background: rgba(201,164,93,0.7); }
+      #caps { position: absolute; left: 70px; right: 70px; top: 1500px; height: 170px; z-index: 50; }
+      .cg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+      .cg .in { display: inline-block; max-width: 940px; padding: 14px 28px; border-radius: 20px; background: rgba(8,14,20,0.82); text-align: center; font-weight: 800; font-size: 46px; line-height: 1.25; }
+      .w { color: #6b7782; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="{{DUR}}" data-width="1080" data-height="1920">
+      <div id="stage" class="clip" data-start="0" data-duration="{{DUR}}" data-track-index="0" data-layout-allow-overflow data-layout-ignore style="position: absolute; inset: 0; z-index: 1">
+        <div id="bg"></div>
+        <div id="world"><div id="cam">
+          <!-- MAP plane -->
+          <div id="map" class="a" style="left: 90px; top: 560px; width: 900px; height: 760px; transform-style: preserve-3d">
+            <svg width="900" height="760" viewBox="-130 -110 900 760" style="position: absolute; inset: 0; overflow: visible" data-layout-ignore>
+              <defs><radialGradient id="vg" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#c9a45d" stop-opacity="0.55" /><stop offset="1" stop-color="#c9a45d" stop-opacity="0.12" /></radialGradient></defs>
+              <g stroke="rgba(137,150,163,0.14)" stroke-width="1.5">{{GRID}}</g>
+              <path id="venFill" d="{{VEN}}" fill="url(#vg)" opacity="0" />
+              <path id="venLine" d="{{VEN}}" fill="none" stroke="#c9a45d" stroke-width="5" stroke-linejoin="round" />
+              <circle id="ccs" cx="312" cy="92" r="12" fill="#f5f5f2" opacity="0" />
+              <circle id="ccsP" cx="312" cy="92" r="12" fill="none" stroke="#c9a45d" stroke-width="4" opacity="0" />
+              <text id="ccsL" x="330" y="70" font-family="Inter" font-weight="800" font-size="30" fill="#f5f5f2" opacity="0">CARACAS</text>
+              <path id="route" d="M640 -520 C 560 -300 420 -120 312 92" fill="none" stroke="#c9a45d" stroke-width="5" stroke-dasharray="1000" stroke-dashoffset="1000" />
+              <circle id="rDot" r="10" fill="#f5f5f2" opacity="0" />
+            </svg>
+          </div>
+          <!-- city blocks on Caracas -->
+          <div id="city" class="a h" style="left: 300px; top: 720px; width: 480px; height: 220px">{{CITY}}</div>
+        </div></div>
+      </div>
+
+      <!-- ===== S1/S2 text ===== -->
+      <div id="s1" class="clip" data-start="0" data-duration="7.2" data-track-index="1" style="position: absolute; inset: 0; z-index: 10; perspective: 1200px">
+        <div id="ven" class="a cx ext" style="top: 300px; font-size: 128px">VENEZUELA</div>
+        <div id="agenda" class="a cx h lab" style="top: 460px; color: #c9a45d">Agenda financiera internacional</div>
+        <div id="p1" class="glass h" style="left: 110px; top: 300px; width: 860px; height: 150px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 64px; letter-spacing: 0.02em">BANK OF AMERICA</div>
+        <div id="p2" class="glass h" style="left: 110px; top: 475px; width: 860px; height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px">
+          <div style="font-weight: 900; font-size: 36px; text-align: center; white-space: nowrap">CORPORACIÓN FINANCIERA INTERNACIONAL</div><div class="lab" style="color: #c9a45d">Grupo Banco Mundial</div></div>
+        <div id="visita" class="a cx h" style="top: 1350px"><span class="tag" style="background: rgba(201,164,93,0.16); border: 1px solid #c9a45d; color: #c9a45d">VISITA PREVISTA · ESTA SEMANA</span></div>
+      </div>
+
+      <!-- ===== S3 debt + financing ===== -->
+      <div id="s3" class="clip" data-start="7.0" data-duration="8.4" data-track-index="1" style="position: absolute; inset: 0; z-index: 10; perspective: 1400px">
+        <div id="obj" class="a cx h ext" style="top: 280px; font-size: 96px">¿EL OBJETIVO?</div>
+        <div id="table" class="a h" style="left: -200px; top: 760px; width: 1480px; height: 520px; transform-style: preserve-3d">
+          <div class="a" style="inset: 0; border-radius: 30px; background: linear-gradient(180deg, #173b4d, #0d222c); box-shadow: 0 40px 100px rgba(0,0,0,0.6), inset 0 1px 0 rgba(245,245,242,0.15)"></div>
+          <div id="docs" class="a" style="left: 330px; top: 60px; width: 300px; height: 380px">{{DOCS}}</div>
+          <div id="mini" class="a" style="left: 860px; top: 120px; width: 420px; height: 320px">{{MINI}}</div>
+        </div>
+        <div id="lA" class="a h" style="left: 110px; top: 470px; width: 860px; text-align: left"><div style="font-weight: 900; font-size: 60px">DEUDA EXTERNA</div><div class="lab" style="color: #c9a45d; margin-top: 8px">Posible reestructuración</div></div>
+        <div id="lB" class="a h" style="left: 110px; top: 470px; width: 860px; text-align: right"><div style="font-weight: 900; font-size: 60px">FINANCIAMIENTO</div><div class="lab" style="color: #2ca58d; margin-top: 8px">Empresas venezolanas</div></div>
+        <div id="prel" class="a cx h" style="top: 1350px"><span class="tag" style="border: 1px solid rgba(245,245,242,0.3); color: #8996a3">EVALUACIÓN PRELIMINAR</span></div>
+      </div>
+
+      <!-- ===== S4 uncertainty ===== -->
+      <div id="s4" class="clip" data-start="15.3" data-duration="6.8" data-track-index="1" style="position: absolute; inset: 0; z-index: 10; perspective: 1300px">
+        <div id="ac1" class="a cx h ext" style="top: 420px; font-size: 92px">ACERCAMIENTOS</div>
+        <div id="ac2" class="a cx h" style="top: 600px"><span class="tag" style="font-size: 32px; border: 2px solid #f5f5f2; color: #f5f5f2; transform: rotate(-3deg)">SIN ACUERDOS CONFIRMADOS</span></div>
+        <div id="qc" class="a cx h ext" style="top: 280px; font-size: 78px">¿QUÉ PODRÍA CAMBIAR?</div>
+        <div id="orbit" class="a" style="left: 0; top: 520px; width: 1080px; height: 640px; transform-style: preserve-3d">
+          <div id="pD" class="glass h" style="left: 90px; top: 180px; width: 300px; height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px"><div style="font-weight: 900; font-size: 84px" class="tq">$</div><div style="font-weight: 900; font-size: 40px">DÓLAR</div></div>
+          <div id="pB" class="glass h" style="left: 690px; top: 180px; width: 300px; height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px"><div style="font-weight: 900; font-size: 84px" class="gold">Bs</div><div style="font-weight: 900; font-size: 40px">BOLÍVAR</div></div>
+          <div id="qm" class="a h" style="left: 440px; top: 60px; width: 200px; height: 460px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 420px; line-height: 1; color: #c9a45d; text-shadow: 0 8px 0 #8a6c32, 0 20px 50px rgba(0,0,0,0.6)">?</div>
+        </div>
+        <div id="sinA" class="a cx h" style="top: 1280px"><span class="tag" style="font-size: 24px; border: 1px solid rgba(245,245,242,0.3); color: #8996a3">SIN ACUERDOS CONFIRMADOS</span></div>
+      </div>
+
+      <!-- ===== S5 final question ===== -->
+      <div id="s5" class="clip" data-start="21.6" data-duration="{{S5DUR}}" data-track-index="1" style="position: absolute; inset: 0; z-index: 10; perspective: 1100px">
+        <div id="glow" class="a h" style="left: 140px; top: 520px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(201,164,93,0.35), rgba(201,164,93,0) 65%)"></div>
+        <div id="q1" class="a cx h" style="top: 690px; font-weight: 800; font-size: 72px">¿SE VIENE UNA</div>
+        <div id="q2" class="a cx h ext" style="top: 790px; font-size: 128px; color: #c9a45d; text-shadow: 0 1px 0 #f5f5f2, 0 3px 0 #b8934c, 0 6px 0 #846428, 0 9px 0 #5f4519, 0 22px 50px rgba(0,0,0,0.6)">DOLARIZACIÓN</div>
+        <div id="q3" class="a cx h" style="top: 960px; font-weight: 800; font-size: 72px">EN VENEZUELA?</div>
+        <div id="brand" class="a cx h" style="top: 1300px"><img src="assets/brand/novapsis/novapsis-logo.png" alt="Novapsis" style="width: 70px; height: 70px; vertical-align: middle" /><span style="font-weight: 900; font-size: 36px; letter-spacing: 0.1em; margin-left: 14px; vertical-align: middle">NOVAPSIS</span></div>
+      </div>
+      <div id="black" class="clip" data-start="{{BLK}}" data-duration="{{BLKD}}" data-track-index="2" style="position: absolute; inset: 0; background: #000; z-index: 60"></div>
+
+      <!-- ===== karaoke captions ===== -->
+      <div id="caps">
+{{CAPTIONS}}
+      </div>
+
+      <audio id="vo" src="assets/audio/narracion.wav" data-start="0" data-duration="24.6" data-track-index="10" data-volume="1"></audio>
+      <audio id="music" src="assets/audio/music.wav" data-start="0" data-duration="{{DUR}}" data-track-index="11" data-volume="0.3"></audio>
+      <audio id="sfx" src="assets/sound-effects/sfx.wav" data-start="0" data-duration="{{DUR}}" data-track-index="12" data-volume="0.75"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const DUR = {{DUR}};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out", IO = "power2.inOut";
+      const show = (s, t, d = 0.45, y = 24) => tl.fromTo(s, { opacity: 0, y: y, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: d, ease: E, immediateRender: false }, t);
+      const hide = (s, t, d = 0.3) => tl.to(s, { opacity: 0, duration: d, ease: "power2.in" }, t);
+
+      // ===== S1 map =====
+      gsap.set("#map", { rotationX: 52, z: -500, y: 120, scale: 0.9 });
+      tl.to("#map", { rotationX: 40, z: -150, y: 40, duration: 1.4, ease: E }, 0);
+      const vl = document.getElementById("venLine"); const L = vl.getTotalLength(); vl.style.strokeDasharray = L; vl.style.strokeDashoffset = L;
+      tl.to("#venLine", { strokeDashoffset: 0, duration: 1.1, ease: IO }, 0.1);
+      tl.to("#venFill", { opacity: 1, duration: 0.5 }, 0.6);
+      gsap.set("#ven", { rotationX: 70, opacity: 0, z: 300 });
+      tl.to("#ven", { rotationX: 0, opacity: 1, z: 0, duration: 0.6, ease: "power4.out" }, 0.05);
+      show("#agenda", 0.55, 0.4, 12);
+      tl.to(["#ccs", "#ccsL"], { opacity: 1, duration: 0.3 }, 0.95);
+      tl.fromTo("#ccsP", { attr: { r: 12 }, opacity: 0.9 }, { attr: { r: 60 }, opacity: 0, duration: 1.0, repeat: 5, ease: "power1.out", immediateRender: false }, 1.0);
+      // descend to Caracas
+      tl.to("#map", { rotationX: 58, z: 260, x: -40, y: 260, duration: 1.4, ease: IO }, 1.0);
+      hide(["#ven", "#agenda"], 1.35, 0.3);
+      // ===== S2 delegations =====
+      tl.to("#route", { strokeDashoffset: 0, duration: 1.3, ease: "power2.inOut" }, 1.5);
+      const rp = document.getElementById("route"); const RL = rp.getTotalLength(); const rd = { p: 0 };
+      tl.to(rd, { p: 1, duration: 1.3, ease: "power2.inOut", onUpdate: () => { const pt = rp.getPointAtLength(RL * rd.p); const d = document.getElementById("rDot"); d.setAttribute("cx", pt.x); d.setAttribute("cy", pt.y); } }, 1.5);
+      tl.to("#rDot", { opacity: 1, duration: 0.1 }, 1.5); tl.to("#rDot", { opacity: 0, duration: 0.2 }, 2.8);
+      gsap.set(["#p1", "#p2"], { rotationY: -70, z: -400 });
+      tl.to("#p1", { opacity: 1, rotationY: 0, z: 0, duration: 0.7, ease: E }, 1.48);
+      tl.to("#p2", { opacity: 1, rotationY: 0, z: 0, duration: 0.7, ease: E }, 2.6);
+      tl.fromTo("#city", { opacity: 0 }, { opacity: 1, duration: 0.6, immediateRender: false }, 2.9);
+      tl.fromTo(".cb", { scaleY: 0 }, { scaleY: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.4)", transformOrigin: "50% 100%", immediateRender: false }, 2.95);
+      show("#visita", 4.96, 0.4, 12);
+      tl.to(["#p1", "#p2"], { y: (i) => [-30, -10][i], duration: 2, ease: "sine.inOut" }, 4.2);
+      // pass through panel → financial stage
+      tl.to("#p1", { scale: 3.2, opacity: 0, duration: 0.6, ease: "power3.in" }, 6.6);
+      hide(["#p2", "#visita"], 6.55, 0.3);
+      tl.to(["#map", "#city"], { opacity: 0, duration: 0.5 }, 6.7);
+
+      // ===== S3 =====
+      gsap.set("#obj", { scale: 1.3, opacity: 0, filter: "blur(10px)" });
+      tl.to("#obj", { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power4.out" }, 7.14);
+      hide("#obj", 8.2, 0.3);
+      gsap.set("#table", { rotationX: 62, y: 120, x: 260 });
+      tl.to("#table", { opacity: 1, duration: 0.5 }, 7.9);
+      tl.fromTo(".dc", { y: -300, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.06, ease: "power3.out", immediateRender: false }, 8.3);
+      show("#lA", 8.5, 0.45, 16);
+      tl.to("#table", { x: -260, duration: 2.6, ease: IO }, 10.6);
+      hide("#lA", 11.4, 0.3);
+      tl.fromTo(".mb", { scaleY: 0 }, { scaleY: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.3)", transformOrigin: "50% 100%", immediateRender: false }, 11.8);
+      show("#lB", 12.6, 0.45, 16);
+      show("#prel", 13.1, 0.4, 10);
+      // fold into ?
+      tl.to("#table", { rotationX: 90, scale: 0.4, opacity: 0, duration: 0.7, ease: "power3.in" }, 14.9);
+      hide(["#lB", "#prel"], 14.9, 0.3);
+
+      // ===== S4 =====
+      show("#ac1", 16.2, 0.45);
+      tl.fromTo("#ac2", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out", immediateRender: false }, 17.85);
+      hide(["#ac1", "#ac2"], 19.4, 0.3);
+      show("#qc", 19.6, 0.45);
+      gsap.set("#pD", { x: -200, rotationY: 60 }); gsap.set("#pB", { x: 200, rotationY: -60 });
+      tl.to("#pD", { opacity: 1, x: 0, rotationY: 0, duration: 0.6, ease: E }, 19.9);
+      tl.to("#pB", { opacity: 1, x: 0, rotationY: 0, duration: 0.6, ease: E }, 20.05);
+      tl.fromTo("#qm", { opacity: 0, scale: 0.3, rotationY: 180 }, { opacity: 1, scale: 1, rotationY: 0, duration: 0.7, ease: "back.out(1.4)", immediateRender: false }, 20.5);
+      tl.fromTo("#orbit", { rotationY: -12 }, { rotationY: 12, duration: 2.0, ease: "sine.inOut", immediateRender: false }, 19.9);
+      show("#sinA", 20.7, 0.4, 10);
+      // pass through ?
+      tl.to("#qm", { scale: 7, opacity: 0, duration: 0.6, ease: "power3.in" }, 21.45);
+      hide(["#qc", "#pD", "#pB", "#sinA"], 21.4, 0.3);
+
+      // ===== S5 =====
+      tl.to("#glow", { opacity: 1, duration: 0.8 }, 21.7);
+      show("#q1", 21.84, 0.45, 20);
+      gsap.set("#q2", { rotationX: -75, z: 400 });
+      tl.to("#q2", { opacity: 1, rotationX: 0, z: 0, duration: 0.7, ease: "power4.out" }, 22.95);
+      show("#q3", 23.68, 0.45, 20);
+      tl.fromTo("#glow", { scale: 1 }, { scale: 1.12, duration: 1.2, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, 23.8);
+      tl.fromTo("#brand", { opacity: 0 }, { opacity: 1, duration: 0.6, immediateRender: false }, 24.4);
+
+      // ===== karaoke =====
+      document.querySelectorAll(".w").forEach((w) => {
+        const a = +w.dataset.a, b = +w.dataset.b;
+        tl.to(w, { color: "#c9a45d", duration: 0.06 }, a);
+        tl.to(w, { color: "#f5f5f2", duration: 0.08 }, b);
+      });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
