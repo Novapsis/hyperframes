@@ -27,4 +27,3 @@
 ## Limitaciones
 
 - La profundidad 3D es CSS 3D (mapa inclinado, paneles con rotación, extrusión tipográfica), sin Three.js, porque el entorno no tiene GPU.
-- La locución es femenina, no masculina como pide el brief. Se usó el audio suministrado tal cual.
