@@ -28,6 +28,14 @@ Ejecuta todo Python con `.venv/bin/python` (lo crea `setup.sh`; tiene numpy, pil
 - No generar logotipos. Usar solo `shared/brand/`. Los logos de terceros se ponen en tipografía si no hay recurso autorizado.
 - Las finanzas se tratan como educación, sin promesas de rentabilidad. Las cifras del brief se verifican con fuentes cuando haya red.
 
+## Herramientas disponibles en la Mac del usuario
+
+- `shared/vendor/three.module.min.js` (Three.js r169, MIT): cópialo a `assets/vendor/` del proyecto para 3D real. Antes de usarlo, lee `/hyperframes` → runtimes (patrón de adaptador por frame; nada de requestAnimationFrame propio).
+- `whisper-cli` (whisper.cpp) y Kokoro TTS ya instalados (ver `npx hyperframes doctor`).
+- `yt-dlp`: solo para bajar referencias visuales que el usuario indique; nunca usar material de terceros en el video final sin derechos.
+- Blender (opcional, si el usuario lo instala): `blender -b archivo.blend -o //render/#### -a` para pre-renderizar objetos 3D complejos como secuencias PNG/MOV con alfa.
+- Skills instaladas: `/hyperframes`, `/hyperframes-cli`, `/hyperframes-registry`, `/media-use`.
+
 ## En local se puede (y conviene)
 
 - Usar Three.js/WebGL para 3D real (billetes, monedas, mapas, teléfonos). Ver `/hyperframes`, referencia de runtimes.
